@@ -1,3 +1,10 @@
+import React, { useState } from "react";
+import css from "./SecondStep.module.css";
+import next from "../../../../Components/SvgIcons/next.svg";
+import cancel from "../../../../Components/SvgIcons/cancel.svg";
+import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
+import { validationSchema } from "Shared/validation/addPetValidation";
+
 const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
   const [name, setName] = useState(formData.name || "");
   const [birthday, setBirthday] = useState(formData.birthday || "");
