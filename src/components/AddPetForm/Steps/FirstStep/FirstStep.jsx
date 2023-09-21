@@ -1,77 +1,78 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import css from "../../AddPetPage.module.css";
+import React, { useState } from "react";
+// import next from sprite
+// import cancel from sprite
+import css from "../../AddPetForm.module.css";
+import { useNavigate } from "react-router-dom";
 
-const FirstStep = ({ handleNext, handleCancel }) => {
-  const initialValues = {
-    petCategory: "",
+const FirstStep = () => {
+  const [petStatus, setPetStatus] = useState("initialState");
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    console.log(petStatus);
+    // add state to redux and navigate to next stage
   };
-
-  const validationSchema = Yup.object().shape({
-    petCategory: Yup.string().required("Please select a category"),
-  });
-
-  const handleSubmit = (values) => {
-    handleNext(values.petCategory);
-    // here should be writing to state
+  const handleCancel = () => {
+    navigate(-1);
   };
 
   return (
     <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={() => handleSubmit}
-      >
-        <Form>
-          <ul className={css.ChooseOptionList}>
-            <li>
-              <label className={`${css.PetButton}`}>
-                <Field type="radio" name="petCategory" value="your-pet" />
-                your pet
-              </label>
-            </li>
-            <li>
-              <label className={`${css.PetButton}`}>
-                <Field type="radio" name="petCategory" value="sell" />
-                sell
-              </label>
-            </li>
-            <li>
-              <label className={`${css.PetButton}`}>
-                <Field type="radio" name="petCategory" value="lost-found" />
-                lost/found
-              </label>
-            </li>
-            <li>
-              <label className={`${css.PetButton}`}>
-                <Field type="radio" name="petCategory" value="in-good-hands" />
-                in good hands
-              </label>
-            </li>
-          </ul>
-          <ul className={css.LinkAddPEt}>
-            <li>
-              <button
-                className={css.LinkAddPEtLitkCancel}
-                onClick={handleCancel}
-              >
-                <div className={css.ButtonEl}>
-                  <span>Cancel</span>
-                </div>
-              </button>
-            </li>
-            <li>
-              <button className={css.ButtonNext} type="submit">
-                <div className={css.ButtonEl}>
-                  <span>Next</span>
-                </div>
-              </button>
-            </li>
-          </ul>
-        </Form>
-      </Formik>
+      <div className={css.ChooseOptionList}>
+        <button
+          className={`${css.PetButton} ${
+            petStatus === "yourPet" ? css.PetButtonActive : ""
+          }`}
+          onClick={() => setPetStatus("yourPet")}
+        >
+          your pet
+        </button>
+
+        <button
+          className={`${css.PetButton} ${
+            petStatus === "sell" ? css.PetButtonActive : ""
+          }`}
+          onClick={() => setPetStatus("sell")}
+        >
+          sell
+        </button>
+
+        <button
+          className={`${css.PetButton} ${
+            petStatus === "lost" ? css.PetButtonActive : ""
+          }`}
+          onClick={() => setPetStatus("lost")}
+        >
+          lost/found
+        </button>
+
+        <button
+          className={`${css.PetButton} ${
+            petStatus === "inGoodHands" ? css.PetButtonActive : ""
+          }`}
+          onClick={() => setPetStatus("inGoodHands")}
+        >
+          in good hands
+        </button>
+      </div>
+      <div className={css.LinkAddPEt}>
+        <button
+          className={css.LinkAddPEtLitkCancel}
+          onClick={() => handleCancel}
+        >
+          <div className={css.ButtonEl}>
+            {/* <img src={cancel} alt="Next" /> */}
+            <span>Cancel</span>
+          </div>
+        </button>
+
+        <button className={css.ButtonNext} onClick={() => handleSubmit()}>
+          <div className={css.ButtonEl}>
+            <span>Next</span>
+            {/* <img src={next} alt="Next" /> */}
+          </div>
+        </button>
+      </div>
     </div>
   );
 };
