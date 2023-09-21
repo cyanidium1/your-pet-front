@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/your-pet-front/static/css/main.31bfac1b.css",
+    "main.js": "/your-pet-front/static/js/main.b0ba9ce6.js",
+    "index.html": "/your-pet-front/index.html",
+    "main.31bfac1b.css.map": "/your-pet-front/static/css/main.31bfac1b.css.map",
+    "main.b0ba9ce6.js.map": "/your-pet-front/static/js/main.b0ba9ce6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31bfac1b.css",
+    "static/js/main.b0ba9ce6.js"
+  ]
+}
