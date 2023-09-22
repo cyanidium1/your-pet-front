@@ -7,7 +7,6 @@ import cancel from "../../../../Components/SvgIcons/cancel.svg";
 import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title of add is required"),
   name: Yup.string().required("Name pet is required"),
   birthday: Yup.date().required("Birthday is required"),
   breed: Yup.string().required("Breed is required"),
@@ -23,7 +22,6 @@ const SecondStepSell = ({ formData }) => {
   return (
     <Formik
       initialValues={{
-        title: formData.title || "",
         name: formData.name || "",
         birthday: formData.birthday || "",
         breed: formData.breed || "",
@@ -36,25 +34,8 @@ const SecondStepSell = ({ formData }) => {
       <Form>
         <div className={css.FormWrapper}>
           <div className={css.WrapperLabelInput}>
-            <label className={css.LabelStep} htmlFor="title">
-              Title of add
-            </label>
-            <Field
-              className={css.Input}
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Type add title"
-            />
-            <ErrorMessage
-              name="title"
-              component="p"
-              className={css.ErrorTextLow}
-            />
-          </div>
-          <div className={css.WrapperLabelInput}>
             <label className={css.LabelStep} htmlFor="name">
-              Name pet
+              Pet`s name
             </label>
             <Field
               className={css.Input}
@@ -72,8 +53,8 @@ const SecondStepSell = ({ formData }) => {
           <div className={css.WrapperLabelInput}>
             <Field
               type="date"
-              name="birthday"
               className={css.Input}
+              name="birthday"
               birthday={formData.birthday}
             />
             <ErrorMessage
