@@ -9,6 +9,7 @@ constValidationSchema = Yup.object().shape({
   comments: Yup.string().requiered("Comment is requiererd"),
   sex: Yup.string().required("Sex is required"),
 });
+// add form to redux state and after submt change step to 1
 
 const ThreeStepFound = ({ handleFinish, handlePreviousStep, formData }) => {
   return (

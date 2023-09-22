@@ -1,138 +1,38 @@
-import css from "./ThreeStep.module.css";
 import React, { useState } from "react";
+import css from "./ThirdStep.module.css";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Photo is required"),
-  comments: Yup.string().required("Comments are required"),
+  comments: Yup.string().required("Comment is requiererd"),
 });
+// add form to redux state and after submt change step to 1
 
-const ThreeStep = ({ handleNext, handlePreviousStep, formData }) => {
-  const [photo, setPhoto] = useState("");
-  const [comments, setComments] = useState("");
-  const [errors, setErrors] = useState({});
+const ThreeStepFound = ({ formData }) => {
+  const handlePreviousStep = () => {
+    console.log(1);
+  };
+  const handleFinish = () => {
+    console.log(1);
+  };
 
-  const handleDone = () => {
-    validationSchemaThree
-      .validate({ photo, comments }, { abortEarly: false })
-      .then(() => {
-        handleNext({ photo, comments });
-      })
-      .catch((err) => {
-        const validationErrors = {};
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-        setErrors(validationErrors);
-      });
-  };
-  const handleFileChange = (e) => {
-    setPhoto(e.target.files[0]);
-  };
   return (
     <>
-      <div>
-        <div className={css.wrapperPoto}>
-          <label className={css.labelAddText}>
-            Load the {"\n"} pet`s image:
-          </label>
-          <div>
-            <input
-              type="file"
-              id="photo"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-          </div>
-          <label htmlFor="photo">
-            <div className={css.labelAdd}>
-              {photo && (
-                <img
-                  className={css.previewPhoto}
-                  src={URL.createObjectURL(photo)}
-                  alt="Selected img"
-                />
-              )}
-              <img className={css.iconAdd} src={PetAdd} alt="add" />
-            </div>
-          </label>
-          {errors.photo && <p className={css.errorComent}>{errors.photo}</p>}
-        </div>
-        <div className={css.wrapperTextareaOne}>
-          <label className={css.textareaText} htmlFor="comments">
-            Comments
-          </label>
-          <textarea
-            className={css.textareaAddOne}
-            id="comments"
-            value={comments}
-            placeholder="Type comment"
-            onChange={(e) => setComments(e.target.value)}
-          />
-          {errors.comments && <p className={css.comments}>{errors.comments}</p>}
-        </div>
-        <ul className={css.LinkAddPEt}>
-          <li>
-            <button
-              className={css.LinkAddPEtLitkCancel}
-              onClick={() => handlePreviousStep(formData)}
-            >
-              <div className={css.ButtonEl}>
-                {/* <img src={cancel} alt="Next" /> */}
-                <span>Back</span>
-              </div>
-            </button>
-          </li>
-          <li>
-            <button className={css.ButtonNext} onClick={handleDone}>
-              <div className={css.ButtonEl}>
-                <span>Done </span>
-                {/* <img src={next} alt="Next" /> */}
-              </div>
-            </button>
-          </li>
-        </ul>
-      </div>
-
       <Formik
         initialValues={{
           photo: formData.url || "",
+          place: formData.place || "",
           comments: formData.comments || "",
+          sex: formData.sex || "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          handleNext(values);
-          setSubmitting(false);
-        }}
-      >
-        {({ values, setFieldValue, isSubmitting }) => (
-          <Form>
+        onSubmit={({ values, setFieldValue, isSubmitting }) => (
+          <Form onSubmit={() => handleFinish}>
             <div className={css.wrapperForm}>
               <div className={css.wrapperPotoSell}>
                 <div className={css.SexText}>The Sex</div>
-                <ul className={css.sexOption}>
-                  <li>
-                    <button
-                      className={`${css.sexElement} ${
-                        values.sex === "female" ? css.sexElementActive : ""
-                      }`}
-                      type="button"
-                      onClick={() => setFieldValue("sex", "female")}
-                    >
-                      Female
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className={`${css.sexElement} ${
-                        values.sex === "male" ? css.sexElementActive : ""
-                      }`}
-                      type="button"
-                      onClick={() => setFieldValue("sex", "male")}
-                    >
-                      Male
-                    </button>
-                  </li>
-                </ul>
+
                 <div className={css.wrapperAddPhoto}>
                   <label className={css.labelAddText}>
                     Load the pet’s image:
@@ -141,8 +41,7 @@ const ThreeStep = ({ handleNext, handlePreviousStep, formData }) => {
                   <input
                     type="file"
                     id="photo"
-                    onChange={(e) => setFieldValue("photo", e.target.files[0])}
-                    style={{ display: "none" }}
+                    onChange={() => console.log(1)}
                   />
 
                   <label htmlFor="photo">
@@ -162,42 +61,7 @@ const ThreeStep = ({ handleNext, handlePreviousStep, formData }) => {
                     className={css.errorComentSell}
                   />
                 </div>
-              </div>
-              <div className={css.wrapperFormSellInputs}>
-                <div className={css.labelInput}>
-                  <label className={css.LabelStep} htmlFor="place">
-                    Location
-                  </label>
-                  <Field
-                    className={css.Input}
-                    type="text"
-                    id="place"
-                    name="place"
-                    placeholder="Type location"
-                  />
-                  <ErrorMessage
-                    name="place"
-                    component="p"
-                    className={css.ErrorTextLow}
-                  />
-                </div>
-                <div className={css.labelInput}>
-                  <label className={css.LabelStep} htmlFor="price">
-                    Price
-                  </label>
-                  <Field
-                    className={css.Input}
-                    type="text"
-                    id="price"
-                    name="price"
-                    placeholder="Type price"
-                  />
-                  <ErrorMessage
-                    name="price"
-                    component="p"
-                    className={css.ErrorTextLow}
-                  />
-                </div>
+
                 <div className={css.wrapperTextarea}>
                   <label className={css.textareaText} htmlFor="comments">
                     Comments
@@ -239,9 +103,9 @@ const ThreeStep = ({ handleNext, handlePreviousStep, formData }) => {
             </div>
           </Form>
         )}
-      </Formik>
+      ></Formik>
     </>
   );
 };
 
-export default ThreeStep;
+export default ThreeStepFound;

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import css from "./SecondStep.module.css";
-import next from "../../../../Components/SvgIcons/next.svg";
-import cancel from "../../../../Components/SvgIcons/cancel.svg";
-import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
-import { validationSchema } from "Shared/validation/addPetValidation";
+// import next from "../../../../Components/SvgIcons/next.svg";
+// import cancel from "../../../../Components/SvgIcons/cancel.svg";
+// import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
 
 const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
   const [name, setName] = useState(formData.name || "");
@@ -12,18 +11,19 @@ const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
   const [errors, setErrors] = useState({});
 
   const handleNextValidation = () => {
-    validationSchema
-      .validate({ name, birthday, breed }, { abortEarly: false })
-      .then(() => {
-        handleNext({ name, birthday, breed });
-      })
-      .catch((err) => {
-        const validationErrors = {};
-        err.inner.forEach((error) => {
-          validationErrors[error.path] = error.message;
-        });
-        setErrors(validationErrors);
-      });
+    // validationSchema
+    //   .validate({ name, birthday, breed }, { abortEarly: false })
+    //   .then(() => {
+    //     handleNext({ name, birthday, breed });
+    //   })
+    //   .catch((err) => {
+    //     const validationErrors = {};
+    //     err.inner.forEach((error) => {
+    //       validationErrors[error.path] = error.message;
+    //     });
+    //     setErrors(validationErrors);
+    //   });
+    console.log(1);
   };
 
   const setBirthdayWrapper = (brd) => {
@@ -46,16 +46,16 @@ const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
         />
         {errors.name && <p className={css.ErrorTextLow}>{errors.name}</p>}
       </div>
-      <div className={css.WrapperLabelInput}>
+      {/* <div className={css.WrapperLabelInput}>
         <CustomDatePicker
           className={css.Input}
           setBirthdayWrapper={setBirthdayWrapper}
           birthday={birthday}
-        />
+        /> 
         {errors.birthdate && (
           <p className={css.ErrorText}>{errors.birthdate}</p>
         )}
-      </div>
+      </div> */}
       <div className={css.WrapperLabelInput}>
         <label className={css.LabelStep} htmlFor="breed">
           Breed
@@ -78,7 +78,7 @@ const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
             onClick={() => handlePreviousStep(formData)}
           >
             <div className={css.ButtonEl}>
-              <img src={cancel} alt="Next" />
+              {/* <img src={cancel} alt="Next" /> */}
               <span>Back</span>
             </div>
           </button>
@@ -87,7 +87,7 @@ const SecondStep = ({ handleNext, handlePreviousStep, formData }) => {
           <button className={css.ButtonNext} onClick={handleNextValidation}>
             <div className={css.ButtonEl}>
               <span>Next </span>
-              <img src={next} alt="Next" />
+              {/* <img src={next} alt="Next" /> */}
             </div>
           </button>
         </li>

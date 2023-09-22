@@ -5,7 +5,7 @@ import css from "../../AddPetForm.module.css";
 import { useNavigate } from "react-router-dom";
 
 const FirstStep = () => {
-  const [petStatus, setPetStatus] = useState("initialState");
+  const [petStatus, setPetStatus] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -13,7 +13,9 @@ const FirstStep = () => {
     // add state to redux and navigate to next stage
   };
   const handleCancel = () => {
+    console.log(1);
     navigate(-1);
+    console.log(navigate(-1));
   };
 
   return (
@@ -61,7 +63,7 @@ const FirstStep = () => {
           onClick={() => handleCancel}
         >
           <div className={css.ButtonEl}>
-            {/* <img src={cancel} alt="Next" /> */}
+            {/* <img src={cancel} alt="Back" /> */}
             <span>Cancel</span>
           </div>
         </button>

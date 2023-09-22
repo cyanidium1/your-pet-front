@@ -11,6 +11,8 @@ const validationSchema = Yup.object().shape({
   sex: Yup.string().required("Sex is required"),
 });
 
+// add form to redux state and after submt change step to 1
+
 const ThreeStepSell = ({ handleNext, handlePreviousStep, formData }) => {
   return (
     <Formik

@@ -3,7 +3,7 @@ import css from "./SecondStep.module.css";
 import next from "../../../../Components/SvgIcons/next.svg";
 import cancel from "../../../../Components/SvgIcons/cancel.svg";
 import { validationSchemaSell } from "Shared/validation/addPetValidation";
-import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
+// import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
 
 const SecondStepSell = ({ handleNext, handlePreviousStep, formData }) => {
   const [name, setName] = useState(formData.name || "");

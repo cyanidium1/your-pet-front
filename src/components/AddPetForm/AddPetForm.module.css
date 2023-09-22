@@ -3,21 +3,21 @@
   background-color: #ffffff;
   box-shadow: 3px 8px 14px rgba(136, 198, 253, 0.19);
 
-  @media screen and (max-width:767px) {
+  @media screen and (max-width: 767px) {
     width: 280px;
     padding: 20px 8px;
     min-height: 496px;
     margin: 24px auto;
   }
 
-  @media screen and (min-width:768px) and (max-width:1279px) {
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
     width: 458px;
     margin: 60px auto;
     min-height: 542px;
     padding: 20px 32px;
   }
 
-  @media screen and (min-width:1280px) {
+  @media screen and (min-width: 1280px) {
     width: max-content;
     margin: 50px auto;
     min-height: 542px;
@@ -34,14 +34,14 @@
   margin: 10px auto;
   padding: 20px 8px;
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     width: 704px;
     min-height: 542px;
     margin: 60px auto;
     padding: 20px 32px;
   }
 
-  @media screen and (min-width:1280px) {
+  @media screen and (min-width: 1280px) {
     width: max-content;
     margin: 50px auto;
     padding: 20px 70px;
@@ -54,7 +54,7 @@
   line-height: 27px;
   margin-left: 10px;
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     font-size: 28px;
     line-height: 38px;
   }
@@ -65,11 +65,11 @@
   gap: 12px;
   margin-top: 24px;
 
-  @media screen and (min-width:1280px) {
+  @media screen and (min-width: 1280px) {
     gap: 16px;
   }
 
-  @media screen and (min-width:1280px) {
+  @media screen and (min-width: 1280px) {
     gap: 22px;
   }
 }
@@ -101,7 +101,7 @@
   font-size: 10px;
   line-height: 14px;
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 26px;
   }
@@ -110,14 +110,12 @@
 .StepItemDone::after {
   background-color: #00c3ad;
   border-radius: 8px;
-  content: '';
+  content: "";
   margin-top: 12px;
   display: block;
   width: 120px;
   height: 8px;
   border-radius: 8px;
-
-
 }
 
 .StepItemCurrent {
@@ -126,14 +124,14 @@
   font-size: 10px;
   line-height: 14px;
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 26px;
   }
 }
 
 .StepItemCurrent::after {
-  content: '';
+  content: "";
   margin-top: 12px;
   display: block;
   width: 120px;
@@ -142,43 +140,38 @@
   border-radius: 8px;
 }
 
-
-
 .StepItem {
   font-weight: 500;
   font-size: 10px;
   line-height: 14px;
   color: #888888;
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 26px;
   }
-
 }
 
 .StepItem::after {
   background-color: #cce4fb;
   border-radius: 8px;
-  content: '';
+  content: "";
   margin-top: 12px;
   display: block;
   width: 120px;
   height: 8px;
 }
 
-
-
 .ChooseOptionList {
   margin-top: 40px;
   display: flex;
   gap: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
 .PetButton {
-
-
   /* @media screen and (min-width:1280px) {} */
 
   padding: 8px 16px;
@@ -190,6 +183,8 @@
   font-size: 14px;
   line-height: 19px;
   color: #54adff;
+  max-width: 100%;
+  max-width: 130px;
 }
 
 .PetButtonActive {
@@ -202,9 +197,8 @@
   line-height: 19px;
   background-color: #54adff;
   color: #fef9f9;
+  max-width: 130px;
 }
-
-
 
 .ButtonNext {
   background-color: #54adff;
@@ -229,7 +223,6 @@
   justify-content: space-around;
   align-items: center;
   gap: 24px;
-
 }
 
 .LinkAddPEtLitkCancel {
@@ -244,8 +237,7 @@
   background-color: inherit;
 }
 
-@media screen and (max-width:767px) {
-
+@media screen and (max-width: 767px) {
   .StepItemCurrent::after,
   .StepItem::after,
   .StepItemDone::after {
@@ -263,5 +255,4 @@
   .LinkAddPEtLitkCancel {
     padding: 8px 86px;
   }
-
 }
