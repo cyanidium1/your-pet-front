@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Kek",
+    "id": "229",
+    "location": "Kyiv",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "1 year",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Max",
+    "id": "230",
+    "location": "New York",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "6 yrs",
+    "gender": "female",
+    "isFav": false
+  },
+  {
+    "name": "Buddy",
+    "id": "231",
+    "location": "Los Angeles",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "2 years",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Luna",
+    "id": "232",
+    "location": "Chicago",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "8 yrs",
+    "gender": "female",
+    "isFav": false
+  },
+  {
+    "name": "Rocky",
+    "id": "233",
+    "location": "San Francisco",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "3 years",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Daisy",
+    "id": "234",
+    "location": "Seattle",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "10 yrs",
+    "gender": "female",
+    "isFav": false
+  },
+  {
+    "name": "Charlie",
+    "id": "235",
+    "location": "London",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "2 years",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Sadie",
+    "id": "236",
+    "location": "Paris",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "9 yrs",
+    "gender": "female",
+    "isFav": false
+  },
+  {
+    "name": "Cooper",
+    "id": "237",
+    "location": "Berlin",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "1 year",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Molly",
+    "id": "238",
+    "location": "Sydney",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "7 yrs",
+    "gender": "female",
+    "isFav": false
+  },
+  {
+    "name": "Teddy",
+    "id": "239",
+    "location": "Tokyo",
+    "image": "image",
+    "type": "In good hands",
+    "mileage": "4 yrs",
+    "gender": "male",
+    "isFav": true
+  },
+  {
+    "name": "Lily",
+    "id": "240",
+    "location": "Toronto",
+    "image": "image",
+    "type": "Adoption",
+    "mileage": "11 yrs",
+    "gender": "female",
+    "isFav": false
+  }
+]

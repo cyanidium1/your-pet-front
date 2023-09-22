@@ -1,0 +1,99 @@
+.item {
+  /* height: 456px; */
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 3px 8px 14px 0px #88c6fd30;
+  border-radius: 0 0 40px 40px;
+  margin: 12px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+  height: 288px;
+  width: 100%;
+  background-image: url("https://via.placeholder.com/280x288");
+  background-size: cover;
+  background-position: center;
+}
+.topParams {
+  display: flex;
+  justify-content: space-between;
+}
+
+.type {
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #cce4fb;
+  padding: 10px 17px;
+  border-radius: 0 16px 16px 0;
+}
+
+.bottomParams {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.parameter {
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #cce4fb;
+  width: 80px;
+  height: 28px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 16px;
+}
+
+.icon {
+  height: 22px;
+  width: 22px;
+}
+
+.heartIcon {
+  margin-right: 16px;
+  background-color: #cce4fb;
+  height: 40px;
+  width: 40px;
+  padding: 13px 8px 8px 12px;
+  border-radius: 50%;
+}
+
+.heartIconActive {
+  margin-right: 16px;
+  background-color: #cce4fb;
+  height: 40px;
+  width: 40px;
+  padding: 13px 8px 8px 12px;
+  border-radius: 50%;
+}
+
+.info {
+  padding: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 24px;
+}
+
+/* Styles for screens from 768px to 1279px */
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .item {
+    width: calc(50% - 24px); /* Display 2 items in a row */
+  }
+}
+
+/* Styles for screens from 1280px and above */
+@media screen and (min-width: 1280px) {
+  .item {
+    width: calc(25% - 48px); /* Display 4 items in a row */
+  }
+}
