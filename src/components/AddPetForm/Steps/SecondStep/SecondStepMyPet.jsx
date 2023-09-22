@@ -2,9 +2,6 @@ import React from "react";
 import css from "./SecondStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import next from "../../../../Components/SvgIcons/next.svg";
-import cancel from "../../../../Components/SvgIcons/cancel.svg";
-import CustomDatePicker from "Components/TimePicker/CustomDatePicker/CustomDatePicker";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name pet is required"),
@@ -87,7 +84,7 @@ const SecondStepSell = ({ formData }) => {
                 onClick={() => handleBack()}
               >
                 <div className={css.ButtonEl}>
-                  <img src={cancel} alt="Next" />
+                  {/* <img src={cancel} alt="Back" /> */}
                   <span>Back</span>
                 </div>
               </button>
@@ -96,7 +93,7 @@ const SecondStepSell = ({ formData }) => {
               <button className={css.ButtonNext} type="submit">
                 <div className={css.ButtonEl}>
                   <span>Next </span>
-                  <img src={next} alt="Next" />
+                  {/* <img src={next} alt="Next" /> */}
                 </div>
               </button>
             </li>
