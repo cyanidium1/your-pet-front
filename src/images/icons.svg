@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="setFilters" viewBox="0 0 24 24">
+        <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L6 9V15L12 18V9L17 1H1Z" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </symbol>
+
+    <symbol id="heart" viewBox="0 0 24 24">
+        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.3314 9.04738L10 17L17.6686 9.04738C18.5211 8.16332 19 6.96429 19 5.71405C19 3.11055 16.9648 1 14.4543 1C13.2487 1 12.0925 1.49666 11.24 2.38071L10 3.66667L8.75997 2.38071C7.90749 1.49666 6.75128 1 5.54569 1C3.03517 1 1 3.11055 1 5.71405C1 6.96429 1.47892 8.16332 2.3314 9.04738Z" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </symbol>
+
+    <symbol id="location" viewBox="0 0 24 24">
+        <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 9C17 13.4183 13.4183 17 9 19C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 9C12 10.6569 10.6569 12 9 12C7.34315 12 6 10.6569 6 9C6 7.34315 7.34315 6 9 6C10.6569 6 12 7.34315 12 9Z" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </symbol>
+
+    <symbol id="mileage" viewBox="0 0 24 24">
+        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5 5V10L13.5 13M19.5 10C19.5 14.9706 15.4706 19 10.5 19C5.52944 19 1.5 14.9706 1.5 10C1.5 5.02944 5.52944 1 10.5 1C15.4706 1 19.5 5.02944 19.5 10Z" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    </symbol>
+
+    <symbol id="gender" viewBox="0 0 24 24">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11ZM6 11L6 19M3 16L9 16" stroke="#54ADFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </symbol>
+
+  <symbol id="icon2" viewBox="0 0 24 24">
+    <!-- <svg> твоя пикча скопированная с фигмы as svg </svg> -->
+  </symbol>
+
+    <!-- <symbol id="icon2" viewBox="0 0 24 24">
+        copy paste add sv and have fun
+    </symbol> -->
+</svg>
