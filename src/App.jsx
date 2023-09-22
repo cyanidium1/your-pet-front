@@ -26,7 +26,6 @@ const App = () => {
         </Route>
         <Route path="friends" element={<OurFriendsPage />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="notices" element={<NoticesPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
 
