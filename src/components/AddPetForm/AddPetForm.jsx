@@ -6,7 +6,7 @@ import SecondStep from "./Steps/SecondStep/SecondStep";
 import ThirdStep from "./Steps/ThirdStep/ThirdStep";
 
 const AddPetForm = () => {
-  const [step, setStep] = useState(2); // to redux
+  const [step, setStep] = useState(1); // to redux
 
   return (
     <div className="WrapperAddPet">
