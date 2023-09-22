@@ -1,0 +1,17 @@
+.form_heading {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+}
+
+.auth_section {
+    padding: 40px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 280px;
+    height: fit-content;
+    flex-direction: column;
+}
