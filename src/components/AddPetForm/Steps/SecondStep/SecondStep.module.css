@@ -1,0 +1,211 @@
+.FormWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 20px;
+
+  @media screen and (min-width: 1280px) {
+    gap: 25px;
+  }
+}
+
+.WrapperLabelInput {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+
+.LabelStep {
+  color: #111111;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+.Input {
+  border-radius: 40px;
+  box-shadow: none;
+  outline: none;
+  font-size: 14px;
+  padding: 9px 16px;
+  border: 1px solid #54adff;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    padding: 15px;
+  }
+}
+
+/* .LinkAddPEtLitkCancel {
+  border-radius: 40px;
+  color: #54adff;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 8px 86px;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+} */
+
+.ErrorText {
+  position: absolute;
+  bottom: -25%;
+  right: 67%;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #f43f5e;
+}
+
+.ErrorTextLow {
+  position: absolute;
+  bottom: -30%;
+  right: 65%;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #f43f5e;
+
+  @media screen and (min-width: 768px) {
+    bottom: -25%;
+    right: 76%;
+  }
+}
+
+/* .LinkAddPEt {
+  margin-top: 23.5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 38px;
+} */
+/* .LinkAddPEt {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  @media screen and(min-width:1280px) {
+    margin-top: 23.5px;
+    justify-content: space-around;
+    align-items: center;
+    gap: 38px;
+  }
+
+} */
+
+/* .LinkAddPEtLitkCancel {
+  border-radius: 40px;
+  color: #54adff;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+} */
+
+.ButtonNext {
+  background-color: #54adff;
+  border-radius: 40px;
+  padding: 8px 86px;
+  color: #fef9f9;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  border: none;
+  cursor: pointer;
+}
+
+.ButtonEl {
+  display: flex;
+  gap: 11.43px;
+}
+
+.SexText {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  color: #111111;
+}
+
+.sexOption {
+  display: flex;
+  gap: 23px;
+  margin-top: 8px;
+}
+
+.sexElement {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  width: 92px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #888888;
+}
+
+.sexElementActive {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  width: 92px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #54adff;
+  border: 1px solid #54adff;
+  border-radius: 8px;
+}
+
+.LinkAddPEt {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 24px;
+}
+
+.LinkAddPEtLitkCancel {
+  border-radius: 40px;
+  color: #54adff;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+}
+
+@media screen and (max-width: 767px) {
+  .LinkAddPEt {
+    flex-direction: column-reverse;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .LinkAddPEtLitkCancel {
+    padding: 8px 86px;
+  }
+}
