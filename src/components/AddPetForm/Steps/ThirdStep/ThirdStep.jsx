@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./ThirdStep.module.css";
@@ -23,10 +23,14 @@ const ThirdStep = () => {
   const petId = useSelector(selectMyPetID);
   const photo = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
+  const [activeButton, setActiveButton] = useState(null);
+
+  const [sex, setSex] = useState("");
 
   const handleSubmit = (values) => {
     const pet = {
       id: petId,
+      sex,
       ...values,
     };
     dispatch(updatePetInfo(pet));
@@ -36,9 +40,39 @@ const ThirdStep = () => {
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
+
+  const handleOptionChange = (option, number) => {
+    setSex(option);
+    setActiveButton(number);
+  };
   return (
     <>
       <h2>Add your pet</h2>
+      <ul className={css.sexOption}>
+        <li>
+          <button
+            className={`${css.sexElement} ${
+              activeButton === 1 ? css.sexElementActive : ""
+            }`}
+            type="button"
+            onClick={() => handleOptionChange("female", 1)}
+          >
+            {/* <img src={female} alt="female" /> */}
+            Female
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${css.sexElement} ${
+              activeButton === 2 ? css.sexElementActive : ""
+            }`}
+            onClick={() => handleOptionChange("male", 2)}
+          >
+            {/* <img src={male} alt="male" /> */}
+            Male
+          </button>
+        </li>
+      </ul>
       <Formik
         initialValues={{ photo, comments }}
         validationSchema={validationSchema}
