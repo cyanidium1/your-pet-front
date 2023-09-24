@@ -4,7 +4,7 @@ import { addPetStatus, updatePetInfo } from "./addPetOperations";
 const initialState = {
   name: "",
   location: "",
-  image: "",
+  photo: "",
   type: "",
   birthDate: "",
   gender: "",
@@ -34,6 +34,12 @@ export const addPetSlice = createSlice({
         state.birthDate = payload.birthDate;
         state.title = payload.title;
         state.name = payload.name;
+        state.price = payload.price;
+        state.location = payload.location;
+        state.comments = payload.comments;
+        state.sex = payload.sex;
+        state.photo = payload.photo;
+        state = payload;
 
         state.error = false;
         state.isLoading = false;

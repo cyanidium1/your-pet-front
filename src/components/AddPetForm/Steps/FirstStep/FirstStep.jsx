@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import next from sprite
 // import cancel from sprite
 import css from "../../AddPetForm.module.css";
@@ -17,10 +17,11 @@ const FirstStep = () => {
   const dispatch = useDispatch();
   const newPetStatus = useSelector(selectMyPetStatus);
 
+  useEffect(() => {
+    setPetStatus(newPetStatus);
+  }, []);
   const handleSubmit = () => {
     dispatch(addPetStatus(petStatus));
-    // newPetStatus should become petStatus
-
     console.log(newPetStatus);
 
     dispatch(nextStep());

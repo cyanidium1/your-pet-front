@@ -17,10 +17,10 @@ const AddPetForm = () => {
   let secondStepComponent;
   switch (status) {
     case "yourPet":
-      secondStepComponent = <SecondStepMy formData={pet} />;
+      secondStepComponent = <SecondStepMy />;
       break;
     default:
-      secondStepComponent = <SecondStep formData={pet} />;
+      secondStepComponent = <SecondStep />;
       break;
   }
 
@@ -30,7 +30,7 @@ const AddPetForm = () => {
       currentStepComponent = <FirstStep />;
       break;
     case 2:
-      currentStepComponent = <SecondStep />;
+      currentStepComponent = secondStepComponent;
       break;
     case 3:
       currentStepComponent = <ThirdStep />;

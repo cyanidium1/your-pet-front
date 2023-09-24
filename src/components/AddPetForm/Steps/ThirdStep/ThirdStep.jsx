@@ -1,120 +1,131 @@
 import React from "react";
-import css from "./ThirdStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
-import { useDispatch } from "react-redux";
+import css from "./ThirdStep.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectMyPetComments,
+  selectMyPetID,
+  selectMyPetImage,
+} from "redux/myPets/addPetSelectors";
+import { updatePetInfo } from "redux/myPets/addPetOperations";
+import { resetSteps } from "redux/adddPetForm/addPetFormSlice";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required("Photo is required"),
-  comments: Yup.string().required("Comment is required"),
+  photo: Yup.mixed().required("Please upload a photo"),
+  comments: Yup.string().required("Comments are required"),
 });
 
-const ThreeStepFound = ({ formData }) => {
+const ThirdStep = ({ handleNext, handlePreviousStep, formData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const petId = useSelector(selectMyPetID);
+  const photo = useSelector(selectMyPetImage);
+  const comments = useSelector(selectMyPetComments);
 
-  const handlePreviousStep = () => {
-    console.log(1);
-    dispatch(prevStep());
-  };
-
-  const handleFinish = () => {
-    console.log(1);
+  const handleSubmit = (values) => {
+    const pet = {
+      id: petId,
+      ...values,
+    };
+    dispatch(updatePetInfo(pet));
+    // navigate(-1);
     dispatch(resetSteps());
   };
 
   return (
     <>
+      <h2>Add your pet</h2>
       <Formik
-        initialValues={{
-          photo: "",
-          place: "",
-          comments: "",
-          sex: "",
-        }}
+        initialValues={{ photo, comments }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          handleFinish();
-          setSubmitting(false);
-        }}
+        onSubmit={(values) => handleSubmit(values)}
       >
-        {({ values, isSubmitting }) => (
+        {({ setFieldValue }) => (
           <Form>
-            <div className={css.wrapperForm}>
-              <div className={css.wrapperPotoSell}>
-                <div className={css.SexText}>
-                  The Sex
-                  <button>male</button>
-                  <button>female</button>
-                </div>
-                <div className={css.wrapperAddPhoto}>
-                  <label className={css.labelAddText}>
-                    Load the pet’s image:
-                  </label>
-
-                  <Field
+            <div>
+              <div className={css.wrapperPoto}>
+                <label className={css.labelAddText}>
+                  Load the pet`s image:
+                </label>
+                <div>
+                  <input
                     type="file"
                     id="photo"
                     name="photo"
-                    onChange={() => console.log(1)}
+                    onChange={(e) => {
+                      setFieldValue("photo", e.currentTarget.files[0]);
+                    }}
+                    style={{ display: "none" }}
                   />
-
-                  <label htmlFor="photo">
-                    <div className={css.labelAdd}>
-                      {values.photo && (
-                        <img
-                          className={css.previewPhoto}
-                          src={URL.createObjectURL(values.photo)}
-                          alt="Selected img"
-                        />
+                </div>
+                <label htmlFor="photo">
+                  <div className={css.labelAdd}>
+                    <Field name="photo">
+                      {({ field }) => (
+                        <>
+                          {field.value && (
+                            <img
+                              className={css.previewPhoto}
+                              src={URL.createObjectURL(field.value)}
+                              alt="Selected img"
+                            />
+                          )}
+                          <img
+                            className={css.iconAdd}
+                            src="https://cataas.com/cat/says/hello%20world!"
+                            alt="add"
+                          />
+                        </>
                       )}
-                    </div>
-                  </label>
-                  <ErrorMessage
-                    name="photo"
-                    component="p"
-                    className={css.errorComentSell}
-                  />
-                </div>
-
-                <div className={css.wrapperTextarea}>
-                  <label className={css.textareaText} htmlFor="comments">
-                    Comments
-                  </label>
-                  <Field
-                    className={css.textareaAddOne}
-                    component="textarea"
-                    id="comments"
-                    name="comments"
-                    placeholder="Type comment"
-                  />
-                  <ErrorMessage
-                    name="comments"
-                    component="p"
-                    className={css.comments}
-                  />
-                </div>
+                    </Field>
+                  </div>
+                </label>
+                <ErrorMessage
+                  name="photo"
+                  component="p"
+                  className={css.errorComent}
+                />
               </div>
-            </div>
-            <div className={css.LinkAddPEt}>
-              <button
-                className={css.LinkAddPEtLitkCancel}
-                onClick={() => handlePreviousStep(formData)}
-              >
-                <div className={css.ButtonEl}>
-                  <span>Back</span>
-                </div>
-              </button>
-
-              <button
-                className={css.ButtonNext}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                <div className={css.ButtonEl}>
-                  <span>Done</span>
-                </div>
-              </button>
+              <div className={css.wrapperTextareaOne}>
+                <label className={css.textareaText} htmlFor="comments">
+                  Comments
+                </label>
+                <Field
+                  as="textarea"
+                  className={css.textareaAddOne}
+                  id="comments"
+                  name="comments"
+                  placeholder="Type comment"
+                />
+                <ErrorMessage
+                  name="comments"
+                  component="p"
+                  className={css.comments}
+                />
+              </div>
+              <ul className={css.LinkAddPEt}>
+                <li>
+                  <button
+                    className={css.LinkAddPEtLitkCancel}
+                    onClick={() => handlePreviousStep(formData)}
+                  >
+                    <div className={css.ButtonEl}>
+                      {/* <img src={cancel} alt="Next" /> */}
+                      <span>Back</span>
+                    </div>
+                  </button>
+                </li>
+                <li>
+                  <button type="submit" className={css.ButtonNext}>
+                    <div className={css.ButtonEl}>
+                      <span>Done</span>
+                      {/* <img src={next} alt="Next" /> */}
+                    </div>
+                  </button>
+                </li>
+              </ul>
             </div>
           </Form>
         )}
@@ -123,4 +134,4 @@ const ThreeStepFound = ({ formData }) => {
   );
 };
 
-export default ThreeStepFound;
+export default ThirdStep;
