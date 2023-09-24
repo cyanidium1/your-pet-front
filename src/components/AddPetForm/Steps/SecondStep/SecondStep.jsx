@@ -2,28 +2,47 @@ import React from "react";
 import css from "./SecondStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { nextStep, prevStep } from "redux/adddPetForm/addPetFormSlice";
+import {
+  selectMyPetID,
+  selectMyPetTitle,
+  selectMyPetType,
+} from "redux/myPets/addPetSelectors";
+import { updatePetInfo } from "redux/myPets/addPetOperations";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title of add is required"),
+  title: Yup.string().required("Title of add is required"), // 6 to 64 symb
   name: Yup.string().required("Name pet is required"),
   birthday: Yup.date().required("Birthday is required"),
   breed: Yup.string().required("Breed is required"),
 });
 
 const SecondStepSell = ({ formData }) => {
-  const handleNext = () => {
-    console.log(1);
+  const dispatch = useDispatch();
+  const title = useSelector(selectMyPetTitle);
+  const petId = useSelector(selectMyPetID);
+
+  const handleNext = (values) => {
+    const pet = {
+      id: petId,
+      ...values,
+    };
+    dispatch(updatePetInfo(pet));
+    dispatch(nextStep());
   };
+
   const handleBack = () => {
-    console.log(2);
+    dispatch(prevStep());
   };
+
   return (
     <Formik
       initialValues={{
-        title: formData.title || "",
-        name: formData.name || "",
-        birthday: formData.birthday || "",
-        breed: formData.breed || "",
+        title: title,
+        name: "",
+        birthday: "",
+        breed: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -71,7 +90,7 @@ const SecondStepSell = ({ formData }) => {
               type="date"
               name="birthday"
               className={css.Input}
-              birthday={formData.birthday}
+              birthday={new Date()}
             />
             <ErrorMessage
               name="birthday"
@@ -103,7 +122,6 @@ const SecondStepSell = ({ formData }) => {
                 onClick={() => handleBack()}
               >
                 <div className={css.ButtonEl}>
-                  {/* <img src={cancel} alt="Back" /> */}
                   <span>Back</span>
                 </div>
               </button>
@@ -111,8 +129,7 @@ const SecondStepSell = ({ formData }) => {
             <li>
               <button className={css.ButtonNext} type="submit">
                 <div className={css.ButtonEl}>
-                  <span>Next </span>
-                  {/* <img src={next} alt="Next" /> */}
+                  <span>Next</span>
                 </div>
               </button>
             </li>

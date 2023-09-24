@@ -3,19 +3,32 @@ import React, { useState } from "react";
 // import cancel from sprite
 import css from "../../AddPetForm.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { nextStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
+import {
+  selectMyPetStatus,
+  selectMyPetType,
+} from "redux/myPets/addPetSelectors";
+import { addPetStatus } from "redux/myPets/addPetOperations";
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const newPetStatus = useSelector(selectMyPetStatus);
 
   const handleSubmit = () => {
-    console.log(petStatus);
-    // add state to redux and navigate to next stage
+    dispatch(addPetStatus(petStatus));
+    // newPetStatus should become petStatus
+
+    console.log(newPetStatus);
+
+    dispatch(nextStep());
   };
   const handleCancel = () => {
+    dispatch(resetSteps());
     console.log(1);
     navigate(-1);
-    console.log(navigate(-1));
   };
 
   return (
@@ -60,7 +73,7 @@ const FirstStep = () => {
       <div className={css.LinkAddPEt}>
         <button
           className={css.LinkAddPEtLitkCancel}
-          onClick={() => handleCancel}
+          onClick={() => handleCancel()}
         >
           <div className={css.ButtonEl}>
             {/* <img src={cancel} alt="Back" /> */}

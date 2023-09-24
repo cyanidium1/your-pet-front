@@ -1,46 +1,61 @@
-import React, { useState } from "react";
+import React from "react";
 import css from "./ThirdStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
+import { useDispatch } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Photo is required"),
-  comments: Yup.string().required("Comment is requiererd"),
+  comments: Yup.string().required("Comment is required"),
 });
-// add form to redux state and after submt change step to 1
 
 const ThreeStepFound = ({ formData }) => {
+  const dispatch = useDispatch();
+
   const handlePreviousStep = () => {
     console.log(1);
+    dispatch(prevStep());
   };
+
   const handleFinish = () => {
     console.log(1);
+    dispatch(resetSteps());
   };
 
   return (
     <>
       <Formik
         initialValues={{
-          photo: formData.url || "",
-          place: formData.place || "",
-          comments: formData.comments || "",
-          sex: formData.sex || "",
+          photo: "",
+          place: "",
+          comments: "",
+          sex: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={({ values, setFieldValue, isSubmitting }) => (
-          <Form onSubmit={() => handleFinish}>
+        onSubmit={(values, { setSubmitting }) => {
+          handleFinish();
+          setSubmitting(false);
+        }}
+      >
+        {({ values, isSubmitting }) => (
+          <Form>
             <div className={css.wrapperForm}>
               <div className={css.wrapperPotoSell}>
-                <div className={css.SexText}>The Sex</div>
-
+                <div className={css.SexText}>
+                  The Sex
+                  <button>male</button>
+                  <button>female</button>
+                </div>
                 <div className={css.wrapperAddPhoto}>
                   <label className={css.labelAddText}>
                     Load the pet’s image:
                   </label>
 
-                  <input
+                  <Field
                     type="file"
                     id="photo"
+                    name="photo"
                     onChange={() => console.log(1)}
                   />
 
@@ -103,7 +118,7 @@ const ThreeStepFound = ({ formData }) => {
             </div>
           </Form>
         )}
-      ></Formik>
+      </Formik>
     </>
   );
 };

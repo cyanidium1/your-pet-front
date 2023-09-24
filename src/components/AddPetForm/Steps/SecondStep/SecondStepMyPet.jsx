@@ -9,7 +9,7 @@ const validationSchema = Yup.object().shape({
   breed: Yup.string().required("Breed is required"),
 });
 
-const SecondStepSell = ({ formData }) => {
+const SecondStepMy = ({ formData }) => {
   const handleNext = () => {
     console.log(1);
   };
@@ -19,9 +19,9 @@ const SecondStepSell = ({ formData }) => {
   return (
     <Formik
       initialValues={{
-        name: formData.name || "",
-        birthday: formData.birthday || "",
-        breed: formData.breed || "",
+        name: "",
+        birthday: "",
+        breed: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -104,4 +104,4 @@ const SecondStepSell = ({ formData }) => {
   );
 };
 
-export default SecondStepSell;
+export default SecondStepMy;

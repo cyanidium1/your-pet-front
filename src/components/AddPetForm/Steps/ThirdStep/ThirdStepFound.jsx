@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import css from "./ThreeStep.module.css";
+import css from "./ThirdStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -16,10 +16,10 @@ const ThreeStepFound = ({ handleFinish, handlePreviousStep, formData }) => {
     <>
       <Formik
         initialValues={{
-          photo: formData.url || "",
-          place: formData.place || "",
-          comments: formData.comments || "",
-          sex: formData.sex || "",
+          photo: "",
+          place: "",
+          comments: "",
+          sex: "",
         }}
         validationSchema={validationSchema}
         onSubmit={({ values, setFieldValue, isSubmitting }) => (

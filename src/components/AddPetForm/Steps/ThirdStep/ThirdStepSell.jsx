@@ -17,16 +17,15 @@ const ThreeStepSell = ({ handleNext, handlePreviousStep, formData }) => {
   return (
     <Formik
       initialValues={{
-        photo: formData.url || "",
-        place: formData.place || "",
-        price: formData.price || "",
-        comments: formData.comments || "",
-        sex: formData.sex || "",
+        photo: "",
+        place: "",
+        price: "",
+        comments: "",
+        sex: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         handleNext(values);
-        setSubmitting(false);
       }}
     >
       {({ values, setFieldValue, isSubmitting }) => (
