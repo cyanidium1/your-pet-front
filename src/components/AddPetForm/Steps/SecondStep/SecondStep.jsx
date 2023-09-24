@@ -10,6 +10,7 @@ import {
   selectMyPetID,
   selectMyPetName,
   selectMyPetTitle,
+  selectMyPetStatus,
 } from "redux/myPets/addPetSelectors";
 import { updatePetInfo } from "redux/myPets/addPetOperations";
 
@@ -19,9 +20,9 @@ const validationSchema = Yup.object().shape({
     .min(6, "Title must be at least 6 characters")
     .max(64, "Title must be at most 64 characters"),
   name: Yup.string().required("Name pet is required"),
-  birthday: Yup.date()
+  birthDate: Yup.date()
     .default(() => new Date())
-    .required("Birthday is required"),
+    .required("Birth date is required"),
   type: Yup.string().required("Type is required"),
 });
 
@@ -29,8 +30,9 @@ const SecondStepSell = () => {
   const dispatch = useDispatch();
   const title = useSelector(selectMyPetTitle);
   const name = useSelector(selectMyPetName);
-  const birthday = useSelector(selectMyPetBirthDate);
+  const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
+  const status = useSelector(selectMyPetStatus);
 
   const petId = useSelector(selectMyPetID);
 
@@ -41,7 +43,7 @@ const SecondStepSell = () => {
     };
     dispatch(updatePetInfo(pet));
     dispatch(nextStep());
-    console.log(birthday);
+    console.log(birthDate);
   };
 
   const handleBack = () => {
@@ -55,7 +57,7 @@ const SecondStepSell = () => {
         initialValues={{
           title,
           name,
-          birthDate: Date(birthday),
+          birthDate,
           type,
         }}
         validationSchema={validationSchema}
@@ -100,17 +102,17 @@ const SecondStepSell = () => {
               />
             </div>
             <div className={css.WrapperLabelInput}>
-              <label className={css.LabelStep} htmlFor="birthday">
+              <label className={css.LabelStep} htmlFor="birthDate">
                 Date of birth
               </label>
               <Field
                 type="date"
-                id="birthday"
-                name="birthday"
+                id="Date"
+                name="birthDate"
                 className={css.Input}
               />
               <ErrorMessage
-                name="birthday"
+                name="birthDate"
                 component="p"
                 className={css.ErrorText}
               />

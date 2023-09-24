@@ -10,6 +10,7 @@ import {
   selectMyPetType,
 } from "redux/myPets/addPetSelectors";
 import { addPetStatus } from "redux/myPets/addPetOperations";
+import { resetState } from "redux/myPets/addPetSlice";
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState("");
@@ -27,6 +28,7 @@ const FirstStep = () => {
     dispatch(nextStep());
   };
   const handleCancel = () => {
+    dispatch(resetState());
     dispatch(resetSteps());
     console.log(1);
     navigate(-1);

@@ -19,7 +19,9 @@ const initialState = {
 export const addPetSlice = createSlice({
   name: "addPet",
   initialState,
-  reducers: {},
+  reducers: {
+    resetState: (state) => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addPetStatus.fulfilled, (state, { payload }) => {
@@ -60,4 +62,5 @@ export const addPetSlice = createSlice({
       );
   },
 });
+export const { resetState } = addPetSlice.actions;
 export const addPetSliceReducer = addPetSlice.reducer;

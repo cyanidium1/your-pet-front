@@ -11,10 +11,13 @@ import {
 import { updatePetInfo } from "redux/myPets/addPetOperations";
 import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
+import { resetState } from "redux/myPets/addPetSlice";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Please upload a photo"),
-  comments: Yup.string().required("Comments are required"),
+  comments: Yup.string()
+    .optional()
+    .max(120, "Title must be at most 120 characters"),
 });
 
 const ThirdStep = () => {
@@ -28,13 +31,18 @@ const ThirdStep = () => {
   const [sex, setSex] = useState("");
 
   const handleSubmit = (values) => {
+    if (!activeButton) {
+      return;
+    }
     const pet = {
       id: petId,
       sex,
       ...values,
     };
     dispatch(updatePetInfo(pet));
+    dispatch(resetState());
     // navigate(-1);
+
     dispatch(resetSteps());
   };
   const handlePreviousStep = () => {
@@ -48,31 +56,28 @@ const ThirdStep = () => {
   return (
     <>
       <h2>Add your pet</h2>
-      <ul className={css.sexOption}>
-        <li>
-          <button
-            className={`${css.sexElement} ${
-              activeButton === 1 ? css.sexElementActive : ""
-            }`}
-            type="button"
-            onClick={() => handleOptionChange("female", 1)}
-          >
-            {/* <img src={female} alt="female" /> */}
-            Female
-          </button>
-        </li>
-        <li>
-          <button
-            className={`${css.sexElement} ${
-              activeButton === 2 ? css.sexElementActive : ""
-            }`}
-            onClick={() => handleOptionChange("male", 2)}
-          >
-            {/* <img src={male} alt="male" /> */}
-            Male
-          </button>
-        </li>
-      </ul>
+      <div className={css.sexOption}>
+        <button
+          className={`${css.sexElement} ${
+            activeButton === 1 ? css.sexElementActive : ""
+          }`}
+          type="button"
+          onClick={() => handleOptionChange("female", 1)}
+        >
+          {/* <img src={female} alt="female" /> */}
+          Female
+        </button>
+        <button
+          className={`${css.sexElement} ${
+            activeButton === 2 ? css.sexElementActive : ""
+          }`}
+          onClick={() => handleOptionChange("male", 2)}
+        >
+          {/* <img src={male} alt="male" /> */}
+          Male
+        </button>
+        {!activeButton && <p>sex is</p>}
+      </div>
       <Formik
         initialValues={{ photo, comments }}
         validationSchema={validationSchema}
