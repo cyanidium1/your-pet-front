@@ -1,10 +1,12 @@
-import React from "react";
-
+import scss from '../modules/shared/styles/PersonalPage/Personal.module.scss';
+import { Card } from '../components/Personal/PersonalCard';
+import { Pets } from '../components/Personal/PetsCards';
 const Profile = () => {
   return (
-    <div>
-      <h3>Profile</h3>
-    </div>
+    <section className={scss.section}>
+      <Card />
+      <Pets />
+    </section>
   );
 };
 
