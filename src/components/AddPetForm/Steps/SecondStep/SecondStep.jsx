@@ -50,7 +50,7 @@ const SecondStepSell = () => {
 
   return (
     <>
-      <h2>add pet foer sale/lost/im good hands</h2>
+      <h2>add pet for sale/lost/im good hands</h2>
       <Formik
         initialValues={{
           title,
@@ -105,9 +105,9 @@ const SecondStepSell = () => {
               </label>
               <Field
                 type="date"
+                id="birthday"
                 name="birthday"
                 className={css.Input}
-                birthday={new Date()}
               />
               <ErrorMessage
                 name="birthday"

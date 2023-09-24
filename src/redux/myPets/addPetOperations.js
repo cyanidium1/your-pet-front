@@ -26,6 +26,7 @@ export const updatePetInfo = createAsyncThunk(
       const { data } = await axios.put(`/myPets/${pet.id}`, {
         ...pet,
       });
+      console.log(pet);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

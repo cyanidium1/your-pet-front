@@ -9,7 +9,7 @@ import {
   selectMyPetImage,
 } from "redux/myPets/addPetSelectors";
 import { updatePetInfo } from "redux/myPets/addPetOperations";
-import { resetSteps } from "redux/adddPetForm/addPetFormSlice";
+import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
   comments: Yup.string().required("Comments are required"),
 });
 
-const ThirdStep = ({ handleNext, handlePreviousStep, formData }) => {
+const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const petId = useSelector(selectMyPetID);
@@ -33,7 +33,9 @@ const ThirdStep = ({ handleNext, handlePreviousStep, formData }) => {
     // navigate(-1);
     dispatch(resetSteps());
   };
-
+  const handlePreviousStep = () => {
+    dispatch(prevStep());
+  };
   return (
     <>
       <h2>Add your pet</h2>
@@ -45,7 +47,7 @@ const ThirdStep = ({ handleNext, handlePreviousStep, formData }) => {
         {({ setFieldValue }) => (
           <Form>
             <div>
-              <div className={css.wrapperPoto}>
+              <div className={css.wrapperPhoto}>
                 <label className={css.labelAddText}>
                   Load the pet`s image:
                 </label>
@@ -109,7 +111,7 @@ const ThirdStep = ({ handleNext, handlePreviousStep, formData }) => {
                 <li>
                   <button
                     className={css.LinkAddPEtLitkCancel}
-                    onClick={() => handlePreviousStep(formData)}
+                    onClick={() => handlePreviousStep()}
                   >
                     <div className={css.ButtonEl}>
                       {/* <img src={cancel} alt="Next" /> */}
