@@ -121,7 +121,7 @@ const ThirdStep = () => {
                             />
                           )}
                           <svg width="30px" height="30px">
-                            <use href={`${sprite}#icon-pawprint-1`}></use>
+                            <use href={`${sprite}#icon-plus`}></use>
                           </svg>
                           <pre>{JSON.stringify(field.value, null, 2)}</pre>
                         </>
