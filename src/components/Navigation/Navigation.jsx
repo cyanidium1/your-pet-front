@@ -23,7 +23,7 @@ const Navigation = ({ showMenu, closeMenu }) => {
           </NavLink>
         </li>
         <li onClick={closeMenu}>
-          <NavLink className={s.navItem} to="/find">
+          <NavLink className={s.navItem} to="/notices">
             Find pet
           </NavLink>
         </li>

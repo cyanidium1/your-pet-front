@@ -18,7 +18,6 @@ const Header = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const isLoggedIn = useSelector(selectIsAuth);
-  const userName = useSelector(selectUser);
 
   const isMobile = useMedia(screen.breakpoints.mobile.media);
   const isTablet = useMedia(screen.breakpoints.tablet.media);
@@ -46,12 +45,10 @@ const Header = () => {
         closeModalMenu={closeModalMenu}
         isLoggedIn={isLoggedIn}
       />
-      {/* {!isMobile &&
-        (isLoggedIn ? <UserNav userName={userName} /> : <AuthNav />)} */}
       {isMobile ? (
         isLoggedIn && <UserNav />
       ) : isLoggedIn ? (
-        <UserNav userName={userName} />
+        <UserNav />
       ) : (
         <AuthNav />
       )}
@@ -60,43 +57,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// <Logo />
-// {isDesktop && (
-//   <nav className={s.headerNav}>
-//     <Navigation />
-//   </nav>
-// )}
-
-// {!isDesktop && <BurgerMenu />}
-// {/* {isTablet && <AuthNav /> && <BurgerMenu />} */}
-// {!isMobile && !logged && <AuthNav />}
-
-// -----------------------------
-
-/* // <header className={s.header}>
-    //   <nav className={s.headerNav}>
-    //     <Logo />
-    //     <Navigation />
-    //     <BurgerMenu />
-    //     {logged ? <Logout /> : <AuthNav />}
-        // {/* <UserNav /> */
-//   </nav>
-// </header> */}
-// -------------------------------------
-
-// {
-//   isDesktop && (
-//     <>
-//       <Logo />
-//       <Navigation />
-//       <AuthNav />
-//     </>
-//   );
-// }
-// {
-//   isTablet && <AuthNav />;
-// }
-// {
-//   !isDesktop && <BurgerMenu />;
-// }
