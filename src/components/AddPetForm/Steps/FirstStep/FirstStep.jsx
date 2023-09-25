@@ -35,7 +35,7 @@ const FirstStep = () => {
   };
 
   return (
-    <div>
+    <>
       <div className={css.ChooseOptionList}>
         <button
           className={`${css.PetButton} ${
@@ -91,7 +91,7 @@ const FirstStep = () => {
           </div>
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

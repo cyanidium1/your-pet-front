@@ -11,13 +11,17 @@ import {
 import { updatePetInfo } from "redux/myPets/addPetOperations";
 import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
+import { resetState } from "redux/myPets/addPetSlice";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Please upload a photo"),
-  comments: Yup.string().required("Comments are required"),
+  location: Yup.string().required("Please type a location"),
+  comments: Yup.string()
+    .optional()
+    .max(120, "Title must be at most 120 characters"),
 });
 
-const ThirdStep = () => {
+const ThirdStepFoundOrGoodHands = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const petId = useSelector(selectMyPetID);
@@ -37,7 +41,9 @@ const ThirdStep = () => {
       ...values,
     };
     dispatch(updatePetInfo(pet));
+    dispatch(resetState());
     // navigate(-1);
+
     dispatch(resetSteps());
   };
   const handlePreviousStep = () => {
@@ -124,6 +130,23 @@ const ThirdStep = () => {
                   className={css.errorComent}
                 />
               </div>
+              <div className={css.WrapperLabelInput}>
+                <label className={css.LabelStep} htmlFor="name">
+                  Location
+                </label>
+                <Field
+                  className={css.Input}
+                  type="text"
+                  id="location"
+                  name="location"
+                  placeholder="Type of location"
+                />
+                <ErrorMessage
+                  name="location"
+                  component="p"
+                  className={css.ErrorTextLow}
+                />
+              </div>
               <div className={css.wrapperTextareaOne}>
                 <label className={css.textareaText} htmlFor="comments">
                   Comments
@@ -170,4 +193,4 @@ const ThirdStep = () => {
   );
 };
 
-export default ThirdStep;
+export default ThirdStepFoundOrGoodHands;

@@ -55,7 +55,6 @@ const ThirdStep = () => {
   };
   return (
     <>
-      <h2>Add your pet</h2>
       <div className={css.sexOption}>
         <button
           className={`${css.sexElement} ${

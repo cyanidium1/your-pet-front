@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectStepForm } from "redux/adddPetForm/addPetFormSelectors";
 import { selectMyPet, selectMyPetStatus } from "redux/myPets/addPetSelectors";
 import SecondStepMy from "./Steps/SecondStep/SecondStepMyPet";
+import ThirdStepSell from "./Steps/ThirdStep/ThirdStepSell";
+import ThirdStepFoundOrGoodHands from "./Steps/ThirdStep/ThirdStepFoundOrGoodHands";
+import css from "./AddPetForm.module.css";
 
 const AddPetForm = () => {
   const dispatch = useDispatch();
   const step = useSelector(selectStepForm);
   const status = useSelector(selectMyPetStatus);
-  const pet = useSelector(selectMyPet);
 
   let secondStepComponent;
   switch (status) {
@@ -21,6 +23,19 @@ const AddPetForm = () => {
       break;
     default:
       secondStepComponent = <SecondStep />;
+      break;
+  }
+
+  let thirdStepComponent;
+  switch (status) {
+    case "sell":
+      thirdStepComponent = <ThirdStepSell />;
+      break;
+    case "lost" || "inGoodHands":
+      thirdStepComponent = <ThirdStepFoundOrGoodHands />;
+      break;
+    default:
+      thirdStepComponent = <ThirdStep />;
       break;
   }
 
@@ -33,15 +48,21 @@ const AddPetForm = () => {
       currentStepComponent = secondStepComponent;
       break;
     case 3:
-      currentStepComponent = <ThirdStep />;
+      currentStepComponent = thirdStepComponent;
       break;
   }
 
   return (
-    <div className="WrapperAddPet">
-      <Steps currentStep={step} />
-      {currentStepComponent}
-    </div>
+    <section>
+      <div className={css.WrapperAddPet}>
+        <h2>
+          add{status === "lost" ? " lost " : " "}pet
+          {status === "sell" ? " for sell " : " "}
+        </h2>
+        <Steps currentStep={step} />
+        {currentStepComponent}
+      </div>
+    </section>
   );
 };
 

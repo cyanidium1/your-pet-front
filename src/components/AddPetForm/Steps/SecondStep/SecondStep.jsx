@@ -10,7 +10,6 @@ import {
   selectMyPetID,
   selectMyPetName,
   selectMyPetTitle,
-  selectMyPetStatus,
 } from "redux/myPets/addPetSelectors";
 import { updatePetInfo } from "redux/myPets/addPetOperations";
 
@@ -32,7 +31,6 @@ const SecondStepSell = () => {
   const name = useSelector(selectMyPetName);
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
-  const status = useSelector(selectMyPetStatus);
 
   const petId = useSelector(selectMyPetID);
 
@@ -51,8 +49,7 @@ const SecondStepSell = () => {
   };
 
   return (
-    <>
-      <h2>add pet for sale/lost/im good hands</h2>
+    <div className="container">
       <Formik
         initialValues={{
           title,
@@ -156,7 +153,7 @@ const SecondStepSell = () => {
           </div>
         </Form>
       </Formik>
-    </>
+    </div>
   );
 };
 

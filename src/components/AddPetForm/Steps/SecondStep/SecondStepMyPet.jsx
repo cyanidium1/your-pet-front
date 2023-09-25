@@ -42,7 +42,6 @@ const SecondStepSell = () => {
 
   return (
     <>
-      <h2>add pet foer sale/lost/im good hands</h2>
       <Formik
         initialValues={{
           name,
