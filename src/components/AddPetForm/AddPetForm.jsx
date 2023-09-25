@@ -4,8 +4,11 @@ import FirstStep from "./Steps/FirstStep/FirstStep";
 import SecondStep from "./Steps/SecondStep/SecondStep";
 import ThirdStep from "./Steps/ThirdStep/ThirdStep";
 import { useDispatch, useSelector } from "react-redux";
-import { selectStepForm } from "redux/adddPetForm/addPetFormSelectors";
-import { selectMyPet, selectMyPetStatus } from "redux/myPets/addPetSelectors";
+import { selectStepForm } from "../../redux/adddPetForm/addPetFormSelectors";
+import {
+  selectMyPet,
+  selectMyPetStatus,
+} from "../../redux/myPets/addPetSelectors";
 import SecondStepMy from "./Steps/SecondStep/SecondStepMyPet";
 import ThirdStepSell from "./Steps/ThirdStep/ThirdStepSell";
 import ThirdStepFoundOrGoodHands from "./Steps/ThirdStep/ThirdStepFoundOrGoodHands";

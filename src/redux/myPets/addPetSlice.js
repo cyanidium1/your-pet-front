@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf, createAction } from "@reduxjs/toolkit";
-import { addPetStatus, updatePetInfo } from "./addPetOperations";
+import { addNewPet, updatePetInfo } from "./addPetOperations";
 
 const initialState = {
   name: "",
@@ -24,24 +24,22 @@ export const addPetSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addPetStatus.fulfilled, (state, { payload }) => {
-        state.status = payload.status;
+      .addCase(addNewPet.fulfilled, (state, { payload }) => {
         state.id = payload.id;
-
         state.error = false;
         state.isLoading = false;
       })
       .addCase(updatePetInfo.fulfilled, (state, { payload }) => {
-        state.breed = payload.breed;
+        state.status = payload.status;
         state.birthDate = payload.birthDate;
         state.title = payload.title;
+        state.type = payload.type;
         state.name = payload.name;
         state.price = payload.price;
         state.location = payload.location;
         state.comments = payload.comments;
         state.sex = payload.sex;
         state.photo = payload.photo;
-        state = payload;
 
         state.error = false;
         state.isLoading = false;

@@ -8,10 +8,13 @@ import {
   selectMyPetID,
   selectMyPetImage,
 } from "redux/myPets/addPetSelectors";
-import { updatePetInfo } from "redux/myPets/addPetOperations";
-import { prevStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
+import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
+import {
+  prevStep,
+  resetSteps,
+} from "../../../../redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
-import { resetState } from "redux/myPets/addPetSlice";
+import { resetState } from "../../../../redux/myPets/addPetSlice";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Please upload a photo"),
@@ -110,7 +113,11 @@ const ThirdStepFoundOrGoodHands = () => {
                           {field.value && (
                             <img
                               className={css.previewPhoto}
-                              src={URL.createObjectURL(field.value)}
+                              src={
+                                field.value instanceof Blob
+                                  ? URL.createObjectURL(field.value)
+                                  : field.value
+                              }
                               alt="Selected img"
                             />
                           )}
@@ -119,6 +126,7 @@ const ThirdStepFoundOrGoodHands = () => {
                             src="https://cataas.com/cat/says/hello%20world!"
                             alt="add"
                           />
+                          <pre>{JSON.stringify(field.value, null, 2)}</pre>
                         </>
                       )}
                     </Field>

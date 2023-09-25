@@ -4,12 +4,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 axios.defaults.baseURL = "https://650e940454d18aabfe994535.mockapi.io";
 
-export const addPetStatus = createAsyncThunk(
-  "addPet/addStatus",
-  async (status, { rejectWithValue }) => {
+export const addNewPet = createAsyncThunk(
+  "addPet/newPet",
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.post("/myPets", {
-        status,
         id: crypto.randomUUID(),
       });
       return data;

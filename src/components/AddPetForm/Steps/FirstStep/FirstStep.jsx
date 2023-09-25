@@ -4,25 +4,37 @@ import React, { useEffect, useState } from "react";
 import css from "../../AddPetForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, resetSteps } from "redux/adddPetForm/addPetFormSlice";
 import {
+  nextStep,
+  resetSteps,
+} from "../../../../redux/adddPetForm/addPetFormSlice";
+import {
+  selectMyPetID,
   selectMyPetStatus,
   selectMyPetType,
-} from "redux/myPets/addPetSelectors";
-import { addPetStatus } from "redux/myPets/addPetOperations";
-import { resetState } from "redux/myPets/addPetSlice";
+} from "../../../../redux/myPets/addPetSelectors";
+import {
+  addPetStatus,
+  updatePetInfo,
+} from "../../../../redux/myPets/addPetOperations";
+import { resetState } from "../../../../redux/myPets/addPetSlice";
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const newPetStatus = useSelector(selectMyPetStatus);
+  const petId = useSelector(selectMyPetID);
 
   useEffect(() => {
     setPetStatus(newPetStatus);
   }, []);
   const handleSubmit = () => {
-    dispatch(addPetStatus(petStatus));
+    const pet = {
+      id: petId,
+      status: petStatus,
+    };
+    dispatch(updatePetInfo(pet));
     console.log(newPetStatus);
 
     dispatch(nextStep());

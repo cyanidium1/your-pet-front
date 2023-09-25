@@ -3,15 +3,18 @@ import css from "./SecondStep.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, prevStep } from "redux/adddPetForm/addPetFormSlice";
+import {
+  nextStep,
+  prevStep,
+} from "../../../../redux/adddPetForm/addPetFormSlice";
 import {
   selectMyPetBirthDate,
   selectMyPetType,
   selectMyPetID,
   selectMyPetName,
   selectMyPetTitle,
-} from "redux/myPets/addPetSelectors";
-import { updatePetInfo } from "redux/myPets/addPetOperations";
+} from "../../../../redux/myPets/addPetSelectors";
+import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
