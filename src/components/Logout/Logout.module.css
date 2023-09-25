@@ -1,0 +1,22 @@
+.logOut {
+  display: inline-flex;
+  padding: 8px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 40px;
+  background: #54adff;
+  color: #fef9f9;
+  transition: transform 0.3s ease;
+}
+
+.logOut:hover {
+  transform: scale(1.05);
+}
+@media only screen and (max-width: 768px) {
+  .logOut {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+  }
+}

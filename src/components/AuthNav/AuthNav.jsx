@@ -1,12 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import s from "./AuthNav.module.css";
+import sprite from "../../images/icons.svg";
 
-const AuthNav = () => {
+const AuthNav = ({ closeMenu }) => {
   return (
     <div>
-      <p>AuthNav</p>
-      <Link to="login">login</Link>
-      <Link to="register">register</Link>
+      <nav className={s.authNav}>
+        <ul className={s.authNavList}>
+          <li className={s.authLogIn} onClick={closeMenu}>
+            <Link to="login">Log IN</Link>
+            <svg className={s.pawprint}>
+              <use href={sprite + "#icon-pawprint-1"} />
+            </svg>
+          </li>
+          <li className={s.authRegister} onClick={closeMenu}>
+            <Link to="register">Registration</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
