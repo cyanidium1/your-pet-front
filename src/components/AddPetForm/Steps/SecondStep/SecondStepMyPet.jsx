@@ -14,6 +14,7 @@ import {
   selectMyPetType,
 } from "../../../../redux/myPets/addPetSelectors";
 import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
+import sprite from "../../../../images/icons.svg";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name pet is required"),
@@ -115,6 +116,9 @@ const SecondStepSell = () => {
                   onClick={() => handleBack()}
                 >
                   <div className={css.ButtonEl}>
+                    <svg width="24px" height="24px">
+                      <use href={`${sprite}#icon-arrow-left`}></use>
+                    </svg>
                     <span>Back</span>
                   </div>
                 </button>
@@ -123,6 +127,9 @@ const SecondStepSell = () => {
                 <button className={css.ButtonNext} type="submit">
                   <div className={css.ButtonEl}>
                     <span>Next</span>
+                    <svg width="24px" height="24px" fill="#fff">
+                      <use href={`${sprite}#icon-pawprint-1`}></use>
+                    </svg>
                   </div>
                 </button>
               </li>

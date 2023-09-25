@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import next from sprite
-// import cancel from sprite
+import sprite from "../../../../images/icons.svg";
 import css from "../../AddPetForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -91,7 +90,9 @@ const FirstStep = () => {
           onClick={() => handleCancel()}
         >
           <div className={css.ButtonEl}>
-            {/* <img src={cancel} alt="Back" /> */}
+            <svg width="24px" height="24px">
+              <use href={`${sprite}#icon-arrow-left`}></use>
+            </svg>
             <span>Cancel</span>
           </div>
         </button>
@@ -99,7 +100,9 @@ const FirstStep = () => {
         <button className={css.ButtonNext} onClick={() => handleSubmit()}>
           <div className={css.ButtonEl}>
             <span>Next</span>
-            {/* <img src={next} alt="Next" /> */}
+            <svg width="24px" height="24px" fill="#fff">
+              <use href={`${sprite}#icon-pawprint-1`}></use>
+            </svg>
           </div>
         </button>
       </div>

@@ -15,6 +15,7 @@ import {
 } from "../../../../redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
 import { resetState } from "../../../../redux/myPets/addPetSlice";
+import sprite from "../../../../images/icons.svg";
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Please upload a photo"),
@@ -123,11 +124,9 @@ const ThirdStepSell = () => {
                               alt="Selected img"
                             />
                           )}
-                          <img
-                            className={css.iconAdd}
-                            src="https://cataas.com/cat/says/hello%20world!"
-                            alt="add"
-                          />
+                          <svg width="30px" height="30px">
+                            <use href={`${sprite}#icon-pawprint-1`}></use>
+                          </svg>
                           <pre>{JSON.stringify(field.value, null, 2)}</pre>
                         </>
                       )}
@@ -198,7 +197,9 @@ const ThirdStepSell = () => {
                     onClick={() => handlePreviousStep()}
                   >
                     <div className={css.ButtonEl}>
-                      {/* <img src={cancel} alt="Next" /> */}
+                      <svg width="24px" height="24px">
+                        <use href={`${sprite}#icon-arrow-left`}></use>
+                      </svg>
                       <span>Back</span>
                     </div>
                   </button>
@@ -207,7 +208,9 @@ const ThirdStepSell = () => {
                   <button type="submit" className={css.ButtonNext}>
                     <div className={css.ButtonEl}>
                       <span>Done</span>
-                      {/* <img src={next} alt="Next" /> */}
+                      <svg width="24px" height="24px" fill="#fff">
+                        <use href={`${sprite}#icon-pawprint-1`}></use>
+                      </svg>
                     </div>
                   </button>
                 </li>

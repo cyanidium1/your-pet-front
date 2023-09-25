@@ -1,5 +1,7 @@
 import React from "react";
 import css from "./SecondStep.module.css";
+import sprite from "../../../../images/icons.svg";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -141,6 +143,9 @@ const SecondStepSell = () => {
                   onClick={() => handleBack()}
                 >
                   <div className={css.ButtonEl}>
+                    <svg width="24px" height="24px">
+                      <use href={`${sprite}#icon-arrow-left`}></use>
+                    </svg>
                     <span>Back</span>
                   </div>
                 </button>
@@ -149,6 +154,9 @@ const SecondStepSell = () => {
                 <button className={css.ButtonNext} type="submit">
                   <div className={css.ButtonEl}>
                     <span>Next</span>
+                    <svg width="24px" height="24px" fill="#fff">
+                      <use href={`${sprite}#icon-pawprint-1`}></use>
+                    </svg>
                   </div>
                 </button>
               </li>
