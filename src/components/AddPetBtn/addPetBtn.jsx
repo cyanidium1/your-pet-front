@@ -8,7 +8,6 @@ const AddPetBtn = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(addNewPet());
     navigate("/add-pet");
   };
   return <button onClick={handleClick}>add pet</button>;

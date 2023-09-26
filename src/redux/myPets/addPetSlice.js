@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf, createAction } from "@reduxjs/toolkit";
-import { addNewPet, updatePetInfo } from "./addPetOperations";
+import { addNewPet, deletePet, updatePetInfo } from "./addPetOperations";
 
 const initialState = {
   name: "",
@@ -7,13 +7,11 @@ const initialState = {
   photo: "",
   type: "",
   birthDate: "",
-  gender: "",
+  sex: "",
   title: "",
   comments: "",
   status: "",
   id: "",
-  isLoading: false,
-  error: false,
 };
 
 export const addPetSlice = createSlice({
@@ -21,44 +19,29 @@ export const addPetSlice = createSlice({
   initialState,
   reducers: {
     resetState: (state) => initialState,
+    addPetStatus: (state, { payload }) => {
+      state.status = payload;
+    },
+    addPetPersonalInfo: (state, { payload }) => {
+      state.birthDate = payload.birthDate;
+      state.title = payload.title;
+      state.type = payload.type;
+      state.name = payload.name;
+    },
+    addPetMoreInfo: (state, { payload }) => {
+      state.price = payload.price;
+      state.location = payload.location;
+      state.comments = payload.comments;
+      state.sex = payload.sex;
+      state.photo = payload.photo;
+    },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(addNewPet.fulfilled, (state, { payload }) => {
-        state.id = payload.id;
-        state.error = false;
-        state.isLoading = false;
-      })
-      .addCase(updatePetInfo.fulfilled, (state, { payload }) => {
-        state.status = payload.status;
-        state.birthDate = payload.birthDate;
-        state.title = payload.title;
-        state.type = payload.type;
-        state.name = payload.name;
-        state.price = payload.price;
-        state.location = payload.location;
-        state.comments = payload.comments;
-        state.sex = payload.sex;
-        state.photo = payload.photo;
-
-        state.error = false;
-        state.isLoading = false;
-      })
-      .addMatcher(
-        (action) => action.type.endsWith("/pending"),
-        (state, action) => {
-          state.isLoading = true;
-          state.isError = false;
-        }
-      )
-      .addMatcher(
-        (action) => action.type.endsWith("/rejected"),
-        (state, action) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      );
+    builder.addCase(addNewPet.fulfilled, (state, { payload }) => {
+      state = payload;
+    });
   },
 });
-export const { resetState } = addPetSlice.actions;
+export const { resetState, addPetStatus, addPetMoreInfo, addPetPersonalInfo } =
+  addPetSlice.actions;
 export const addPetSliceReducer = addPetSlice.reducer;

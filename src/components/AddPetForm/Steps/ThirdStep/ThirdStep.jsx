@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./ThirdStep.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectMyPet,
   selectMyPetComments,
   selectMyPetID,
   selectMyPetImage,
 } from "redux/myPets/addPetSelectors";
-import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
+import {
+  addNewPet,
+  updatePetInfo,
+} from "../../../../redux/myPets/addPetOperations";
 import {
   prevStep,
   resetSteps,
 } from "../../../../redux/adddPetForm/addPetFormSlice";
 import { useNavigate } from "react-router-dom";
-import { resetState } from "../../../../redux/myPets/addPetSlice";
+import {
+  addPetMoreInfo,
+  addPetPersonalInfo,
+  resetState,
+} from "../../../../redux/myPets/addPetSlice";
 import sprite from "../../../../images/icons.svg";
 
 const validationSchema = Yup.object().shape({
@@ -27,28 +35,32 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const petId = useSelector(selectMyPetID);
   const photo = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
-
   const [sex, setSex] = useState("");
+  const isButtonInactiveFirstTime = useRef(true);
+  const petBody = useSelector(selectMyPet);
 
   const handleSubmit = (values) => {
     if (!activeButton) {
+      isButtonInactiveFirstTime.current = false;
       return;
     }
     const pet = {
-      id: petId,
       sex,
+      id: crypto.randomUUID(),
       ...values,
+      photo: URL.createObjectURL(values.photo),
     };
-    dispatch(updatePetInfo(pet));
+    const newPetBody = { ...petBody, ...pet };
+    dispatch(addPetMoreInfo(pet));
+    dispatch(addNewPet(newPetBody));
     dispatch(resetState());
     // navigate(-1);
-
     dispatch(resetSteps());
   };
+
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
@@ -56,6 +68,7 @@ const ThirdStep = () => {
   const handleOptionChange = (option, number) => {
     setSex(option);
     setActiveButton(number);
+    isButtonInactiveFirstTime.current = false;
   };
   return (
     <>
@@ -67,7 +80,15 @@ const ThirdStep = () => {
           type="button"
           onClick={() => handleOptionChange("female", 1)}
         >
-          {/* <img src={female} alt="female" /> */}
+          <svg
+            width="24px"
+            height="24px"
+            stroke={
+              sex === "female" ? "#fff" : sex === "male" ? "#888888" : "#F43F5E"
+            }
+          >
+            <use href={`${sprite}#icon-female`}></use>
+          </svg>
           Female
         </button>
         <button
@@ -76,10 +97,20 @@ const ThirdStep = () => {
           }`}
           onClick={() => handleOptionChange("male", 2)}
         >
-          {/* <img src={male} alt="male" /> */}
+          <svg
+            width="24px"
+            height="24px"
+            stroke={
+              sex === "male" ? "#fff" : sex === "female" ? "#888888" : "#54ADFF"
+            }
+          >
+            <use href={`${sprite}#icon-male`}></use>
+          </svg>
           Male
         </button>
-        {!activeButton && <p>sex is</p>}
+        {!activeButton && !isButtonInactiveFirstTime && (
+          <p className={css.errorComent}>Sex s required</p>
+        )}
       </div>
       <Formik
         initialValues={{ photo, comments }}
@@ -112,18 +143,13 @@ const ThirdStep = () => {
                           {field.value && (
                             <img
                               className={css.previewPhoto}
-                              src={
-                                field.value instanceof Blob
-                                  ? URL.createObjectURL(field.value)
-                                  : field.value
-                              }
+                              src={URL.createObjectURL(field.value)}
                               alt="Selected img"
                             />
                           )}
                           <svg width="30px" height="30px">
                             <use href={`${sprite}#icon-plus`}></use>
                           </svg>
-                          <pre>{JSON.stringify(field.value, null, 2)}</pre>
                         </>
                       )}
                     </Field>

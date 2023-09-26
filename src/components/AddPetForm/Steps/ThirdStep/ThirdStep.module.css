@@ -48,8 +48,8 @@
   background-color: inherit;
   border: none;
   cursor: pointer;
-  width: 92px;
-  height: 24px;
+  width: 98px;
+  height: 35px;
   display: flex;
   align-items: center;
   gap: 19px;
@@ -59,24 +59,16 @@
   color: #888888;
 }
 
-.sexElement img {
-  width: 10px;
-  height: 18px;
-}
-
 .sexElementActive {
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-  width: 92px;
-  height: 24px;
   display: flex;
   align-items: center;
-  gap: 19px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  color: #54adff;
+  justify-content: center;
+  gap: 8px;
+  width: 98px;
+  height: 35px;
+  background-color: #54adff;
+  border-radius: 40px;
+  color: #fef9f9;
 }
 
 .WrapperLabelInput {
@@ -112,10 +104,6 @@
     padding: 15px;
   }
 }
-
-/* .Input:focus {
-  border-color: #54adff;
-} */
 
 .errorComent,
 .errorComentSell {
@@ -298,36 +286,6 @@
     height: 192px;
   }
 }
-
-/* .LinkAddPEt {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-
-  @media screen and(min-width:768px) {
-    margin-top: 44px;
-
-    justify-content: space-around;
-    align-items: center;
-    gap: 38px;
-  }
-
-} */
-
-/* .LinkAddPEtLitkCancel {
-  border-radius: 40px;
-  color: #54adff;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 22px;
-  padding: 8px 86px;
-  cursor: pointer;
-  border: none;
-  background-color: inherit;
-} */
 
 .ButtonNext {
   background-color: #54adff;

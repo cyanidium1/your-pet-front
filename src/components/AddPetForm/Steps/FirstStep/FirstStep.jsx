@@ -12,36 +12,24 @@ import {
   selectMyPetStatus,
   selectMyPetType,
 } from "../../../../redux/myPets/addPetSelectors";
-import {
-  addPetStatus,
-  updatePetInfo,
-} from "../../../../redux/myPets/addPetOperations";
-import { resetState } from "../../../../redux/myPets/addPetSlice";
+import { addPetStatus, resetState } from "../../../../redux/myPets/addPetSlice";
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const newPetStatus = useSelector(selectMyPetStatus);
-  const petId = useSelector(selectMyPetID);
 
   useEffect(() => {
     setPetStatus(newPetStatus);
   }, []);
   const handleSubmit = () => {
-    const pet = {
-      id: petId,
-      status: petStatus,
-    };
-    dispatch(updatePetInfo(pet));
-    console.log(newPetStatus);
-
+    dispatch(addPetStatus(petStatus));
     dispatch(nextStep());
   };
   const handleCancel = () => {
     dispatch(resetState());
     dispatch(resetSteps());
-    console.log(1);
     navigate(-1);
   };
 

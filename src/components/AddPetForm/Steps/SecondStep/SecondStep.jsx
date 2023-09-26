@@ -17,6 +17,7 @@ import {
   selectMyPetTitle,
 } from "../../../../redux/myPets/addPetSelectors";
 import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
+import { addPetPersonalInfo } from "redux/myPets/addPetSlice";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -37,16 +38,12 @@ const SecondStepSell = () => {
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
 
-  const petId = useSelector(selectMyPetID);
-
   const handleNext = (values) => {
     const pet = {
-      id: petId,
       ...values,
     };
-    dispatch(updatePetInfo(pet));
+    dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
-    console.log(birthDate);
   };
 
   const handleBack = () => {
