@@ -1,0 +1,20 @@
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.wrapper input {
+  position: absolute;
+  width: 7rem;
+  height: 1rem;
+}
+.wrapper label {
+  font-size: 12px;
+}

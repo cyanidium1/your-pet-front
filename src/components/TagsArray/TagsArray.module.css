@@ -12,6 +12,7 @@
 .rightSideFilter {
   display: flex;
   gap: 12px;
+  position: relative;
 }
 
 /* Styles for screens from 1280px and above */
