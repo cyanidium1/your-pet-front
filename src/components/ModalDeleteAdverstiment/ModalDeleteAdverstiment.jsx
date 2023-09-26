@@ -15,43 +15,41 @@ const ModalDeleteAdverstiment = () => {
   // };
 
   return (
-    <Modal>
-      <div className={styles.deleteModalWrapper}>
-        <div class={styles.closeModalIconWrapper}>
-          <svg className={styles.closeModalIcon}>
-            <use href={sprite + '#icon-cross'}></use>
-          </svg>
-        </div>
-        <h2 className={styles.modalTitle}>Delete adverstiment?</h2>
-        <p className={styles.modalText}>
-          Are you sure you want to delete “Cute dog looking for a home”?
-          <br /> You can`t undo this action.
-        </p>
-
-        <div className={styles.modalButtonsWrapper}>
-          <button
-            className={styles.cancelButton}
-            type="button"
-            onClick={() => dispatch(closeModalLogout())}
-            variant={'secondary'}
-          >
-            Cancel
-          </button>
-          <button
-            className={styles.yesButton}
-            type="button"
-            // onClick={handleLogOut}
-          >
-            <div className={styles.buttonContent}>
-              <span>Yes</span>
-              <svg className={styles.logOutIcon}>
-                <use href={sprite + '#icon-trash-2'}></use>
-              </svg>
-            </div>
-          </button>
-        </div>
+    <div className={styles.deleteModalWrapper}>
+      <div class={styles.closeModalIconWrapper}>
+        <svg className={styles.closeModalIcon}>
+          <use href={sprite + '#icon-cross'}></use>
+        </svg>
       </div>
-    </Modal>
+      <h2 className={styles.modalTitle}>Delete adverstiment?</h2>
+      <p className={styles.modalText}>
+        Are you sure you want to delete “Cute dog looking for a home”?
+        <br /> You can`t undo this action.
+      </p>
+
+      <div className={styles.modalButtonsWrapper}>
+        <button
+          className={styles.cancelButton}
+          type="button"
+          onClick={() => dispatch(closeModalLogout())}
+          variant={'secondary'}
+        >
+          Cancel
+        </button>
+        <button
+          className={styles.yesButton}
+          type="button"
+          // onClick={handleLogOut}
+        >
+          <div className={styles.buttonContent}>
+            <span>Yes</span>
+            <svg className={styles.logOutIcon}>
+              <use href={sprite + '#icon-trash-2'}></use>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
   );
 };
 

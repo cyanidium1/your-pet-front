@@ -1,44 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isModalAddAdverstimentOpen: false,
-  isModalLogoutOpen: false,
-  isLoading: false,
-  isModalEditAdverstimentOpen: false,
-  editAdverstiment: null,
+  isModalApproveActionOpen: false,
+  isModalAttentionOpen: false,
+  isModalCongratsOpen: false,
   isModalDeleteAdverstimentOpen: false,
+  isModalPetCardDetailsOpen: false,
+  // isLoading: false,
 };
 
 const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    openModalAddAdverstiment(state) {
-      state.isModalAddAdverstimentOpen = true;
+    openModalApproveAction(state) {
+      state.isModalApproveActionOpen = true;
     },
-    closeModalAddAdverstiment(state) {
-      state.isModalAddAdverstimentOpen = false;
+    closeModalApproveAction(state) {
+      state.isModalApproveActionOpen = false;
     },
-    openModalLogout(state) {
-      state.isModalLogoutOpen = true;
+    openModalAttention(state) {
+      state.isModalAttentionOpen = true;
     },
-    closeModalLogout(state) {
-      state.isModalLogoutOpen = false;
+    closeModalAttention(state) {
+      state.isModalAttentionOpen = false;
     },
-    setIsLoading(state) {
-      state.isLoading = true;
+    openModalCongrats(state) {
+      state.isModalCongratsOpen = true;
     },
-    unsetIsLoading(state) {
-      state.isLoading = false;
-    },
-    openModalEditAdverstiment(state) {
-      state.isModalEditAdverstimentOpen = true;
-    },
-    closeModalEditAdverstiment(state) {
-      state.isModalEditAdverstimentOpen = false;
-    },
-    setUpdatedAdverstiment: (state, { payload }) => {
-      state.editAdverstiment = payload;
+    closeModalCongrats(state) {
+      state.isModalCongratsOpen = false;
     },
     openModalDeleteAdverstiment(state) {
       state.isModalDeleteAdverstimentOpen = true;
@@ -46,20 +37,31 @@ const globalSlice = createSlice({
     closeModalDeleteAdverstiment(state) {
       state.isModalDeleteAdverstimentOpen = false;
     },
+    openModalPetCardDetails(state) {
+      state.isModalPetCardDetailsOpen = true;
+    },
+    closeModalPetCardDetails(state) {
+      state.isModalPetCardDetailsOpen = false;
+    },
+     // setIsLoading(state) {
+    //   state.isLoading = true;
+    // },
+    // unsetIsLoading(state) {
+    //   state.isLoading = false;
+    // },
   },
 });
 
 export const globalReducer = globalSlice.reducer;
 export const {
-  openModalAddAdverstiment,
-  closeModalAddAdverstiment,
-  openModalLogout,
-  closeModalLogout,
-  setIsLoading,
-  unsetIsLoading,
-  openModalEditAdverstiment,
-  closeModalEditAdverstiment,
-  setUpdatedAdverstiment,
+  openModalApproveAction,
+  closeModalApproveAction,
+  openModalAttention,
+  closeModalAttention,
+  openModalCongrats,
+  closeModalCongrats,
   openModalDeleteAdverstiment,
   closeModalDeleteAdverstiment,
+  openModalPetCardDetails,
+  closeModalPetCardDetails,
 } = globalSlice.actions;

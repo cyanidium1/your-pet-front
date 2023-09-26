@@ -5,10 +5,10 @@
   position: relative;
   flex-wrap: wrap;
   border-radius: 20px;
-  background-color: #ffffff;
+  background: #ffffff;
   width: 280px;
   margin: 100px auto;
-  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+  /* box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19); */
 
   @media screen and (min-width: 768px) {
     width: 608px;

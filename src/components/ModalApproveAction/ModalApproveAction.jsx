@@ -1,13 +1,12 @@
 import React from 'react';
 import modal from './ModalApproveAction.module.css';
 import sprite from '../../images/icons.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/authOperations';
-import { Modal } from 'components/Modal/Modal';
 
 
 const ModalApproveAction = () => {
-  // const user = useSelector(selectUser);
+
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -22,9 +21,8 @@ const ModalApproveAction = () => {
   };
 
   return (
-    <Modal>
-      <div className={modal.modalWrapper}>
-      <div class={modal.closeModalIconWrapper} >
+    <div className={modal.modalWrapper}>
+      <div className={modal.closeModalIconWrapper}>
         <svg className={modal.closeModalIcon}>
           <use href={sprite + '#icon-cross'}></use>
         </svg>
@@ -54,7 +52,6 @@ const ModalApproveAction = () => {
         </button>
       </div>
     </div>
-    </Modal>
   );
 };
 

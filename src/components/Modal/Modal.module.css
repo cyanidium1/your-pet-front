@@ -18,7 +18,7 @@
   display: flex;
   position: relative;
   flex-wrap: wrap; */
-  background-color: #ffffff;
+  background: #ffffff;
   width: 280px;
   /* margin: 100px auto; */
   border-radius: 20px;
