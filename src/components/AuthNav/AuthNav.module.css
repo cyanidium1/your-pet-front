@@ -1,0 +1,52 @@
+.authNav {
+  display: flex;
+  text-decoration: none;
+}
+.authNavList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+@media only screen and (min-width: 768px) {
+  .authNavList {
+    flex-direction: row;
+    margin-right: 80px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .authNavList {
+    margin-right: 0px;
+  }
+}
+
+.authLogIn,
+.authRegister {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 165px;
+  gap: 10px;
+  border-radius: 40px;
+  border: 2px solid #ffc107;
+  transition: transform 0.3s ease;
+}
+
+.authLogIn {
+  padding: 8px 20px;
+  color: #fef9f9;
+  background: #ffc107;
+}
+
+.authRegister {
+  padding: 7px 20px;
+  color: #ffc107;
+}
+
+.authLogIn:hover,
+.authRegister:hover {
+  transform: scale(1.05);
+}
+.pawprint {
+  width: 24px;
+  height: 24px;
+}

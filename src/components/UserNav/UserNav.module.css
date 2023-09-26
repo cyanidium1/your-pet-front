@@ -1,0 +1,37 @@
+.userNav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.user {
+  display: flex;
+  align-items: center;
+  margin-right: 52px;
+}
+@media only screen and (min-width: 768px) {
+  .user {
+    gap: 12px;
+    margin-right: 0;
+  }
+}
+
+.userName {
+  color: #ffc107;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.64px;
+
+  display: none;
+}
+@media only screen and (min-width: 768px) {
+  .userName {
+    display: flex;
+    margin-right: 74px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .userName {
+    margin-right: 0;
+  }
+}

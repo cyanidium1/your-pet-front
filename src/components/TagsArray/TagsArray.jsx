@@ -3,7 +3,7 @@ import Tag from "../../UI/Tag/Tag";
 import styles from "./TagsArray.module.css";
 import sprite from "../../images/icons.svg";
 const tags = ["sell", "lost/found", "in good hands"];
-const TagsArray = () => {
+const TagsArray = () => { 
   return (
     <div className={styles.container}>
       <div className={styles.tags}>

@@ -13,6 +13,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/authSlice";
 import { formStepReducer } from "./adddPetForm/addPetFormSlice";
 import { addPetSlice, addPetSliceReducer } from "./myPets/addPetSlice";
+import { globalReducer } from "./global/globalSlice";
 
 const authConfig = {
   key: "auth",
@@ -27,6 +28,7 @@ export const store = configureStore({
     auth: authPersistedReducer,
     formStep: formStepReducer,
     addPet: addPetSliceReducer,
+    global: globalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

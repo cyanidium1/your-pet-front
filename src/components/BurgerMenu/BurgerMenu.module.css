@@ -1,0 +1,28 @@
+.box {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 1px solid gray; */
+}
+
+.logo_image {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.mobile_btn {
+  display: none;
+}
+
+@media (max-width: 1279px) {
+  .mobile_btn {
+    display: block;
+    position: absolute;
+    right: 32px;
+    top: 27px;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
