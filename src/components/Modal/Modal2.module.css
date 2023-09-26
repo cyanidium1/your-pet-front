@@ -1,0 +1,49 @@
+.backdrop {
+    background: rgba(97, 97, 97, 0.6);
+    backdrop-filter: blur(4px);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overscroll-behavior: contain;
+  }
+
+  .modalStyled {
+    position: absolute;
+    background: #ffffff;
+    width: 280px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+  
+    @media screen and (min-width: 768px) {
+      width: 608px;
+      border-radius: 40px;
+      flex-direction: column;
+    }
+    @media screen and (min-width: 1280px) {
+      
+    }
+  }
+
+  .closeModalIconWrapper {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    @media screen and (min-width: 768px) {
+      top: 24px;
+      right: 24px;
+    }
+  }
+  .closeModalIconWrapper:hover{
+    cursor: pointer;
+  }
+  
+  .closeModalIcon {
+    width: 24px;
+    height: 24px;
+  }
