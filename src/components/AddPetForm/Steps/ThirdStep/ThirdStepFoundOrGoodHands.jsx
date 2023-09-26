@@ -27,9 +27,6 @@ import sprite from "../../../../images/icons.svg";
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required("Please upload a photo"),
   location: Yup.string().required("Please type a location"),
-  price: Yup.number()
-    .required("Please set a price")
-    .min(1, "price should be bigger than 0"),
   comments: Yup.string()
     .optional()
     .max(120, "Title must be at most 120 characters"),
@@ -178,23 +175,7 @@ const ThirdStepSell = () => {
                   className={css.ErrorTextLow}
                 />
               </div>
-              <div className={css.WrapperLabelInput}>
-                <label className={css.LabelStep} htmlFor="name">
-                  Price
-                </label>
-                <Field
-                  className={css.Input}
-                  type="number"
-                  id="price"
-                  name="price"
-                  placeholder="Type of price"
-                />
-                <ErrorMessage
-                  name="price"
-                  component="p"
-                  className={css.ErrorTextLow}
-                />
-              </div>
+
               <div className={css.wrapperTextareaOne}>
                 <label className={css.textareaText} htmlFor="comments">
                   Comments

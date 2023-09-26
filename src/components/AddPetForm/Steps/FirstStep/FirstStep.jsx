@@ -1,25 +1,40 @@
-import React, { useState } from "react";
-// import next from sprite
-// import cancel from sprite
+import React, { useEffect, useState } from "react";
+import sprite from "../../../../images/icons.svg";
 import css from "../../AddPetForm.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  nextStep,
+  resetSteps,
+} from "../../../../redux/adddPetForm/addPetFormSlice";
+import {
+  selectMyPetID,
+  selectMyPetStatus,
+  selectMyPetType,
+} from "../../../../redux/myPets/addPetSelectors";
+import { addPetStatus, resetState } from "../../../../redux/myPets/addPetSlice";
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const newPetStatus = useSelector(selectMyPetStatus);
 
+  useEffect(() => {
+    setPetStatus(newPetStatus);
+  }, []);
   const handleSubmit = () => {
-    console.log(petStatus);
-    // add state to redux and navigate to next stage
+    dispatch(addPetStatus(petStatus));
+    dispatch(nextStep());
   };
   const handleCancel = () => {
-    console.log(1);
+    dispatch(resetState());
+    dispatch(resetSteps());
     navigate(-1);
-    console.log(navigate(-1));
   };
 
   return (
-    <div>
+    <>
       <div className={css.ChooseOptionList}>
         <button
           className={`${css.PetButton} ${
@@ -60,10 +75,12 @@ const FirstStep = () => {
       <div className={css.LinkAddPEt}>
         <button
           className={css.LinkAddPEtLitkCancel}
-          onClick={() => handleCancel}
+          onClick={() => handleCancel()}
         >
           <div className={css.ButtonEl}>
-            {/* <img src={cancel} alt="Back" /> */}
+            <svg width="24px" height="24px">
+              <use href={`${sprite}#icon-arrow-left`}></use>
+            </svg>
             <span>Cancel</span>
           </div>
         </button>
@@ -71,11 +88,13 @@ const FirstStep = () => {
         <button className={css.ButtonNext} onClick={() => handleSubmit()}>
           <div className={css.ButtonEl}>
             <span>Next</span>
-            {/* <img src={next} alt="Next" /> */}
+            <svg width="24px" height="24px" fill="#fff">
+              <use href={`${sprite}#icon-pawprint-1`}></use>
+            </svg>
           </div>
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
