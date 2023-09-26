@@ -6,6 +6,7 @@ const initialState = {
   isModalCongratsOpen: false,
   isModalDeleteAdverstimentOpen: false,
   isModalPetCardDetailsOpen: false,
+  isFilterModalOpen: false,
   // isLoading: false,
 };
 
@@ -43,7 +44,13 @@ const globalSlice = createSlice({
     closeModalPetCardDetails(state) {
       state.isModalPetCardDetailsOpen = false;
     },
-     // setIsLoading(state) {
+    filterModal(state) {
+      state.isFilterModalOpen = !state.isFilterModalOpen;
+    },
+    closeFilterModal(state) {
+      state.isFilterModalOpen = false;
+    },
+    // setIsLoading(state) {
     //   state.isLoading = true;
     // },
     // unsetIsLoading(state) {
@@ -64,4 +71,6 @@ export const {
   closeModalDeleteAdverstiment,
   openModalPetCardDetails,
   closeModalPetCardDetails,
+  filterModal,
+  closeFilterModal,
 } = globalSlice.actions;

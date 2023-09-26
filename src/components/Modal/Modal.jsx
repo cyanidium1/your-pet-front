@@ -1,8 +1,8 @@
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Modal.module.css';
 import { useEffect } from 'react';
-
+import { selectIsFilterModalOpen } from 'redux/global/globalSelectors';
 
 const modalContainer = document.getElementById('modal');
 
@@ -84,4 +84,3 @@ export const Modal = ({ children, closeReducer }) => {
 //     modalContainer
 //   );
 // };
-
