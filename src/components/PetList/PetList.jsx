@@ -8,10 +8,14 @@ const PetList = () => {
   const params = useLocation();
   const urlLocation = params.pathname.split('/').slice(-1).join('');
 
+  const nameForFilter = urlLocation.split('-').join(' ');
+
+  const filteredNotices = notices.filter(
+    adv => adv.type.toLowerCase() === nameForFilter.toLowerCase()
+  );
   return (
-    // {urlLocation === 'sell' && <LoginPage />}
     <ul className={styles.list}>
-      {notices.map(el => (
+      {filteredNotices.map(el => (
         <PetCard key={el.id} info={el} />
       ))}
     </ul>

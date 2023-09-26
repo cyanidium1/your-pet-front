@@ -8,32 +8,10 @@
   display: flex;
   flex-wrap: wrap;
 }
-.filtersButton {
-  width: 40px;
-  height: 40px;
-  background-color: #c5dff6;
-  border-radius: 100%;
-  padding: 14px;
-}
-.icon {
-  width: 16px;
-  height: 17px;
-}
 
-.addBtn {
-  position: fixed;
-  right: 36px;
-  top: 500px;
-
-  display: inline-block;
-  font-size: 12px;
-  text-align: center;
-  background-color: #54adff;
-  color: #c5dff6;
-  border-radius: 40px;
-
-  width: 80px;
-  height: 80px;
+.rightSideFilter {
+  display: flex;
+  gap: 12px;
 }
 
 /* Styles for screens from 1280px and above */
