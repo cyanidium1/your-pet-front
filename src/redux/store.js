@@ -11,6 +11,9 @@ import {
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/authSlice";
+import { formStepReducer } from "./adddPetForm/addPetFormSlice";
+import { addPetSlice, addPetSliceReducer } from "./myPets/addPetSlice";
+import { globalReducer } from "./global/globalSlice";
 
 const authConfig = {
   key: "auth",
@@ -23,6 +26,9 @@ const authPersistedReducer = persistReducer(authConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: authPersistedReducer,
+    formStep: formStepReducer,
+    addPet: addPetSliceReducer,
+    global: globalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

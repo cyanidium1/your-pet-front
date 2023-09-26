@@ -9,10 +9,10 @@ const PetCard = ({ info }) => {
     <li className={styles.item}>
       <div className={styles.card}>
         <div className={styles.topParams}>
-          <p className={styles.type}>{type}</p>
+          <p className={styles.type}>{type}</p>      
           <svg className={isFav ? styles.heartIcon : styles.heartIconActive}>
             <use href={sprite + "#heart"} />
-          </svg>
+          </svg>       
         </div>
         <div className={styles.bottomParams}>
           <div className={styles.parameter}>
