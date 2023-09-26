@@ -87,6 +87,10 @@
   }
 }
 
+.input:invalid {
+  border-color: red;
+}
+
 .logout {
   width: 24px;
   height: 24px;
@@ -111,4 +115,8 @@
   font-size: 12px;
   cursor: pointer;
   margin-bottom: 26px;
+}
+
+.fileField {
+  display: none;
 }

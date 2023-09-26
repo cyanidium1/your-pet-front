@@ -2,14 +2,18 @@ import { Formik, Field, Form } from 'formik';
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
 
-export const PersonalForm = ({ mode }) => {
+export const PersonalForm = ({ mode, photo }) => {
   return (
     <Formik
+      enctype="multipart/form-data"
+      method="putch"
       initialValues={{
         firstName: '',
         email: '',
         birthday: '',
-        toggledEditPhoto: false,
+        toggledEditPhoto: '',
+        phone: '',
+        city: '',
       }}
       onSubmit={async values => {
         await new Promise(r => setTimeout(r, 500));
@@ -20,11 +24,17 @@ export const PersonalForm = ({ mode }) => {
         <Form className={scss.form}>
           {mode && (
             <label className={scss.editPhotoBlock}>
-              <Field type="checkbox" name="toggledEditPhoto"></Field>
+              <Field
+                onChange={e => photo(e.target.files[0])}
+                accept="image/*,image/jpeg"
+                className={scss.fileField}
+                type="file"
+                name="toggledEditPhoto"
+              ></Field>
               <svg className={scss.editPhoto}>
                 <use href={`${defualtPhoto}#icon-camera`}></use>
               </svg>
-              Edit photo {`${values.toggledEditPhoto}`}
+              Edit photo
             </label>
           )}
 
@@ -35,8 +45,19 @@ export const PersonalForm = ({ mode }) => {
               id="firstName"
               name="firstName"
               placeholder="Anna"
+              disabled={!mode}
             />
           </label>
+          {/* <label htmlFor="firstName" className={scss.label}>
+            Name:
+            <Field
+              className={scss.input}
+              id="firstName"
+              name="firstName"
+              placeholder="Anna"
+              type="file"
+            />
+          </label> */}
 
           <label htmlFor="email" className={scss.label}>
             Email:
@@ -46,6 +67,7 @@ export const PersonalForm = ({ mode }) => {
               placeholder="anna@gmail.com"
               type="email"
               className={scss.input}
+              disabled={!mode}
             />
           </label>
 
@@ -57,6 +79,7 @@ export const PersonalForm = ({ mode }) => {
               placeholder=""
               type="date"
               className={scss.input}
+              disabled={!mode}
             />
           </label>
 
@@ -66,8 +89,9 @@ export const PersonalForm = ({ mode }) => {
               id="phone"
               name="phone"
               placeholder="+38000000000"
-              type="phone"
+              type="number"
               className={scss.input}
+              disabled={!mode}
             />
           </label>
 
@@ -78,6 +102,7 @@ export const PersonalForm = ({ mode }) => {
               name="city"
               placeholder="Kiev"
               className={scss.input}
+              disabled={!mode}
             />
           </label>
           {mode && (
