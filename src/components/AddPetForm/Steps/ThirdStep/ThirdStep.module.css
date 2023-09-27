@@ -125,6 +125,12 @@
   }
 }
 
+.sexIgnored {
+  color: #f43f5e;
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .comments {
   position: relative;
   color: #f43f5e;
@@ -220,14 +226,20 @@
   object-fit: cover;
 }
 
-.iconAdd {
-  width: 30px;
-  margin: 40px auto;
+.photoInputWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
-  @media screen and (min-width: 768px) {
-    width: 48px;
-    margin: 65px auto;
-  }
+.iconAdd {
+  /* position: absolute;
+  top: -50%;
+  left: -50%; */
+  /* transform: translate(-50%, -50%); */
+  stroke: #54adff;
+  fill: #54adff;
 }
 
 .wrapperTextareaOne {
