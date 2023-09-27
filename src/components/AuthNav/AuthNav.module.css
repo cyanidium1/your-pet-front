@@ -5,6 +5,7 @@
 .authNavList {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 @media only screen and (min-width: 768px) {
@@ -38,7 +39,7 @@
 }
 
 .authRegister {
-  padding: 7px 20px;
+  padding: 10px 20px;
   color: #ffc107;
 }
 
@@ -49,4 +50,5 @@
 .pawprint {
   width: 24px;
   height: 24px;
+  fill: #fef9f9;
 }
