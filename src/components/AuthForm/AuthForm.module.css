@@ -16,6 +16,8 @@
     flex-direction: column;
     margin: 0 auto;
     box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+    background-color: #fff;
+    border-radius: 40px;
 }
 
 .svg_sizing {
