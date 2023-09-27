@@ -7,6 +7,7 @@ import { screen } from 'Utils/screen';
 import Logout from 'components/Logout/Logout';
 import { selectIsAuth } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux';
+import UserNav from 'components/UserNav/UserNav';
 
 const Navigation = ({ showMenu, closeMenu }) => {
   const isLoggedIn = useSelector(selectIsAuth);
@@ -14,7 +15,9 @@ const Navigation = ({ showMenu, closeMenu }) => {
   return (
     <nav className={s.navList}>
       <ul className={showMenu ? [s.menu, s.activeMenu].join(' ') : [s.menu]}>
+        {/* {showMenu && isMobile && isLoggedIn && <UserNav />} */}
         {isMobile && !isLoggedIn && <AuthNav closeMenu={closeMenu} />}
+
         <li onClick={closeMenu}>
           <NavLink className={s.navItem} to="/news">
             News
