@@ -10,8 +10,6 @@ const Logout = ({ text, classes }) => {
   const handleLogOut = () => {
     dispatch(logOut());
   };
-
-  // opens Modal/ApproveAction
   return (
     <Link to="/">
       <button className={s[classes]} onClick={handleLogOut}>
