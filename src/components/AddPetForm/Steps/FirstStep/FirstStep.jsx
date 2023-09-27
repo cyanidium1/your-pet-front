@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
-import sprite from "../../../../images/icons.svg";
-import css from "../../AddPetForm.module.css";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import sprite from '../../../../images/icons.svg';
+import css from '../../AddPetForm.module.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextStep,
   resetSteps,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
   selectMyPetID,
   selectMyPetStatus,
   selectMyPetType,
-} from "../../../../redux/myPets/addPetSelectors";
-import { addPetStatus, resetState } from "../../../../redux/myPets/addPetSlice";
+} from '../../../../redux/myPets/addPetSelectors';
+import { addPetStatus, resetState } from '../../../../redux/myPets/addPetSlice';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
 const FirstStep = () => {
-  const [petStatus, setPetStatus] = useState("");
+  const [petStatus, setPetStatus] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const newPetStatus = useSelector(selectMyPetStatus);
+  const [isStatusIgnored, setIsStatusIgnored] = useState(false);
 
   useEffect(() => {
     setPetStatus(newPetStatus);
   }, []);
   const handleSubmit = () => {
+    if (!petStatus) {
+      setIsStatusIgnored(true);
+      return;
+    }
     dispatch(addPetStatus(petStatus));
     dispatch(nextStep());
   };
@@ -35,43 +41,53 @@ const FirstStep = () => {
 
   return (
     <>
+      <AddPetBtn />
       <div className={css.ChooseOptionList}>
         <button
           className={`${css.PetButton} ${
-            petStatus === "yourPet" ? css.PetButtonActive : ""
+            petStatus === 'yourPet' ? css.PetButtonActive : ''
           }`}
-          onClick={() => setPetStatus("yourPet")}
+          onClick={
+            (() => setIsStatusIgnored(false), () => setPetStatus('yourPet'))
+          }
         >
           your pet
         </button>
 
         <button
           className={`${css.PetButton} ${
-            petStatus === "sell" ? css.PetButtonActive : ""
+            petStatus === 'sell' ? css.PetButtonActive : ''
           }`}
-          onClick={() => setPetStatus("sell")}
+          onClick={
+            (() => setIsStatusIgnored(false), () => setPetStatus('sell'))
+          }
         >
           sell
         </button>
 
         <button
           className={`${css.PetButton} ${
-            petStatus === "lost" ? css.PetButtonActive : ""
+            petStatus === 'lost' ? css.PetButtonActive : ''
           }`}
-          onClick={() => setPetStatus("lost")}
+          onClick={
+            (() => setIsStatusIgnored(false), () => setPetStatus('lost'))
+          }
         >
           lost/found
         </button>
 
         <button
           className={`${css.PetButton} ${
-            petStatus === "inGoodHands" ? css.PetButtonActive : ""
+            petStatus === 'inGoodHands' ? css.PetButtonActive : ''
           }`}
-          onClick={() => setPetStatus("inGoodHands")}
+          onClick={
+            (() => setIsStatusIgnored(false), () => setPetStatus('inGoodHands'))
+          }
         >
           in good hands
         </button>
       </div>
+      {isStatusIgnored && <p className={css.ErrorText}>Please set status</p>}
       <div className={css.LinkAddPEt}>
         <button
           className={css.LinkAddPEtLitkCancel}
