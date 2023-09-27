@@ -1,0 +1,40 @@
+.addBtnBig {
+  width: 129px;
+  padding: 8px 0px;
+  border-radius: 40px;
+
+  color: #fef9f9;
+  background-color: #54adff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.addBtn {
+  position: fixed;
+  right: 36px;
+  top: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  background-color: #54adff;
+  color: #c5dff6;
+  border-radius: 40px;
+
+  width: 80px;
+  height: 80px;
+}

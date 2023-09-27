@@ -1,0 +1,74 @@
+.filtersButton {
+  min-width: 40px;
+  height: 40px;
+  background-color: #c5dff6;
+  border-radius: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .filtersButton {
+    width: 152px;
+    padding: 8px 20px;
+    border-radius: 40px;
+    background-color: transparent;
+    border: 2px solid #54adff;
+
+    color: #54adff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.64px;
+  }
+}
+
+.dropDownMenu {
+  width: 152px;
+  background-color: #fff;
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  border: 1px solid #54adff;
+  border-radius: 20px;
+
+  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+  position: absolute;
+  right: 100%;
+
+  color: #54adff;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.64px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.secondaryFilterBtn {
+  padding: 4px 8px;
+  height: 32px;
+  min-width: 136px;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  border-radius: 20px;
+  background: #cce4fb;
+
+  font-family: 'Inter';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: calc(18.2 / 14);
+}
