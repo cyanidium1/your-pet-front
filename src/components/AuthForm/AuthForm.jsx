@@ -1,67 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
-import * as Yup from "yup";
+import React, { useEffect, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-import icons from "../../images/icons.svg";
-import css from "./AuthForm.module.css";
-import { useDispatch } from "react-redux";
-import { login, register } from "redux/auth/authOperations";
+import icons from '../../images/icons.svg';
+import css from './AuthForm.module.css';
+import { useDispatch } from 'react-redux';
+import { login, register } from 'redux/auth/authOperations';
 
 const AuthForm = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, "Name must be at least 2 characters")
-      .max(16, "Name must be at most 16 characters")
-      .required("Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .max(16, "Password must be at most 16 characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "Password must contain at least one uppercase letter, one lowercase letter, and one digit"
-      )
-      .required("Password is required"),
-    confirm_password: !isLoginPageOpen
-      ? Yup.string()
-          .oneOf([Yup.ref("password"), null], "Passwords must match")
-          .required("Confirm Password is required")
-      : null,
-  });
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      isLoginPageOpen ? handleLogin(values) : handleRegister(values);
-    },
-  });
-
   useEffect(() => {
-    const isLoginPage = location.pathname === "/login";
+    const isLoginPage = location.pathname === '/login';
     setIsLoginPageOpen(isLoginPage);
   }, [location]);
 
-  const handleLogin = (values) => {
+  const getValidationSchema = () => {
     if (isLoginPageOpen) {
-      dispatch(login({ email: values.email, password: values.password }));
+      return Yup.object().shape({
+        email: Yup.string()
+          .email('Invalid email address')
+          .required('Email is required'),
+        password: Yup.string()
+          .min(6, 'Password must be at least 6 characters')
+          .max(16, 'Password must be at most 16 characters')
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
+          )
+          .required('Password is required'),
+      });
+    } else {
+      return Yup.object().shape({
+        name: Yup.string()
+          .min(2, 'Name must be at least 2 characters')
+          .max(16, 'Name must be at most 16 characters')
+          .required('Name is required'),
+        email: Yup.string()
+          .email('Invalid email address')
+          .required('Email is required'),
+        password: Yup.string()
+          .min(6, 'Password must be at least 6 characters')
+          .max(16, 'Password must be at most 16 characters')
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
+          )
+          .required('Password is required'),
+        confirm_password: Yup.string()
+          .oneOf([Yup.ref('password'), null], 'Passwords must match')
+          .required('Confirm Password is required'),
+      });
     }
   };
 
-  const handleRegister = (values) => {
+  const handleLogin = values => {
+    dispatch(login({ email: values.email, password: values.password }));
+    navigate('/user');
+  };
+
+  const handleRegister = values => {
     dispatch(
       register({
         email: values.email,
@@ -69,22 +73,24 @@ const AuthForm = () => {
         name: values.name,
       })
     );
+    navigate('/user');
   };
 
   return (
     <section className={`${css.auth_section}`}>
       <h1 className={css.form_heading}>
-        {isLoginPageOpen ? "Login" : "Registration"}
+        {isLoginPageOpen ? 'Login' : 'Registration'}
       </h1>
       <Formik
         initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          confirm_password: "",
+          email: '',
+          name: '',
+          password: '',
+          confirm_password: '',
         }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
+        validationSchema={getValidationSchema()} // Використовуємо динамічну валідацію
+        onSubmit={values => {
+          console.log('Form values:', values);
           isLoginPageOpen ? handleLogin(values) : handleRegister(values);
         }}
       >
@@ -97,13 +103,6 @@ const AuthForm = () => {
                 placeholder="Name"
                 className={css.auth_input}
               />
-              {formik.errors.name && formik.touched.name && (
-                <span>
-                  <svg>
-                    <use xlinkHref={icons + "#icon-cross-small"} />
-                  </svg>
-                </span>
-              )}
               <ErrorMessage name="name" component="div" className={css.error} />
             </div>
           )}
@@ -119,10 +118,10 @@ const AuthForm = () => {
           </div>
           <div className={css.form_group}>
             <Field
-              type={isPasswordShown ? "text" : "password"}
+              type={isPasswordShown ? 'text' : 'password'}
               name="password"
               placeholder="Password"
-              autoComplete={!isLoginPageOpen ? "new-password" : "off"}
+              autoComplete={!isLoginPageOpen ? 'new-password' : 'off'}
               className={css.auth_input}
             />
             <button
@@ -134,8 +133,8 @@ const AuthForm = () => {
                 <use
                   xlinkHref={
                     isPasswordShown
-                      ? icons + "#icon-eye-open"
-                      : icons + "#icon-eye-closed"
+                      ? icons + '#icon-eye-open'
+                      : icons + '#icon-eye-closed'
                   }
                 ></use>
               </svg>
@@ -149,7 +148,7 @@ const AuthForm = () => {
           {!isLoginPageOpen && (
             <div className={css.form_group}>
               <Field
-                type={isConfirmPasswordShown ? "text" : "password"}
+                type={isConfirmPasswordShown ? 'text' : 'password'}
                 name="confirm_password"
                 placeholder="Confirm password"
                 autoComplete="new-password"
@@ -166,8 +165,8 @@ const AuthForm = () => {
                   <use
                     xlinkHref={
                       isConfirmPasswordShown
-                        ? icons + "#icon-eye-open"
-                        : icons + "#icon-eye-closed"
+                        ? icons + '#icon-eye-open'
+                        : icons + '#icon-eye-closed'
                     }
                   ></use>
                 </svg>
@@ -187,15 +186,16 @@ const AuthForm = () => {
             }
           >
             <button className={css.auth_submit_button} type="submit">
-              {isLoginPageOpen ? "Login" : "Register"}
+              {isLoginPageOpen ? 'Login' : 'Register'}
             </button>
+
             {!isLoginPageOpen ? (
               <p className={css.navtext}>
                 Already have an account <NavLink to="/login">Login</NavLink>
               </p>
             ) : (
               <p className={css.navtext}>
-                Don't have an account?{" "}
+                Don't have an account?{' '}
                 <NavLink to="/register">Register</NavLink>
               </p>
             )}

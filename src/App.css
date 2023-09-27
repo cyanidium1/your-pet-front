@@ -4,6 +4,7 @@
 @import './modules/shared/styles/media.scss';
 body {
   font-family: 'Manrope';
+  background: #fef9f9;
 }
 
 .container {
