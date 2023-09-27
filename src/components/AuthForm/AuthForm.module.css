@@ -19,8 +19,12 @@
 }
 
 .svg_sizing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 24px;
     width: 24px;
+
 }
 
 .eye_button_positioning {
@@ -29,6 +33,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 12px;
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
@@ -36,6 +41,10 @@
 
 .form_group {
     position: relative;
+}
+
+.crosstick_icon {
+    position: absolute;
 }
 
 .auth_input {
@@ -72,7 +81,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
 }
 
 .navtext a {
