@@ -40,7 +40,6 @@ const FirstStep = () => {
 
   return (
     <>
-      <AddPetBtn />
       <div className={css.ChooseOptionList}>
         <button
           className={`${css.PetButton} ${
