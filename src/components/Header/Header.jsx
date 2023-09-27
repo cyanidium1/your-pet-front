@@ -44,9 +44,6 @@ const Header = () => {
         closeModalMenu={closeModalMenu}
         isLoggedIn={isLoggedIn}
       />
-      {/* {isTablet
-        ? isLoggedIn && showMenu && <Logout />
-        : !showMenu && isLoggedIn && <UserNav />} */}
       {isMobile ? (
         isLoggedIn && <UserNav />
       ) : isLoggedIn ? (
