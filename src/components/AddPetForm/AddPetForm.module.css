@@ -256,3 +256,9 @@
     padding: 8px 86px;
   }
 }
+.ErrorText {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #f43f5e;
+}
