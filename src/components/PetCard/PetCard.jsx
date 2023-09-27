@@ -2,47 +2,81 @@ import React from 'react';
 import styles from './PetCard.module.css';
 import sprite from '../../images/icons.svg';
 import Button from '../../UI/Button/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  closeModalPetCardDetails,
+  openModalPetCardDetails,
+} from 'redux/global/globalSlice';
+import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
+import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
+import { Modal } from 'components/Modal/Modal';
 
 const PetCard = ({ info }) => {
-  const { location, category, date, gender, isFav, file } = info;
+  const isModalPetCardDetailsOpen = useSelector(
+    selectIsModalPetCardDetailsOpen
+  );
+  console.log(isModalPetCardDetailsOpen);
+
+  const { location, category, date, sex, isFav, file } = info;
   const dynamicStyle = {
     backgroundImage: `url(${file})`,
   };
+  const dispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(openModalPetCardDetails());
+    console.log('yes');
+  };
+
+  const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
   return (
     <li className={styles.item}>
       <div className={styles.card} style={dynamicStyle}>
         <div className={styles.topParams}>
           <p className={styles.type}>{category}</p>
-          <svg className={isFav ? styles.heartIcon : styles.heartIconActive}>
-            <use href={sprite + '#heart'} />
-          </svg>
+          <div
+            className={
+              isFav
+                ? `${styles.heartIcon} ${styles.iconWrap}`
+                : `${styles.heartIcon} ${styles.iconWrap}`
+            }
+          >
+            <svg className={styles.icon}>
+              <use href={sprite + '#icon-heart'} />
+            </svg>
+          </div>
         </div>
         <div className={styles.bottomParams}>
           <div className={styles.parameter}>
             <svg className={styles.icon}>
-              <use href={sprite + '#location'} />
+              <use href={sprite + '#icon-location-1'} />
             </svg>
             <p>
-              {location.length > 4 ? location.slice(0, 3) + '...' : location}
+              {location.length > 5 ? location.slice(0, 5) + '...' : location}
             </p>
           </div>
           <div className={styles.parameter}>
             <svg className={styles.icon}>
-              <use href={sprite + '#date'} />
+              <use href={sprite + '#icon-clock'} />
             </svg>
-            <p>{date.length > 4 ? date.slice(0, 6) : date}</p>
+            <p>1 year</p>
           </div>
           <div className={styles.parameter}>
             <svg className={styles.icon}>
-              <use href={sprite + '#gender'} />
+              <use href={sprite + '#' + genderIcon} />
             </svg>
-            <p>{gender}</p>
+            <p>{sex}</p>
           </div>
         </div>
       </div>
       <p className={styles.info}>Сute dog looking for a home</p>
+      {isModalPetCardDetailsOpen && (
+        <Modal closeReducer={closeModalPetCardDetails}>
+          <ModalPetCardDetails />
+        </Modal>
+      )}
       <div className={styles.btn}>
-        <Button text={'Learn more'} />
+        <Button text={'Learn more'} onClick={handleOpenModal} />
       </div>
     </li>
   );

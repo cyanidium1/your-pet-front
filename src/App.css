@@ -1,5 +1,5 @@
 @import '~normalize.css/normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Manrope:wght@500;600;700&display=swap');
 @import './modules/shared/styles/base.css';
 @import './modules/shared/styles/media.scss';
 body {
