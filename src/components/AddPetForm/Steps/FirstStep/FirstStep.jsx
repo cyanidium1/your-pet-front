@@ -13,7 +13,6 @@ import {
   selectMyPetType,
 } from '../../../../redux/myPets/addPetSelectors';
 import { addPetStatus, resetState } from '../../../../redux/myPets/addPetSlice';
-import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
 const FirstStep = () => {
   const [petStatus, setPetStatus] = useState('');
