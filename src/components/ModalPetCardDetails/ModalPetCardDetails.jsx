@@ -45,6 +45,10 @@ const ModalPetCardDetails = () => {
         width="240"
         height="240"
       />
+      <div className={modal.topParams}>
+          <p className={modal.type}>In good hands</p>
+      
+        </div>
       <div>
       <p className={modal.modalTitle}>Сute dog looking for a home</p>
       <table>

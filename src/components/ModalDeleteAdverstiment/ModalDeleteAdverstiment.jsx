@@ -1,5 +1,4 @@
 import React from 'react';
-import { Modal } from 'components/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModalDeleteAdverstiment } from 'redux/global/globalSlice';
 import styles from './ModalDeleteAdverstiment.module.css';
@@ -7,16 +6,20 @@ import sprite from '../../images/icons.svg';
 
 const ModalDeleteAdverstiment = () => {
   // const adverstiment=useSelector(selectAdverstiment)
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const handleDeleteAdverstiment = () => {
-  //    // Закрыть модальное окно при нажатии на кнопку
-  //    dispatch(closeModalDeleteAdverstiment());
+  //  
+  //    dispatch(deleteAdverstiment());
   // };
+
+  const handleCloseModal = () => {
+    dispatch(closeModalDeleteAdverstiment());
+  };
 
   return (
     <div className={styles.deleteModalWrapper}>
-      <div class={styles.closeModalIconWrapper}>
+      <div class={styles.closeModalIconWrapper} onClick={handleCloseModal}>
         <svg className={styles.closeModalIcon}>
           <use href={sprite + '#icon-cross'}></use>
         </svg>
@@ -31,15 +34,16 @@ const ModalDeleteAdverstiment = () => {
         <button
           className={styles.cancelButton}
           type="button"
-          onClick={() => dispatch(closeModalLogout())}
+          
           variant={'secondary'}
+          onClick={handleCloseModal}
         >
           Cancel
         </button>
         <button
           className={styles.yesButton}
           type="button"
-          // onClick={handleLogOut}
+          // onClick={handleDeleteAdverstiment}
         >
           <div className={styles.buttonContent}>
             <span>Yes</span>

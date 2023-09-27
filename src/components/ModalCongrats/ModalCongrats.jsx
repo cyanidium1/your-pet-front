@@ -13,7 +13,7 @@ const ModalCongrats = () => {
       </div>
 
       <p className={modal.modalTitle}>Congrats!</p>
-      <p className={modal.modalText}>Youre registration is success</p>
+      <p className={modal.modalText}>Your registration is success</p>
       <div className={modal.modalButtonsWrapper}>
         <Link to="/profile">
           <button className={modal.goToProfileButton} type="button">

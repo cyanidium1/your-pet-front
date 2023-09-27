@@ -21,30 +21,30 @@ import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDeta
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<MainPage />} />
-        <Route path="news" element={<NewsPage />} />
-        <Route path="notices">
-          <Route path="sell" index element={<NoticesPage />} />
-          <Route path="lost-found" element={<NoticesPage />} />
-          <Route path="in-good-hands" element={<NoticesPage />} />
-        </Route>
-        <Route path="friends" element={<OurFriendsPage />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
+    // <Routes>
+    //   <Route path="/" element={<SharedLayout />}>
+    //     <Route path="main" element={<MainPage />} />
+    //     <Route path="news" element={<NewsPage />} />
+    //     <Route path="notices">
+    //       <Route path="sell" index element={<NoticesPage />} />
+    //       <Route path="lost-found" element={<NoticesPage />} />
+    //       <Route path="in-good-hands" element={<NoticesPage />} />
+    //     </Route>
+    //     <Route path="friends" element={<OurFriendsPage />} />
+    //     <Route path="profile" element={<Profile />} />
+    //     <Route path="register" element={<RegisterPage />} />
+    //     <Route path="login" element={<LoginPage />} />
 
-        <Route path="user" element={<UserPage />} />
-        <Route path="add-pet" element={<AddPetPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
-    // <ModalApproveAction/>
-    // <ModalDeleteAdverstiment/>
-    // <ModalAttention/>
-    // <ModalCongrats/>
-    // <ModalPetCardDetails/>
+    //     <Route path="user" element={<UserPage />} />
+    //     <Route path="add-pet" element={<AddPetPage />} />
+    //     <Route path="*" element={<NotFound />} />
+    //   </Route>
+    // </Routes>
+    // // <ModalApproveAction/>
+    // // <ModalDeleteAdverstiment/>
+    // // <ModalAttention/>
+    // // <ModalCongrats/>
+    <ModalPetCardDetails/>
   );
 };
 

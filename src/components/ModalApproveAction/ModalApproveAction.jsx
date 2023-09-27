@@ -3,6 +3,7 @@ import modal from './ModalApproveAction.module.css';
 import sprite from '../../images/icons.svg';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/authOperations';
+import { closeModalApproveAction } from 'redux/global/globalSlice';
 
 
 const ModalApproveAction = () => {
@@ -20,9 +21,13 @@ const ModalApproveAction = () => {
     dispatch(closeModalLogout());
   };
 
+  const handleCloseModal = () => {
+    dispatch(closeModalApproveAction());
+  };
+
   return (
     <div className={modal.modalWrapper}>
-      <div className={modal.closeModalIconWrapper}>
+      <div className={modal.closeModalIconWrapper} onClick={handleCloseModal}>
         <svg className={modal.closeModalIcon}>
           <use href={sprite + '#icon-cross'}></use>
         </svg>
@@ -33,7 +38,7 @@ const ModalApproveAction = () => {
         <button
           className={modal.cancelButton}
           type="button"
-          onClick={() => dispatch(closeModalLogout())}
+          onClick={handleCloseModal}
           variant={'secondary'}
         >
           Cancel

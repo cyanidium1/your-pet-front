@@ -23,6 +23,16 @@
 }
 
 .imageAndInfoWrapper{
+  display: block;
+  position: relative;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  /* padding: 16px 0; */
+  /* height: 288px; */
+  /* width: 100%; */
+  /* background-size: cover;
+  background-position: center; */
   @media screen and (min-width: 768px) {
     display: flex;
     margin-top: 32px;
@@ -40,6 +50,22 @@
   width: 262px;
   height: 298px;
 }
+}
+
+.topParams {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  position:absolute;
+  top: 48px;
+}
+
+.type {
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #cce4fb;
+  padding: 10px 17px;
+  border-radius: 0 16px 16px 0;
 }
 
 .closeModalIconWrapper {
