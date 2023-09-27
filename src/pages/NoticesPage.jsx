@@ -14,11 +14,11 @@ const NoticesPage = () => {
     dispatch(getAllNoticesThunk('sell'));
   }, []);
   return (
-    <div className="container">
+    <>
       <Search />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
-    </div>
+    </>
   );
 };
 
