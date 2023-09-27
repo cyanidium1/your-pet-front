@@ -1,23 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import notices from '../../database/notices.json';
+import { selectAllNotices } from 'redux/notices/noticeSelectors';
+
 import PetCard from '../PetCard/PetCard';
 import styles from './PetList.module.css';
 
 const PetList = () => {
-  const params = useLocation();
-  const urlLocation = params.pathname.split('/').slice(-1).join('');
+  const { notices } = useSelector(selectAllNotices);
 
-  const nameForFilter = urlLocation.split('-').join(' ');
-
-  const filteredNotices = notices.filter(
-    adv => adv.type.toLowerCase() === nameForFilter.toLowerCase()
-  );
+  // console.log(notices);
   return (
     <ul className={styles.list}>
-      {filteredNotices.map(el => (
-        <PetCard key={el.id} info={el} />
-      ))}
+      {notices && notices?.map(el => <PetCard key={el._id} info={el} />)}
     </ul>
   );
 };
