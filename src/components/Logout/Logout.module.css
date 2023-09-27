@@ -8,6 +8,8 @@
   background: #54adff;
   color: #fef9f9;
   transition: transform 0.3s ease;
+  fill: #54adff;
+  stroke: #fef9f9;
 }
 
 .logOut:hover {
