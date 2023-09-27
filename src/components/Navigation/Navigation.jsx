@@ -15,7 +15,7 @@ const Navigation = ({ showMenu, closeMenu }) => {
   return (
     <nav className={s.navList}>
       <ul className={showMenu ? [s.menu, s.activeMenu].join(' ') : [s.menu]}>
-        {/* {showMenu && isMobile && isLoggedIn && <UserNav />} */}
+        {/* {showMenu && isMobile && isLoggedIn && <UserNav showMenu={showMenu} />} */}
         {isMobile && !isLoggedIn && <AuthNav closeMenu={closeMenu} />}
 
         <li onClick={closeMenu}>
