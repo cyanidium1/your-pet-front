@@ -1,11 +1,22 @@
-import React from "react";
+import NewsSearch from "components/NewsCard/NewsSearch/NewsSearch";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAllNews } from "redux/news/newsOperation";
+
+
 
 const NewsPage = () => {
+  const dispatch = useDispatch( );
+  // const [searchQuery, setSearchQuery] = useState("")
+
+   useEffect(()=> {
+  dispatch(fetchAllNews())
+   },[])
   return (
-    <div>
-      <h3>NewsPage</h3>
+    <div >
+    <NewsSearch/>
     </div>
   );
 };
-
 export default NewsPage;
+

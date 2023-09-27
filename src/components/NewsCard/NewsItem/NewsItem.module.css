@@ -1,0 +1,113 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    box-shadow: 3px 8px 14px rgba(136, 198, 253, 0.19);
+    border-radius: 20px;
+    padding-bottom: 12px;
+    position: relative;
+    width: 280px;
+    min-height: 578px;
+    margin: auto;
+  }
+  .item::before {
+    display: block;
+    content: '';
+    width: 280px;
+    background: linear-gradient(290.46deg, #419ef1 0%, #9bd0ff 107.89%);
+    border-radius: 40px;
+    height: 8px;
+    position: absolute;
+    top: -12px;
+  }
+  
+  .img {
+    /* background: url('../../../images/default-image.jpg'); */
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    height: 252px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .textBox {
+    padding: 0 12px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .title {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  
+    color: #111111;
+  }
+  .text {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #111111;
+    margin-bottom: auto;
+  }
+  
+  .dateBox {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .link {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: right;
+  
+    color: #54adff;
+  }
+  .link:hover,
+  .link:focus {
+    color: #419ef1;
+  }
+  
+  .date {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  
+    color: #888888;
+  }
+  
+  @media (min-width: 768px) {
+    .item {
+      width: 336px;
+      min-height: 556px;
+    }
+    .item::before {
+      width: 336px;
+      top: -14px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .item {
+      width: 395px;
+      min-height: 534px;
+    }
+    .item::before {
+      width: 395px;
+    }
+  }
+  
