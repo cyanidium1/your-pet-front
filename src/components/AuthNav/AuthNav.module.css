@@ -52,3 +52,6 @@
   height: 24px;
   fill: #fef9f9;
 }
+.active {
+  color: #fef9f9;
+}
