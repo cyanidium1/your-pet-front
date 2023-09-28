@@ -6,8 +6,8 @@
   justify-content: space-between;
   padding: 0 20px;
   background-color: #fef9f9;
-
-  /* border-bottom: 3px solid gray; */
+  position: fixed;
+  z-index: 100;
 }
 
 .headerNav {

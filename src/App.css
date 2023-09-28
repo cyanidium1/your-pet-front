@@ -22,39 +22,39 @@ body {
 }
 
 @media (min-device-pixel-ratio: 2),
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi),
-(min-resolution: 2dppx) {
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
   body {
     background-image: url(./images/background/mob/bg-mob-2x.webp);
   }
 }
 
-@media screen and (min-width:767.98px) {
+@media screen and (min-width: 767.98px) {
   body {
     background-image: url(./images/background/tablet/bg-tablet-1x.webp);
   }
 }
 
-@media screen and (min-width:767.98px) and (min-device-pixel-ratio: 2),
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi),
-(min-resolution: 2dppx) {
+@media screen and (min-width: 767.98px) and (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
   body {
     background-image: url(./images/background/tablet/bg-tablet-2x.webp);
   }
 }
 
-@media screen and (min-width:1279.98px) {
+@media screen and (min-width: 1279.98px) {
   body {
     background-image: url(./images/background/desctop/bg-desctop-1x.webp);
   }
 }
 
-@media screen and (min-width:767.98px) and (min-device-pixel-ratio: 2),
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi),
-(min-resolution: 2dppx) {
+@media screen and (min-width: 767.98px) and (min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
   body {
     background-image: url(./images/background/desctop/bg-desctop-2x.webp);
   }
