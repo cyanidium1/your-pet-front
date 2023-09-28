@@ -1,18 +1,19 @@
-import React from "react";
-import Steps from "./Steps/StepsList";
-import FirstStep from "./Steps/FirstStep/FirstStep";
-import SecondStep from "./Steps/SecondStep/SecondStep";
-import ThirdStep from "./Steps/ThirdStep/ThirdStep";
-import { useDispatch, useSelector } from "react-redux";
-import { selectStepForm } from "../../redux/adddPetForm/addPetFormSelectors";
+import React from 'react';
+import Steps from './Steps/StepsList';
+import FirstStep from './Steps/FirstStep/FirstStep';
+import SecondStep from './Steps/SecondStep/SecondStep';
+import ThirdStep from './Steps/ThirdStep/ThirdStep';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectStepForm } from '../../redux/adddPetForm/addPetFormSelectors';
 import {
   selectMyPet,
   selectMyPetStatus,
-} from "../../redux/myPets/addPetSelectors";
-import SecondStepMy from "./Steps/SecondStep/SecondStepMyPet";
-import ThirdStepSell from "./Steps/ThirdStep/ThirdStepSell";
-import ThirdStepFoundOrGoodHands from "./Steps/ThirdStep/ThirdStepFoundOrGoodHands";
-import css from "./AddPetForm.module.css";
+} from '../../redux/myPets/addPetSelectors';
+import SecondStepMy from './Steps/SecondStep/SecondStepMyPet';
+import ThirdStepSell from './Steps/ThirdStep/ThirdStepSell';
+import ThirdStepFoundOrGoodHands from './Steps/ThirdStep/ThirdStepFoundOrGoodHands';
+import css from './AddPetForm.module.css';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
 const AddPetForm = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const AddPetForm = () => {
 
   let secondStepComponent;
   switch (status) {
-    case "yourPet":
+    case 'yourPet':
       secondStepComponent = <SecondStepMy />;
       break;
     default:
@@ -31,10 +32,10 @@ const AddPetForm = () => {
 
   let thirdStepComponent;
   switch (status) {
-    case "sell":
+    case 'sell':
       thirdStepComponent = <ThirdStepSell />;
       break;
-    case "lost" || "inGoodHands":
+    case 'lost' || 'inGoodHands':
       thirdStepComponent = <ThirdStepFoundOrGoodHands />;
       break;
     default:
@@ -57,13 +58,15 @@ const AddPetForm = () => {
 
   return (
     <section>
-      <div className={css.WrapperAddPet}>
-        <h2>
-          add{status === "lost" ? " lost " : " "}pet
-          {status === "sell" ? " for sell " : " "}
-        </h2>
-        <Steps currentStep={step} />
-        {currentStepComponent}
+      <div className={css.AddPetSectionWrapper}>
+        <div className={css.WrapperAddPet}>
+          <h2 className={css.AddPetHeading}>
+            Add{status === 'lost' ? ' lost ' : ' '}pet
+            {status === 'sell' ? ' for sell ' : ' '}
+          </h2>
+          <Steps currentStep={step} />
+          {currentStepComponent}
+        </div>
       </div>
     </section>
   );
