@@ -6,7 +6,7 @@ export const fetchAllNews = createAsyncThunk(
   async (page, thunkAPI) => {
     try {
       const data = await getAllNews(page);
-      console.log(data)
+   
       return data;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
@@ -15,12 +15,13 @@ export const fetchAllNews = createAsyncThunk(
 );
 export const fetchFilteredNews = createAsyncThunk(
   'news/filteredNews',
-  async ({ title, page }, thunkAPI) => {
+  async (query, page, limit, thunkAPI) => {
     try {
-      const data = await getFilteredNews(title, page);
+      const data = await getFilteredNews(query, page, limit);
       return data;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
     }
   }
 );
+

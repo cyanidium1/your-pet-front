@@ -6,7 +6,7 @@
   }
   .name {
     margin: 24px 0;
-    /* font-family: Manrope; */
+
     font-size: 24px;
     font-weight: 700;
   }
@@ -56,8 +56,17 @@
     border: 1px solid #007bff;
     transform: rotate(135deg);
   }
+
+  .buttonClose{
+    padding: 3px;
+    position: absolute;
+    right: 30px;
+    top: 8px;
+  }
+
   
-  /* Styles for screens from 768px to 1279px */
+  
+ 
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     .name {
       margin: 40px 0;
@@ -70,7 +79,7 @@
     }
   }
   
-  /* Styles for screens from 1280px and above */
+ 
   @media screen and (min-width: 1280px) {
     .positioning {
       margin-bottom: 43px;
@@ -83,3 +92,4 @@
     }
   }
   
+

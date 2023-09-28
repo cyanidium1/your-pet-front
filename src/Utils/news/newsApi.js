@@ -5,11 +5,14 @@ const instance = axios.create({
   });
 
   export const getAllNews = async page => {
-    const { data } = await instance.get(`/news?page=1`);
+    const { data } = await instance.get(`/news?page=${page}`);
     return data;
   };
   
-  export const getFilteredNews = async (title, page) => {
-    const { data } = await instance.get(`/news?search=${title}&page=${page}`);
-    return data;
+  export const getFilteredNews = async (query="", page=1, limit=6) => {
+    const { data } = await instance.get(`/news?searchQuery=${query}&page=${page}&limit=${limit}`);
+     return data;
   };
+   
+  
+

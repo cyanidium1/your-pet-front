@@ -1,5 +1,5 @@
 import NewsSearch from "components/NewsCard/NewsSearch/NewsSearch";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchAllNews } from "redux/news/newsOperation";
 
@@ -7,14 +7,15 @@ import { fetchAllNews } from "redux/news/newsOperation";
 
 const NewsPage = () => {
   const dispatch = useDispatch( );
-  // const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
+  const handleSearchChange = value => {setSearchQuery(value)}
 
-   useEffect(()=> {
-  dispatch(fetchAllNews())
-   },[])
+  useEffect(()=> {
+  dispatch(fetchAllNews({searchQuery}))
+   },[dispatch, searchQuery])
   return (
     <div >
-    <NewsSearch/>
+    <NewsSearch handleSearchChange={handleSearchChange}/> 
     </div>
   );
 };

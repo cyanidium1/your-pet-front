@@ -9,6 +9,8 @@
     width: 280px;
     min-height: 578px;
     margin: auto;
+  
+   
   }
   .item::before {
     display: block;
@@ -22,7 +24,6 @@
   }
   
   .img {
-    /* background: url('../../../images/default-image.jpg'); */
     background-position: center;
     background-size: cover;
     border-radius: 20px;
@@ -105,6 +106,7 @@
     .item {
       width: 395px;
       min-height: 534px;
+     
     }
     .item::before {
       width: 395px;

@@ -6,8 +6,6 @@ import NewsItem from '../NewsItem/NewsItem';
 
 const NewsList = () => {
   const allNews = useSelector(selectAllNews);
-  console.log(allNews
-)
   return (
     <ul className={css.list}>
       {allNews.map(({ _id, description, image_url, title, url, published_at  }) => (
