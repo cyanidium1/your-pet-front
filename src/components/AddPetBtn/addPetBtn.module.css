@@ -1,4 +1,5 @@
 .addBtn {
+    cursor: pointer;
     position: fixed;
     right: 36px;
     top: 500px;
