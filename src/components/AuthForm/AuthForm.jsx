@@ -77,41 +77,89 @@ const AuthForm = () => {
   };
 
   return (
-    <section className={`${css.auth_section}`}>
-      <h1 className={css.form_heading}>
-        {isLoginPageOpen ? 'Login' : 'Registration'}
-      </h1>
-      <Formik
-        initialValues={{
-          email: '',
-          name: '',
-          password: '',
-          confirm_password: '',
-        }}
-        validationSchema={getValidationSchema()}
-        onSubmit={values => {
-          console.log('Form values:', values);
-          isLoginPageOpen ? handleLogin(values) : handleRegister(values);
-        }}
-      >
-        {formik => (
-          <Form className={css.auth_form}>
-            {!isLoginPageOpen && (
+    <section className={`${css.auth_page}`}>
+      <div className={css.auth_section}>
+        <h1 className={css.form_heading}>
+          {isLoginPageOpen ? 'Login' : 'Registration'}
+        </h1>
+        <Formik
+          initialValues={{
+            email: '',
+            name: '',
+            password: '',
+            confirm_password: '',
+          }}
+          validationSchema={getValidationSchema()}
+          onSubmit={values => {
+            console.log('Form values:', values);
+            isLoginPageOpen ? handleLogin(values) : handleRegister(values);
+          }}
+        >
+          {formik => (
+            <Form className={css.auth_form}>
+              {!isLoginPageOpen && (
+                <div className={css.form_group}>
+                  <Field
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    className={`${css.auth_input} ${
+                      formik.touched.name && formik.errors.name
+                        ? css.red_outline
+                        : formik.values.name && !formik.errors.name
+                        ? css.green_outline
+                        : null
+                    }`}
+                  />
+                  <div className={css.eye_button_positioning}>
+                    <span>
+                      <svg className={css.svg_sizing} width="24" height="24">
+                        <use
+                          xlinkHref={
+                            formik.errors.name && formik.values.name
+                              ? icons + '#icon-crossauth'
+                              : formik.values.name
+                              ? icons + '#icon-tickauth'
+                              : ''
+                          }
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div className={css.message}>
+                    {!formik.errors.name && formik.values.name && (
+                      <div className={css.positive}>Name is valid</div>
+                    )}
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className={css.negative}
+                    />
+                  </div>
+                </div>
+              )}
               <div className={css.form_group}>
                 <Field
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  className={css.auth_input}
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Email"
+                  className={`${css.auth_input} ${
+                    formik.touched.email && formik.errors.email
+                      ? css.red_outline
+                      : formik.values.email && !formik.errors.email
+                      ? css.green_outline
+                      : null
+                  }`}
                 />
                 <div className={css.eye_button_positioning}>
                   <span>
                     <svg className={css.svg_sizing} width="24" height="24">
                       <use
                         xlinkHref={
-                          formik.errors.name && formik.values.name
+                          formik.errors.email && formik.values.email
                             ? icons + '#icon-crossauth'
-                            : formik.values.name
+                            : formik.values.email
                             ? icons + '#icon-tickauth'
                             : ''
                         }
@@ -119,103 +167,39 @@ const AuthForm = () => {
                     </svg>
                   </span>
                 </div>
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className={css.error}
-                />
+                <div className={css.message}>
+                  {!formik.errors.email && formik.values.email && (
+                    <div className={css.positive}>Email is valid</div>
+                  )}
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className={css.negative}
+                  />
+                </div>
               </div>
-            )}
-            <div className={css.form_group}>
-              <Field
-                type="email"
-                name="email"
-                autoComplete="email"
-                placeholder="Email"
-                className={css.auth_input}
-              />
-              <div className={css.eye_button_positioning}>
-                <span>
-                  <svg className={css.svg_sizing} width="24" height="24">
-                    <use
-                      xlinkHref={
-                        formik.errors.email && formik.values.email
-                          ? icons + '#icon-crossauth'
-                          : formik.values.email
-                          ? icons + '#icon-tickauth'
-                          : ''
-                      }
-                    />
-                  </svg>
-                </span>
-              </div>
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={css.error}
-              />
-            </div>
-            <div className={css.form_group}>
-              <Field
-                type={isPasswordShown ? 'text' : 'password'}
-                name="password"
-                placeholder="Password"
-                autoComplete={!isLoginPageOpen ? 'new-password' : 'off'}
-                className={css.auth_input}
-              />
-              <div className={css.eye_button_positioning}>
-                <span>
-                  <svg className={css.svg_sizing} width="24" height="24">
-                    <use
-                      xlinkHref={
-                        formik.errors.password && formik.values.password
-                          ? icons + '#icon-crossauth'
-                          : formik.values.password
-                          ? icons + '#icon-tickauth'
-                          : ''
-                      }
-                    />
-                  </svg>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setIsPasswordShown(!isPasswordShown)}
-                >
-                  <svg className={css.svg_sizing}>
-                    <use
-                      xlinkHref={
-                        isPasswordShown
-                          ? icons + '#icon-eye-open'
-                          : icons + '#icon-eye-closed'
-                      }
-                    ></use>
-                  </svg>
-                </button>
-              </div>
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={css.error}
-              />
-            </div>
-            {!isLoginPageOpen && (
               <div className={css.form_group}>
                 <Field
-                  type={isConfirmPasswordShown ? 'text' : 'password'}
-                  name="confirm_password"
-                  placeholder="Confirm password"
-                  autoComplete="new-password"
-                  className={css.auth_input}
+                  type={isPasswordShown ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  autoComplete={!isLoginPageOpen ? 'new-password' : 'off'}
+                  className={`${css.auth_input} ${
+                    formik.touched.password && formik.errors.password
+                      ? css.red_outline
+                      : formik.values.password && !formik.errors.password
+                      ? css.green_outline
+                      : null
+                  }`}
                 />
                 <div className={css.eye_button_positioning}>
                   <span>
                     <svg className={css.svg_sizing} width="24" height="24">
                       <use
                         xlinkHref={
-                          formik.errors.confirm_password &&
-                          formik.values.confirm_password
+                          formik.errors.password && formik.values.password
                             ? icons + '#icon-crossauth'
-                            : formik.values.confirm_password
+                            : formik.values.password
                             ? icons + '#icon-tickauth'
                             : ''
                         }
@@ -224,14 +208,12 @@ const AuthForm = () => {
                   </span>
                   <button
                     type="button"
-                    onClick={() =>
-                      setIsConfirmPasswordShown(!isConfirmPasswordShown)
-                    }
+                    onClick={() => setIsPasswordShown(!isPasswordShown)}
                   >
                     <svg className={css.svg_sizing}>
                       <use
                         xlinkHref={
-                          isConfirmPasswordShown
+                          isPasswordShown
                             ? icons + '#icon-eye-open'
                             : icons + '#icon-eye-closed'
                         }
@@ -239,38 +221,108 @@ const AuthForm = () => {
                     </svg>
                   </button>
                 </div>
-                <ErrorMessage
-                  name="confirm_password"
-                  component="div"
-                  className={css.error}
-                />
+                <div className={css.message}>
+                  {!formik.errors.password && formik.values.password && (
+                    <div className={css.positive}>Password is secure</div>
+                  )}
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={css.negative}
+                  />
+                </div>
               </div>
-            )}
-            <div
-              className={
-                isLoginPageOpen
-                  ? `${css.end_auth_form} ${css.end_auth_form_login}`
-                  : `${css.end_auth_form}`
-              }
-            >
-              <button className={css.auth_submit_button} type="submit">
-                {isLoginPageOpen ? 'Login' : 'Register'}
-              </button>
+              {!isLoginPageOpen && (
+                <div className={css.form_group}>
+                  <Field
+                    type={isConfirmPasswordShown ? 'text' : 'password'}
+                    name="confirm_password"
+                    placeholder="Confirm password"
+                    autoComplete="new-password"
+                    className={`${css.auth_input} ${
+                      formik.touched.confirm_password &&
+                      formik.errors.confirm_password
+                        ? css.red_outline
+                        : formik.values.confirm_password &&
+                          !formik.errors.confirm_password
+                        ? css.green_outline
+                        : null
+                    }`}
+                  />
 
-              {!isLoginPageOpen ? (
-                <p className={css.navtext}>
-                  Already have an account <NavLink to="/login">Login</NavLink>
-                </p>
-              ) : (
-                <p className={css.navtext}>
-                  Don't have an account?{' '}
-                  <NavLink to="/register">Register</NavLink>
-                </p>
+                  <div className={css.eye_button_positioning}>
+                    <span>
+                      <svg className={css.svg_sizing} width="24" height="24">
+                        <use
+                          xlinkHref={
+                            formik.errors.confirm_password &&
+                            formik.values.confirm_password
+                              ? icons + '#icon-crossauth'
+                              : formik.values.confirm_password
+                              ? icons + '#icon-tickauth'
+                              : ''
+                          }
+                        />
+                      </svg>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setIsConfirmPasswordShown(!isConfirmPasswordShown)
+                      }
+                    >
+                      <svg className={css.svg_sizing}>
+                        <use
+                          xlinkHref={
+                            isConfirmPasswordShown
+                              ? icons + '#icon-eye-open'
+                              : icons + '#icon-eye-closed'
+                          }
+                        ></use>
+                      </svg>
+                    </button>
+                  </div>
+                  <div className={css.message}>
+                    {!formik.errors.confirm_password &&
+                      formik.values.confirm_password && (
+                        <div className={css.positive}>
+                          Passwords are matching
+                        </div>
+                      )}
+                    <ErrorMessage
+                      name="confirm_password"
+                      component="div"
+                      className={css.negative}
+                    />
+                  </div>
+                </div>
               )}
-            </div>
-          </Form>
-        )}
-      </Formik>
+              <div
+                className={
+                  isLoginPageOpen
+                    ? `${css.end_auth_form} ${css.end_auth_form_login}`
+                    : `${css.end_auth_form}`
+                }
+              >
+                <button className={css.auth_submit_button} type="submit">
+                  {isLoginPageOpen ? 'Login' : 'Register'}
+                </button>
+
+                {!isLoginPageOpen ? (
+                  <p className={css.navtext}>
+                    Already have an account <NavLink to="/login">Login</NavLink>
+                  </p>
+                ) : (
+                  <p className={css.navtext}>
+                    Don't have an account?{' '}
+                    <NavLink to="/register">Register</NavLink>
+                  </p>
+                )}
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </section>
   );
 };
