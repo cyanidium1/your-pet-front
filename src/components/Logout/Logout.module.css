@@ -8,15 +8,22 @@
   background: #54adff;
   color: #fef9f9;
   transition: transform 0.3s ease;
+  fill: #54adff;
+  stroke: #fef9f9;
 }
 
 .logOut:hover {
   transform: scale(1.05);
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   .logOut {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+    position: absolute;
+    top: 80%;
+    left: 5%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+  .logOut {
+    margin-right: 60px;
   }
 }

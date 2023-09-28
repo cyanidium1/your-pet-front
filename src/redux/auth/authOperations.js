@@ -1,19 +1,22 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import axios from "axios";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const authInstance = axios.create({
-  baseURL: "",
+  baseURL: 'https://your-pet-backend-nci6.onrender.com/',
 });
-
+const setAuthHeader = token => {
+  authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 export const register = createAsyncThunk(
-  "auth/register",
+  'auth/register',
   async (body, { rejectWithValue }) => {
     try {
-      const response = await authInstance.post("api/users/register", body);
+      const response = await authInstance.post('api/users/register', body);
       setAuthHeader(response.data.token);
-      toast.success("Registration was successful", {
-        position: "top-right",
+      toast.success('Registration was successful', {
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -24,7 +27,7 @@ export const register = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error(error.message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -37,13 +40,13 @@ export const register = createAsyncThunk(
   }
 );
 export const login = createAsyncThunk(
-  "auth/login",
+  'auth/login',
   async (body, { rejectWithValue }) => {
     try {
-      const response = await authInstance.post("api/users/login", body);
+      const response = await authInstance.post('api/users/login', body);
       setAuthHeader(response.data.token);
-      toast.success("Login was successful", {
-        position: "top-right",
+      toast.success('Login was successful', {
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -53,8 +56,8 @@ export const login = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      toast.error("Email or password is incorrect", {
-        position: "top-right",
+      toast.error('Email or password is incorrect', {
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -68,7 +71,7 @@ export const login = createAsyncThunk(
   }
 );
 export const refreshUser = createAsyncThunk(
-  "auth/getUser",
+  'auth/getUser',
   async (_, { rejectWithValue, getState }) => {
     try {
       const state = getState();
@@ -77,7 +80,7 @@ export const refreshUser = createAsyncThunk(
         return rejectWithValue();
       }
       setAuthHeader(tokenValue);
-      const response = await authInstance.get("api/users/current");
+      const response = await authInstance.get('api/users/current');
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -85,13 +88,13 @@ export const refreshUser = createAsyncThunk(
   }
 );
 export const logOut = createAsyncThunk(
-  "auth/logout",
+  'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-        const response = await authInstance.post("api/users/logout", body);
-        
-      toast.success("Logout was successful", {
-        position: "top-right",
+      const response = await authInstance.post('api/users/logout');
+
+      toast.success('Logout was successful', {
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

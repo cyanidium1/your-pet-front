@@ -1,8 +1,13 @@
-import React from "react";
-import styles from "./Tag.module.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styles from './Tag.module.css';
 
-const Tag = ({ text }) => {
-  return <p className={styles.tag}>{text}</p>;
+const Tag = ({ text, link }) => {
+  return (
+    <NavLink to={'/notices/' + link} className={styles.tag}>
+      {text}
+    </NavLink>
+  );
 };
 
 export default Tag;

@@ -1,28 +1,34 @@
-import { Route, Routes } from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import "the-new-css-reset/css/reset.css";
-import Profile from "./pages/Profile";
-import { SharedLayout } from "./components/SharedLayout/SharedLayout";
-import NewsPage from "./pages/NewsPage";
-import OurFriendsPage from "./pages/OurFriendsPage";
-import NoticesPage from "./pages/NoticesPage";
-import MainPage from "./pages/MainPage";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import UserPage from "./pages/UserPage";
-import AddPetPage from "./pages/AddPetPage";
-import "./App.css";
+import { Route, Routes } from 'react-router-dom';
+import NotFound from './pages/NotFound';
+import 'the-new-css-reset/css/reset.css';
+import Profile from './pages/Profile';
+import { SharedLayout } from './components/SharedLayout/SharedLayout';
+import NewsPage from './pages/NewsPage';
+import OurFriendsPage from './pages/OurFriendsPage';
+import NoticesPage from './pages/NoticesPage';
+import MainPage from './pages/MainPage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import UserPage from './pages/UserPage';
+import AddPetPage from './pages/AddPetPage';
+import './App.css';
+import Logout from 'components/Logout/Logout';
+import ModalApproveAction from 'components/ModalApproveAction/ModalApproveAction';
+import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
+import ModalAttention from 'components/ModalAttention/ModalAttention';
+import ModalCongrats from 'components/ModalCongrats/ModalCongrats';
+import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route path="main" element={<MainPage />} />
+        <Route index element={<MainPage />} />
         <Route path="news" element={<NewsPage />} />
-        <Route path="notices" element={<NoticesPage />}>
-          {/* <Route path="sell" index element={<p>sell</p>} />
-          <Route path="" element={<>} />
-          <Route path="" element={<>} /> */}
+        <Route path="notices">
+          <Route path="sell" index element={<NoticesPage />} />
+          <Route path="lost-found" element={<NoticesPage />} />
+          <Route path="in-good-hands" element={<NoticesPage />} />
         </Route>
         <Route path="friends" element={<OurFriendsPage />} />
         <Route path="profile" element={<Profile />} />
@@ -34,6 +40,11 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    // <ModalApproveAction/>
+    // <ModalDeleteAdverstiment/>
+    // <ModalAttention/>
+    // <ModalCongrats/>
+    // <ModalPetCardDetails/>
   );
 };
 

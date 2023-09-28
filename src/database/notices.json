@@ -14,7 +14,7 @@
     "id": "230",
     "location": "New York",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "6 yrs",
     "gender": "female",
     "isFav": false
@@ -34,7 +34,7 @@
     "id": "232",
     "location": "Chicago",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "8 yrs",
     "gender": "female",
     "isFav": false
@@ -54,7 +54,7 @@
     "id": "234",
     "location": "Seattle",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "10 yrs",
     "gender": "female",
     "isFav": false
@@ -74,7 +74,7 @@
     "id": "236",
     "location": "Paris",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "9 yrs",
     "gender": "female",
     "isFav": false
@@ -94,7 +94,7 @@
     "id": "238",
     "location": "Sydney",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "7 yrs",
     "gender": "female",
     "isFav": false
@@ -114,7 +114,7 @@
     "id": "240",
     "location": "Toronto",
     "image": "image",
-    "type": "Adoption",
+    "type": "Sell",
     "mileage": "11 yrs",
     "gender": "female",
     "isFav": false

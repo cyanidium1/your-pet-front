@@ -42,17 +42,6 @@
   }
 }
 
-/* .LinkAddPEtLitkCancel {
-  border-radius: 40px;
-  color: #54adff;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 22px;
-  padding: 8px 86px;
-  cursor: pointer;
-  border: none;
-  background-color: inherit;
-} */
 
 .ErrorText {
   position: absolute;
@@ -78,41 +67,6 @@
     right: 76%;
   }
 }
-
-/* .LinkAddPEt {
-  margin-top: 23.5px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 38px;
-} */
-/* .LinkAddPEt {
-  margin-top: 44px;
-  display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-
-  @media screen and(min-width:1280px) {
-    margin-top: 23.5px;
-    justify-content: space-around;
-    align-items: center;
-    gap: 38px;
-  }
-
-} */
-
-/* .LinkAddPEtLitkCancel {
-  border-radius: 40px;
-  color: #54adff;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 22px;
-  cursor: pointer;
-  border: none;
-  background-color: inherit;
-} */
 
 .ButtonNext {
   background-color: #54adff;
