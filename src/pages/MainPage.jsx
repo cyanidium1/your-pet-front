@@ -7,11 +7,14 @@ import { addToken } from 'redux/auth/authSlice';
 const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const productName = searchParams.get('token') ?? null;
   if (productName) {
     dispatch(addToken({ token: productName }));
-    navigate('/');
+    searchParams.forEach((value, key) => {
+      searchParams.delete(key);
+    });
+    setSearchParams('');
   }
   return <Main />;
 };
