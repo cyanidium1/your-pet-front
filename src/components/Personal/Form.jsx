@@ -47,6 +47,7 @@ export const PersonalForm = ({ mode }) => {
               className={scss.fileField}
               type="file"
               name="toggledEditPhoto"
+              disabled={!mode}
             ></Field>
             {mode && (
               <div className={scss.editPhotoLabel}>
