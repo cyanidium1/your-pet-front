@@ -96,7 +96,7 @@ export const PersonalForm = ({ mode }) => {
               name="firstName"
               placeholder="Anna"
               disabled={!mode}
-              // value={values.name}
+              value={values.firstName}
             />
           </label>
 
