@@ -1,0 +1,32 @@
+.addBtn {
+    cursor: pointer;
+    position: fixed;
+    right: 36px;
+    top: 500px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background-color: #54adff;
+    color: #c5dff6;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+
+    @media screen and(min-width: 1024px) {
+        width: 129px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 20px;
+        background-color: #54adff;
+        color: #fef9f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+}
