@@ -24,7 +24,6 @@ const PetCard = ({ info }) => {
 
   const { title, location, category, age, sex, favorites, file, owner, _id } =
     info;
-  console.log(info);
 
   const dispatch = useDispatch();
   const isModalPetCardDetailsOpen = useSelector(
