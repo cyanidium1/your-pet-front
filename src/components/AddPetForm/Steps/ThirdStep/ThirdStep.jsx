@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMyPet,
   selectMyPetComments,
-  selectMyPetID,
   selectMyPetImage,
-} from 'redux/myPets/addPetSelectors';
+} from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
+  addNewPetNotice,
   updatePetInfo,
 } from '../../../../redux/myPets/addPetOperations';
 import {
@@ -20,13 +20,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 import {
   addPetMoreInfo,
-  addPetPersonalInfo,
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required('Please upload a photo'),
+  file: Yup.mixed().required('Please upload a photo'),
+
   comments: Yup.string()
     .optional()
     .max(120, 'Title must be at most 120 characters'),
@@ -35,32 +35,27 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const photo = useSelector(selectMyPetImage);
-  const comments = useSelector(selectMyPetComments);
-  const [activeButton, setActiveButton] = useState(null);
-  const [sex, setSex] = useState('');
-  const [isSexIgnored, setIsSexIgnored] = useState(false);
   const petBody = useSelector(selectMyPet);
+  const file = useSelector(selectMyPetImage);
+  const comments = useSelector(selectMyPetComments);
 
   const handleSubmit = values => {
-    if (!sex) {
-      setIsSexIgnored(true);
-      return;
-    }
+    const { name, date, type } = petBody;
+
     const pet = {
-      sex,
-      id: crypto.randomUUID(),
+      name,
+      date,
+      type,
       ...values,
-      photo: URL.createObjectURL(values.photo),
     };
-    const newPetBody = { ...petBody, ...pet };
+    console.log(pet);
     dispatch(addPetMoreInfo(pet));
-    dispatch(addNewPet(newPetBody));
+    // const newPetBody = { ...pet };
+    dispatch(addNewPet(pet));
+    dispatch(resetSteps());
     dispatch(resetState());
     // navigate(-1);
-    dispatch(resetSteps());
   };
-
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
@@ -72,46 +67,8 @@ const ThirdStep = () => {
   };
   return (
     <>
-      <div className={css.sexOption}>
-        <button
-          className={`${css.sexElement} ${
-            activeButton === 1 ? css.sexElementActive : ''
-          }`}
-          type="button"
-          onClick={() => handleOptionChange('female', 1)}
-        >
-          <svg
-            width="24px"
-            height="24px"
-            stroke={
-              sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
-            }
-          >
-            <use href={`${sprite}#icon-female`}></use>
-          </svg>
-          Female
-        </button>
-        <button
-          className={`${css.sexElement} ${
-            activeButton === 2 ? css.sexElementActive : ''
-          }`}
-          onClick={() => handleOptionChange('male', 2)}
-        >
-          <svg
-            width="24px"
-            height="24px"
-            stroke={
-              sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
-            }
-          >
-            <use href={`${sprite}#icon-male`}></use>
-          </svg>
-          Male
-        </button>
-        {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
-      </div>
       <Formik
-        initialValues={{ photo, comments }}
+        initialValues={{ file, comments }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -125,17 +82,17 @@ const ThirdStep = () => {
                 <div>
                   <input
                     type="file"
-                    id="photo"
-                    name="photo"
+                    id="file"
+                    name="file"
                     onChange={e => {
-                      setFieldValue('photo', e.currentTarget.files[0]);
+                      setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
                   />
                 </div>
-                <label htmlFor="photo">
+                <label htmlFor="file">
                   <div className={`${css.labelAdd} ${css.photoInputWrapper}`}>
-                    <Field name="photo">
+                    <Field name="file">
                       {({ field }) => (
                         <>
                           {field.value && (
@@ -148,8 +105,8 @@ const ThirdStep = () => {
                           <svg
                             width="30px"
                             height="30px"
+                            stroke="#54adff"
                             className={css.iconAdd}
-                            stroke="#54ADFF"
                           >
                             <use href={`${sprite}#icon-plus`}></use>
                           </svg>
@@ -164,6 +121,7 @@ const ThirdStep = () => {
                   className={css.errorComent}
                 />
               </div>
+
               <div className={css.wrapperTextareaOne}>
                 <label className={css.textareaText} htmlFor="comments">
                   Comments

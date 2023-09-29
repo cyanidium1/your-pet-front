@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMyPet,
   selectMyPetComments,
-  selectMyPetID,
   selectMyPetImage,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
+  addNewPetNotice,
   updatePetInfo,
 } from '../../../../redux/myPets/addPetOperations';
 import {
@@ -25,7 +25,7 @@ import {
 import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required('Please upload a photo'),
+  file: Yup.mixed().required('Please upload a photo'),
   location: Yup.string().required('Please type a location'),
   price: Yup.number()
     .required('Please set a price')
@@ -39,7 +39,7 @@ const ThirdStepSell = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
-  const photo = useSelector(selectMyPetImage);
+  const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
@@ -53,13 +53,13 @@ const ThirdStepSell = () => {
     const pet = {
       sex,
       ...values,
-      photo: URL.createObjectURL(values.photo),
     };
     dispatch(addPetMoreInfo(pet));
     const newPetBody = { ...petBody, ...pet };
-    dispatch(addNewPet(newPetBody));
+    dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
+    // navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -111,7 +111,7 @@ const ThirdStepSell = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ photo, comments }}
+        initialValues={{ file, comments }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -125,17 +125,17 @@ const ThirdStepSell = () => {
                 <div>
                   <input
                     type="file"
-                    id="photo"
-                    name="photo"
+                    id="file"
+                    name="file"
                     onChange={e => {
-                      setFieldValue('photo', e.currentTarget.files[0]);
+                      setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
                   />
                 </div>
-                <label htmlFor="photo">
+                <label htmlFor="file">
                   <div className={`${css.labelAdd} ${css.photoInputWrapper}`}>
-                    <Field name="photo">
+                    <Field name="file">
                       {({ field }) => (
                         <>
                           {field.value && (
@@ -249,3 +249,4 @@ const ThirdStepSell = () => {
 };
 
 export default ThirdStepSell;
+

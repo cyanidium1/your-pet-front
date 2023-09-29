@@ -8,7 +8,6 @@ import {
   resetSteps,
 } from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
-  selectMyPetID,
   selectMyPetStatus,
   selectMyPetType,
 } from '../../../../redux/myPets/addPetSelectors';
@@ -65,10 +64,10 @@ const FirstStep = () => {
 
         <button
           className={`${css.PetButton} ${
-            petStatus === 'lost' ? css.PetButtonActive : ''
+            petStatus === 'lost-found' ? css.PetButtonActive : ''
           }`}
           onClick={
-            (() => setIsStatusIgnored(false), () => setPetStatus('lost'))
+            (() => setIsStatusIgnored(false), () => setPetStatus('lost-found'))
           }
         >
           lost/found
@@ -76,10 +75,11 @@ const FirstStep = () => {
 
         <button
           className={`${css.PetButton} ${
-            petStatus === 'inGoodHands' ? css.PetButtonActive : ''
+            petStatus === 'in-good-hands' ? css.PetButtonActive : ''
           }`}
           onClick={
-            (() => setIsStatusIgnored(false), () => setPetStatus('inGoodHands'))
+            (() => setIsStatusIgnored(false),
+            () => setPetStatus('in-good-hands'))
           }
         >
           in good hands
@@ -113,3 +113,10 @@ const FirstStep = () => {
 };
 
 export default FirstStep;
+
+
+
+
+
+
+

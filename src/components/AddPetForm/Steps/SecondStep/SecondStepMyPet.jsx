@@ -1,40 +1,63 @@
-import React from "react";
-import css from "./SecondStep.module.css";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import css from './SecondStep.module.css';
+import sprite from '../../../../images/icons.svg';
+
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextStep,
   prevStep,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
   selectMyPetBirthDate,
-  selectMyPetID,
-  selectMyPetName,
   selectMyPetType,
-} from "../../../../redux/myPets/addPetSelectors";
-import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
-import sprite from "../../../../images/icons.svg";
-import { addPetPersonalInfo } from "redux/myPets/addPetSlice";
+  selectMyPetName,
+  selectMyPetTitle,
+} from '../../../../redux/myPets/addPetSelectors';
+import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
+import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Name pet is required"),
-  birthday: Yup.date().required("Birthday is required"),
-  type: Yup.string().required("Type is required"),
+  title: Yup.string()
+    .required('Title of add is required')
+    .min(6, 'Title must be at least 6 characters')
+    .max(64, 'Title must be at most 64 characters'),
+  name: Yup.string().required('Name pet is required'),
+  birthDate: Yup.date()
+    .default(() => new Date())
+    .required('Birth date is required'),
+  type: Yup.string().required('Type is required'),
 });
 
-const SecondStepSell = () => {
+const SecondStepMy = () => {
   const dispatch = useDispatch();
+  const title = useSelector(selectMyPetTitle);
   const name = useSelector(selectMyPetName);
-  const birthday = useSelector(selectMyPetBirthDate);
+  const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
 
-  const handleNext = (values) => {
+
+
+  const formattedDate = dateFromBackend => {
+    const date = new Date(dateFromBackend);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month
+      .toString()
+      .padStart(2, '0')}-${year}`;
+    return formattedDate;
+  };
+
+  const handleNext = values => {
     const pet = {
       ...values,
+      date: formattedDate(values.birthDate),
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
+    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {
@@ -42,20 +65,38 @@ const SecondStepSell = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <Formik
         initialValues={{
+          title,
           name,
-          birthDate: Date(birthday),
+          birthDate,
           type,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           handleNext(values);
         }}
       >
         <Form>
           <div className={css.FormWrapper}>
+            <div className={css.WrapperLabelInput}>
+              <label className={css.LabelStep} htmlFor="title">
+                Title of add
+              </label>
+              <Field
+                className={css.Input}
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Type add title"
+              />
+              <ErrorMessage
+                name="title"
+                component="p"
+                className={css.ErrorTextLow}
+              />
+            </div>
             <div className={css.WrapperLabelInput}>
               <label className={css.LabelStep} htmlFor="name">
                 Name pet
@@ -74,17 +115,17 @@ const SecondStepSell = () => {
               />
             </div>
             <div className={css.WrapperLabelInput}>
-              <label className={css.LabelStep} htmlFor="birthday">
+              <label className={css.LabelStep} htmlFor="birthDate">
                 Date of birth
               </label>
               <Field
                 type="date"
-                name="birthday"
+                id="Date"
+                name="birthDate"
                 className={css.Input}
-                birthday={new Date()}
               />
               <ErrorMessage
-                name="birthday"
+                name="birthDate"
                 component="p"
                 className={css.ErrorText}
               />
@@ -98,10 +139,10 @@ const SecondStepSell = () => {
                 type="text"
                 id="type"
                 name="type"
-                placeholder="Type of animal"
+                placeholder="Type of pet"
               />
               <ErrorMessage
-                name="breed"
+                name="type"
                 component="p"
                 className={css.ErrorTextLow}
               />
@@ -134,8 +175,9 @@ const SecondStepSell = () => {
           </div>
         </Form>
       </Formik>
-    </>
+    </div>
   );
 };
 
-export default SecondStepSell;
+export default SecondStepMy;
+

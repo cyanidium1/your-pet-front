@@ -13,12 +13,15 @@ import SecondStepMy from './Steps/SecondStep/SecondStepMyPet';
 import ThirdStepSell from './Steps/ThirdStep/ThirdStepSell';
 import ThirdStepFoundOrGoodHands from './Steps/ThirdStep/ThirdStepFoundOrGoodHands';
 import css from './AddPetForm.module.css';
-import AddPetBtn from 'components/AddPetBtn/addPetBtn';
+import { selectToken } from 'redux/auth/authSelectors';
+import { addPetInstance } from 'redux/myPets/addPetOperations';
 
 const AddPetForm = () => {
   const dispatch = useDispatch();
   const step = useSelector(selectStepForm);
   const status = useSelector(selectMyPetStatus);
+  const token = useSelector(selectToken);
+  addPetInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   let secondStepComponent;
   switch (status) {
@@ -35,7 +38,10 @@ const AddPetForm = () => {
     case 'sell':
       thirdStepComponent = <ThirdStepSell />;
       break;
-    case 'lost' || 'inGoodHands':
+    case 'lost-found':
+      thirdStepComponent = <ThirdStepFoundOrGoodHands />;
+      break;
+    case 'in-good-hands':
       thirdStepComponent = <ThirdStepFoundOrGoodHands />;
       break;
     default:
@@ -72,4 +78,4 @@ const AddPetForm = () => {
   );
 };
 
-export default AddPetForm;
+export default AddPetForm

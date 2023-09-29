@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMyPet,
   selectMyPetComments,
-  selectMyPetID,
   selectMyPetImage,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
+  addNewPetNotice,
   updatePetInfo,
 } from '../../../../redux/myPets/addPetOperations';
 import {
@@ -25,38 +25,46 @@ import {
 import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required('Please upload a photo'),
+  file: Yup.mixed().required('Please upload a photo'),
   location: Yup.string().required('Please type a location'),
+
   comments: Yup.string()
     .optional()
     .max(120, 'Title must be at most 120 characters'),
 });
 
-const ThirdStepFoundOrGoodHands = () => {
+const ThirdStepFoundOrGoogHands = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
-  const photo = useSelector(selectMyPetImage);
+  const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
   const handleSubmit = values => {
+    const { name, date, category, type, title } = petBody;
+
     if (!sex) {
       setIsSexIgnored(true);
       return;
     }
     const pet = {
+      name,
+      date,
+      category,
+      type,
+      title,
       sex,
       ...values,
-      photo: URL.createObjectURL(values.photo),
     };
     dispatch(addPetMoreInfo(pet));
-    const newPetBody = { ...petBody, ...pet };
-    dispatch(addNewPet(newPetBody));
+    const newPetBody = { ...pet };
+    dispatch(addNewPetNotice(pet));
     dispatch(resetSteps());
     dispatch(resetState());
+    // navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -108,7 +116,7 @@ const ThirdStepFoundOrGoodHands = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ photo, comments }}
+        initialValues={{ file, comments }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -122,17 +130,17 @@ const ThirdStepFoundOrGoodHands = () => {
                 <div>
                   <input
                     type="file"
-                    id="photo"
-                    name="photo"
+                    id="file"
+                    name="file"
                     onChange={e => {
-                      setFieldValue('photo', e.currentTarget.files[0]);
+                      setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
                   />
                 </div>
-                <label htmlFor="photo">
+                <label htmlFor="file">
                   <div className={`${css.labelAdd} ${css.photoInputWrapper}`}>
-                    <Field name="photo">
+                    <Field name="file">
                       {({ field }) => (
                         <>
                           {field.value && (
@@ -145,7 +153,7 @@ const ThirdStepFoundOrGoodHands = () => {
                           <svg
                             width="30px"
                             height="30px"
-                            stroke="#54ADFF"
+                            stroke="#54adff"
                             className={css.iconAdd}
                           >
                             <use href={`${sprite}#icon-plus`}></use>
@@ -229,9 +237,7 @@ const ThirdStepFoundOrGoodHands = () => {
   );
 };
 
-export default ThirdStepFoundOrGoodHands;
-
-
+export default ThirdStepFoundOrGoogHands;
 
 
 
