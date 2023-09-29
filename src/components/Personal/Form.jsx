@@ -5,14 +5,15 @@ import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useSlider } from 'react-use';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from 'redux/auth/authOperations';
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required('Please upload a photo'),
   firstName: Yup.string()
     .required()
     .max(120, 'Title must be at most 120 characters'),
-  email: Yup.string(),
+  email: Yup.string().required,
   birthday: Yup.date().optional(),
   phone: Yup.string().optional(),
   city: Yup.string().optional(),
@@ -20,18 +21,13 @@ const validationSchema = Yup.object().shape({
 
 export const PersonalForm = ({ mode }) => {
   const [file, setFile] = useState();
-  // const [user, setUser] = useState();
+  const dispatch = useDispatch();
   const { user } = useSelector(selectUser);
-
-  // useEffect(() => {
-  //   setUser(useSelector(selectUser));
-  //   console.log('user', user);
-  // }, []);
 
   return (
     <Formik
       enctype="multipart/form-data"
-      method="putch"
+      method="patch"
       initialValues={{
         firstName: user.name,
         email: user.email,
