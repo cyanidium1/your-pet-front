@@ -20,9 +20,13 @@ export const getAllNoticesThunk = createAsyncThunk(
 
 export const getMyAdsThunk = createAsyncThunk(
   'notices/myAds',
-  async (_, { rejectedWithValue }) => {
+  async ({ searchQuery }, { rejectedWithValue }) => {
     try {
-      const { data } = await authInstance.get('/api/notices/user-notices');
+      const { data } = await authInstance.get('/api/notices/user-notices', {
+        params: {
+          searchQuery,
+        },
+      });
       return data;
     } catch (error) {
       return rejectedWithValue(error.message);
@@ -32,9 +36,13 @@ export const getMyAdsThunk = createAsyncThunk(
 
 export const getMyFavoriteAdsThunk = createAsyncThunk(
   'notices/favoriteAds',
-  async (_, { rejectedWithValue }) => {
+  async ({ searchQuery }, { rejectedWithValue }) => {
     try {
-      const { data } = await authInstance.get('/api/notices/favorites');
+      const { data } = await authInstance.get('/api/notices/favorites', {
+        params: {
+          searchQuery,
+        },
+      });
       return data;
     } catch (error) {
       return rejectedWithValue(error.message);

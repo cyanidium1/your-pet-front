@@ -12,12 +12,14 @@ import {
   selectAllNotices,
   selectIsNoticesLoading,
 } from 'redux/notices/noticeSelectors';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const productName = searchParams.get('searchQuery') ?? null;
 
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
   const { notices } = useSelector(selectAllNotices);
@@ -27,20 +29,22 @@ const NoticesPage = () => {
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
-      dispatch(getAllNoticesThunk({ category: categoryPath, searchQuery }));
+      dispatch(
+        getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
+      );
     }
     if (tagsLinkAuth.includes(categoryPath)) {
       if (categoryPath === tagsLinkAuth[0]) {
-        dispatch(getMyFavoriteAdsThunk());
+        dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
       }
       if (categoryPath === tagsLinkAuth[1]) {
-        dispatch(getMyAdsThunk());
+        dispatch(getMyAdsThunk({ searchQuery: productName }));
       }
     }
-  }, [categoryPath, searchQuery]);
+  }, [categoryPath, searchParams]);
   return (
     <>
-      <Search cb={setSearchQuery} />
+      <Search searchParams={searchParams} setSearchParams={setSearchParams} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
     </>
