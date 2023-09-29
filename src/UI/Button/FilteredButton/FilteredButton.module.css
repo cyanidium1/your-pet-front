@@ -1,3 +1,13 @@
+.backdrop {
+  position: absolute;
+  top: -1000px;
+  left: -1500px;
+  width: 200vw;
+  height: 200vh;
+  opacity: 0;
+  z-index: 5;
+}
+
 .filtersButton {
   min-width: 40px;
   height: 40px;
@@ -26,6 +36,7 @@
 }
 
 .dropDownMenu {
+  z-index: 10;
   width: 152px;
   background-color: #fff;
   padding: 8px;
