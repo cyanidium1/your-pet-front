@@ -22,7 +22,6 @@ const Header = () => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
   const isTablet = useMedia(screen.breakpoints.tablet.media);
   const isDesktop = useMedia(screen.breakpoints.desktop.media);
-
   useEffect(() => {
     if (!isLoggedIn) {
       setIsLoading(true);
@@ -48,7 +47,7 @@ const Header = () => {
       {isMobile ? (
         isLoggedIn && <UserNav />
       ) : isLoggedIn ? (
-        <UserNav />
+        <UserNav showMenu={showMenu} />
       ) : (
         <AuthNav />
       )}
