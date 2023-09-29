@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './PetCard.module.css';
 import sprite from '../../images/icons.svg';
 import Button from '../../UI/Button/Button';
@@ -11,17 +11,28 @@ import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
 import { selectUser } from 'redux/auth/authSelectors';
+import {
+  addNoticeToFavoriteThunk,
+  removeNoticeToFavoriteThunk,
+} from 'redux/notices/noticeOperations';
 
 const PetCard = ({ info }) => {
-  const { location, category, age, sex, isFav, file, owner } = info;
+  const { location, category, age, sex, favorites, file, owner, _id } = info;
 
   const dispatch = useDispatch();
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
   );
 
-  const { user } = useSelector(selectUser);
+  const { user = {} } = useSelector(selectUser) || {};
+  const [isFavoriteCard, setisFavoriteCard] = useState(
+    favorites.includes(user._id)
+  );
   const isUserOwnerAd = owner === user._id;
+
+  const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
+  const normalAge =
+    age < 1 ? `${Math.ceil(age / (1 / 12))} mont` : `${Math.round(age)} years`;
 
   const dynamicStyle = {
     backgroundImage: `url(${file})`,
@@ -31,9 +42,14 @@ const PetCard = ({ info }) => {
     dispatch(openModalPetCardDetails());
   };
 
-  const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
-  const normalAge =
-    age < 1 ? `${Math.ceil(age / (1 / 12))} mont` : `${Math.round(age)} years`;
+  const handleToggleFavoriteAds = () => {
+    isFavoriteCard
+      ? dispatch(removeNoticeToFavoriteThunk(_id)).then(
+          setisFavoriteCard(false)
+        )
+      : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
+  };
+
   return (
     <li className={styles.item}>
       <div className={styles.card} style={dynamicStyle}>
@@ -42,12 +58,13 @@ const PetCard = ({ info }) => {
           <div>
             <div
               className={
-                isFav
-                  ? `${styles.heartIcon} ${styles.iconWrap}`
+                isFavoriteCard
+                  ? `${styles.heartActiveIcon} ${styles.iconWrap}`
                   : `${styles.heartIcon} ${styles.iconWrap}`
               }
+              onClick={handleToggleFavoriteAds}
             >
-              <svg className={styles.icon}>
+              <svg className={`${styles.heart} ${styles.icon}`}>
                 <use href={sprite + '#icon-heart'} />
               </svg>
             </div>

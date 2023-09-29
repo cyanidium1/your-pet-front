@@ -8,13 +8,18 @@ import {
   getMyAdsThunk,
   getMyFavoriteAdsThunk,
 } from 'redux/notices/noticeOperations';
-import { selectIsNoticesLoading } from 'redux/notices/noticeSelectors';
+import {
+  selectAllNotices,
+  selectIsNoticesLoading,
+} from 'redux/notices/noticeSelectors';
 import { useLocation } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
+  const { notices } = useSelector(selectAllNotices);
+
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 

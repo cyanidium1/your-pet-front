@@ -65,7 +65,14 @@
 }
 
 .heartIcon {
-  fill: none;
+  color: transparent;
+}
+.heartActiveIcon {
+  color: #54adff;
+}
+.heart {
+  stroke: #54adff;
+  fill: currentColor;
 }
 
 .trashIcon {

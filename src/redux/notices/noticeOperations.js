@@ -40,3 +40,33 @@ export const getMyFavoriteAdsThunk = createAsyncThunk(
     }
   }
 );
+
+export const addNoticeToFavoriteThunk = createAsyncThunk(
+  'notices/addNoticeToFavorite',
+  async (id, { rejectedWithValue, dispatch }) => {
+    try {
+      const { data } = await authInstance.patch(
+        `/api/notices/${id}/add-to-favorites`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectedWithValue(error.message);
+    }
+  }
+);
+
+export const removeNoticeToFavoriteThunk = createAsyncThunk(
+  'notices/removeNoticeToFavorite',
+  async (id, { rejectedWithValue, dispatch }) => {
+    try {
+      const { data } = await authInstance.patch(
+        `/api/notices/${id}/remove-from-favorites`
+      );
+
+      return data;
+    } catch (error) {
+      return rejectedWithValue(error.message);
+    }
+  }
+);
