@@ -1,25 +1,49 @@
 import { Formik, Field, Form } from 'formik';
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import * as Yup from 'yup';
+import { selectUser } from 'redux/auth/authSelectors';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useSlider } from 'react-use';
+
+const validationSchema = Yup.object().shape({
+  photo: Yup.mixed().required('Please upload a photo'),
+  firstName: Yup.string()
+    .required()
+    .max(120, 'Title must be at most 120 characters'),
+  email: Yup.string(),
+  birthday: Yup.date().optional(),
+  phone: Yup.string().optional(),
+  city: Yup.string().optional(),
+});
 
 export const PersonalForm = ({ mode }) => {
   const [file, setFile] = useState();
+  // const [user, setUser] = useState();
+  const { user } = useSelector(selectUser);
+
+  // useEffect(() => {
+  //   setUser(useSelector(selectUser));
+  //   console.log('user', user);
+  // }, []);
+
   return (
     <Formik
       enctype="multipart/form-data"
       method="putch"
       initialValues={{
-        firstName: '',
-        email: '',
-        birthday: '',
+        firstName: user.name,
+        email: user.email,
+        birthday: user.birthday,
         toggledEditPhoto: '',
-        phone: '',
-        city: '',
+        phone: user.phone,
+        city: user.city,
       }}
+      validationSchema={validationSchema}
       onSubmit={async values => {
         await new Promise(r => setTimeout(r, 500));
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(values.name, null, 2));
       }}
     >
       {({ values, handleChange, isValid }) => (
@@ -49,12 +73,22 @@ export const PersonalForm = ({ mode }) => {
               name="toggledEditPhoto"
               disabled={!mode}
             ></Field>
-            {mode && (
+            {mode && !file ? (
               <div className={scss.editPhotoLabel}>
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-camera`}></use>
                 </svg>
                 <span>Edit photo</span>
+              </div>
+            ) : (
+              <div className={scss.editPhotoLabel}>
+                <svg className={scss.editPhoto}>
+                  <use href={`${defualtPhoto}#icon-check`}></use>
+                </svg>
+                <span>Confirm</span>
+                <svg className={scss.editPhoto}>
+                  <use href={`${defualtPhoto}#icon-cross-small`}></use>
+                </svg>
               </div>
             )}
           </label>
@@ -67,6 +101,7 @@ export const PersonalForm = ({ mode }) => {
               name="firstName"
               placeholder="Anna"
               disabled={!mode}
+              // value={values.name}
             />
           </label>
 
@@ -86,10 +121,15 @@ export const PersonalForm = ({ mode }) => {
             <Field
               id="birthday"
               name="birthday"
-              placeholder=""
-              type="date"
+              placeholder="25.09.2023"
+              // type="date"
               className={scss.input}
               disabled={!mode}
+              onChange={e => {
+                console.log(e.currentTarget.value);
+                console.log(values.birthday);
+                handleChange(e);
+              }}
             />
           </label>
           <label htmlFor="phone" className={scss.label}>
@@ -98,7 +138,7 @@ export const PersonalForm = ({ mode }) => {
               id="phone"
               name="phone"
               placeholder="+38000000000"
-              type="number"
+              // type="number"
               className={scss.input}
               disabled={!mode}
             />
