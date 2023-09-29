@@ -29,6 +29,8 @@ const App = () => {
           <Route path="sell" index element={<NoticesPage />} />
           <Route path="lost-found" element={<NoticesPage />} />
           <Route path="in-good-hands" element={<NoticesPage />} />
+          <Route path="favorite-ads" element={<NoticesPage />} />
+          <Route path="my-ads" element={<NoticesPage />} />
         </Route>
         <Route path="friends" element={<OurFriendsPage />} />
         <Route path="profile" element={<Profile />} />

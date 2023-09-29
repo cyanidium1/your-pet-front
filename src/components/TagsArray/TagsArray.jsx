@@ -5,15 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectIsAuth } from 'redux/auth/authSelectors';
 import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
 import AddButton from 'UI/Button/AddButton/AddButton';
-const tags = ['sell', 'lost/found', 'in good hands'];
-const tagsAuth = [
-  'sell',
-  'lost/found',
-  'in good hands',
-  'favorite ads',
-  'my ads',
-];
-const tagsLinks = ['sell', 'lost-found', 'in-good-hands'];
+import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
 
 const TagsArray = () => {
   const isLoggedIn = useSelector(selectIsAuth);
