@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const authInstance = axios.create({
+export const authInstance = axios.create({
   baseURL: 'https://your-pet-backend-nci6.onrender.com/',
 });
 const setAuthHeader = token => {

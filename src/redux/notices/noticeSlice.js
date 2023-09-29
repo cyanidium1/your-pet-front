@@ -1,5 +1,9 @@
-import { createSlice, isAnyOf, createAction } from '@reduxjs/toolkit';
-import { getAllNoticesThunk } from './noticeOperations.js';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import {
+  getAllNoticesThunk,
+  getMyAdsThunk,
+  getMyFavoriteAdsThunk,
+} from './noticeOperations.js';
 
 const initialState = {
   allNotices: [],
@@ -19,8 +23,16 @@ export const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   extraReducers: builder => {
-    builder.addCase(getAllNoticesThunk.fulfilled, handleAllNotices);
-    builder.addCase(getAllNoticesThunk.pending, handlePending);
+    builder
+      .addCase(getAllNoticesThunk.pending, handlePending)
+      .addMatcher(
+        isAnyOf(
+          getAllNoticesThunk.fulfilled,
+          getMyAdsThunk.fulfilled,
+          getMyFavoriteAdsThunk.fulfilled
+        ),
+        handleAllNotices
+      );
   },
 });
 

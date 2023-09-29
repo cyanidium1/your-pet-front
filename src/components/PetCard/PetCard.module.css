@@ -25,10 +25,12 @@
 .type {
   display: flex;
   font-size: 14px;
+  height: 32px;
+  align-items: center;
 
   font-weight: 500;
   background-color: #cce4fb;
-  padding: 10px 17px;
+  padding: 0px 17px;
   border-radius: 0 16px 16px 0;
 }
 
@@ -64,6 +66,10 @@
 
 .heartIcon {
   fill: none;
+}
+
+.trashIcon {
+  margin-top: 16px;
 }
 
 .heartIconActive {

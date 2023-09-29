@@ -10,21 +10,25 @@ import {
 import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
+import { selectUser } from 'redux/auth/authSelectors';
 
 const PetCard = ({ info }) => {
+  const { location, category, age, sex, isFav, file, owner } = info;
+
+  const dispatch = useDispatch();
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
   );
 
-  const { location, category, age, sex, isFav, file } = info;
+  const { user } = useSelector(selectUser);
+  const isUserOwnerAd = owner === user._id;
+
   const dynamicStyle = {
     backgroundImage: `url(${file})`,
   };
-  const dispatch = useDispatch();
 
   const handleOpenModal = () => {
     dispatch(openModalPetCardDetails());
-    console.log('yes');
   };
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
@@ -33,16 +37,25 @@ const PetCard = ({ info }) => {
       <div className={styles.card} style={dynamicStyle}>
         <div className={styles.topParams}>
           <p className={styles.type}>{category}</p>
-          <div
-            className={
-              isFav
-                ? `${styles.heartIcon} ${styles.iconWrap}`
-                : `${styles.heartIcon} ${styles.iconWrap}`
-            }
-          >
-            <svg className={styles.icon}>
-              <use href={sprite + '#icon-heart'} />
-            </svg>
+          <div>
+            <div
+              className={
+                isFav
+                  ? `${styles.heartIcon} ${styles.iconWrap}`
+                  : `${styles.heartIcon} ${styles.iconWrap}`
+              }
+            >
+              <svg className={styles.icon}>
+                <use href={sprite + '#icon-heart'} />
+              </svg>
+            </div>
+            <div className={`${styles.trashIcon} ${styles.iconWrap}`}>
+              {isUserOwnerAd && (
+                <svg className={styles.icon}>
+                  <use href={sprite + '#icon-trash-2'} />
+                </svg>
+              )}
+            </div>
           </div>
         </div>
         <div className={styles.bottomParams}>

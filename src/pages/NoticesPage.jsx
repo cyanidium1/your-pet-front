@@ -3,7 +3,11 @@ import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllNoticesThunk } from 'redux/notices/noticeOperations';
+import {
+  getAllNoticesThunk,
+  getMyAdsThunk,
+  getMyFavoriteAdsThunk,
+} from 'redux/notices/noticeOperations';
 import { selectIsNoticesLoading } from 'redux/notices/noticeSelectors';
 import { useLocation } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
@@ -20,10 +24,10 @@ const NoticesPage = () => {
     }
     if (tagsLinkAuth.includes(categoryPath)) {
       if (categoryPath === tagsLinkAuth[0]) {
-        console.log(categoryPath);
+        dispatch(getMyFavoriteAdsThunk());
       }
       if (categoryPath === tagsLinkAuth[1]) {
-        console.log(categoryPath);
+        dispatch(getMyAdsThunk());
       }
     }
   }, [categoryPath]);
