@@ -15,8 +15,13 @@ import {
   addNoticeToFavoriteThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
+import { useLocation } from 'react-router-dom';
+import { routerThunk } from 'Utils/constant';
 
 const PetCard = ({ info }) => {
+  const { pathname } = useLocation();
+  const categoryPath = pathname.split('/').slice(-1).join('');
+
   const { location, category, age, sex, favorites, file, owner, _id } = info;
 
   const dispatch = useDispatch();
@@ -28,7 +33,7 @@ const PetCard = ({ info }) => {
   const [isFavoriteCard, setisFavoriteCard] = useState(
     favorites.includes(user._id)
   );
-  const isUserOwnerAd = owner === user._id;
+  const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
   const normalAge =
@@ -44,9 +49,9 @@ const PetCard = ({ info }) => {
 
   const handleToggleFavoriteAds = () => {
     isFavoriteCard
-      ? dispatch(removeNoticeToFavoriteThunk(_id)).then(
-          setisFavoriteCard(false)
-        )
+      ? dispatch(
+          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+        ).then(setisFavoriteCard(false))
       : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
   };
 

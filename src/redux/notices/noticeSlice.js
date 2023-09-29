@@ -22,7 +22,7 @@ const handlePending = state => {
 };
 
 // const handleToggleFavorite = (state, { payload }) => {
-//   console.log(state.allNotices.notices);
+//   console.log(payload);
 //   // const ourCardIndex = state.allNotices.notices.findIndex(payload._id);
 //   // state.allNotices.notices[ourCardIndex] = payload;
 // };

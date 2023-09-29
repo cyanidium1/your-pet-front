@@ -58,12 +58,12 @@ export const addNoticeToFavoriteThunk = createAsyncThunk(
 
 export const removeNoticeToFavoriteThunk = createAsyncThunk(
   'notices/removeNoticeToFavorite',
-  async (id, { rejectedWithValue, dispatch }) => {
+  async ({ _id, thunk }, { rejectedWithValue, dispatch }) => {
     try {
       const { data } = await authInstance.patch(
-        `/api/notices/${id}/remove-from-favorites`
+        `/api/notices/${_id}/remove-from-favorites`
       );
-
+      dispatch(thunk);
       return data;
     } catch (error) {
       return rejectedWithValue(error.message);
