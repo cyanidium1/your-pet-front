@@ -110,3 +110,10 @@ export const logOut = createAsyncThunk(
     }
   }
 );
+export const loginWithGoogle = createAsyncThunk(
+  'auth/loginWithGoogle',
+  async () => {
+    const response = await authInstance.get('api/users/google');
+    return response.data;
+  }
+);
