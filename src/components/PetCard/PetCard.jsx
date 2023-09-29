@@ -15,9 +15,8 @@ const PetCard = ({ info }) => {
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
   );
-  console.log(isModalPetCardDetailsOpen);
 
-  const { location, category, date, sex, isFav, file } = info;
+  const { location, category, age, sex, isFav, file } = info;
   const dynamicStyle = {
     backgroundImage: `url(${file})`,
   };
@@ -59,7 +58,7 @@ const PetCard = ({ info }) => {
             <svg className={styles.icon}>
               <use href={sprite + '#icon-clock'} />
             </svg>
-            <p>1 year</p>
+            <p>{age} year</p>
           </div>
           <div className={styles.parameter}>
             <svg className={styles.icon}>

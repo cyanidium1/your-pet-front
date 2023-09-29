@@ -5,14 +5,17 @@ import PetList from '../components/PetList/PetList';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNoticesThunk } from 'redux/notices/noticeOperations';
 import { selectIsNoticesLoading } from 'redux/notices/noticeSelectors';
+import { useLocation } from 'react-router-dom';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
-  // console.log(isNoticesLoading);
+  const path = useLocation();
+  const categoryPath = path.pathname.split('/').slice(-1).join('');
+
   useEffect(() => {
-    dispatch(getAllNoticesThunk('sell'));
-  }, []);
+    dispatch(getAllNoticesThunk(categoryPath));
+  }, [categoryPath]);
   return (
     <>
       <Search />
