@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import styles from "./Search.module.css";
+import { useState } from 'react';
+import styles from './Search.module.css';
+import sprite from 'images/icons.svg';
 
-function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
+function Search({ cb }) {
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log("Search Term:", searchTerm);
+    console.log('Search Term:', searchTerm);
+
+    setSearchTerm('');
   };
 
   return (
@@ -23,7 +26,20 @@ function Search() {
           onChange={handleInputChange}
           className={styles.input}
         />
-        <span className={styles.icon}></span>
+        <div className={styles.searchIconWrapper}>
+          <button type="submit">
+            <svg height={24} width={24}>
+              <use href={sprite + '#icon-search'} />
+            </svg>
+          </button>
+          {searchTerm.length > 0 && (
+            <button type="submit" className={styles.buttonClose}>
+              <svg height={24} width={24} className={styles.resetIcon}>
+                <use href={sprite + '#icon-cross'} />
+              </svg>
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

@@ -34,27 +34,14 @@
   right: 7px;
   top: 4px;
 }
-.icon::after {
-  content: '';
-  position: absolute;
-  right: 8px;
-  top: 10px;
-  width: 17px;
-  height: 17px;
-  border: 1px solid #007bff;
-  border-radius: 50%;
-  transform: rotate(45deg);
+.resetIcon {
+  stroke: #ffc107;
 }
-
-.icon::before {
-  content: '';
+.searchIconWrapper {
   position: absolute;
-  right: 8px;
-  top: 25px;
-  width: 1px;
-  height: 5px;
-  border: 1px solid #007bff;
-  transform: rotate(135deg);
+  right: 12px;
+  display: flex;
+  gap: 10px;
 }
 
 /* Styles for screens from 768px to 1279px */
