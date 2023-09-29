@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/your-pet-front/static/css/main.f8721fdd.css",
-    "main.js": "/your-pet-front/static/js/main.6a2d0c3e.js",
+    "main.js": "/your-pet-front/static/js/main.cc28c06b.js",
     "static/media/icons.svg": "/your-pet-front/static/media/icons.398e1bf1709f00741190247823fbfd85.svg",
     "static/media/Frame 16722.webp": "/your-pet-front/static/media/Frame 16722.1ac6ed48d993ad2032f0.webp",
     "static/media/bg-desctop-2x.webp": "/your-pet-front/static/media/bg-desctop-2x.5550c69d562256c6cba3.webp",
@@ -12,10 +12,10 @@
     "static/media/bg-mob-1x.webp": "/your-pet-front/static/media/bg-mob-1x.51692f45fc311ac26705.webp",
     "index.html": "/your-pet-front/index.html",
     "main.f8721fdd.css.map": "/your-pet-front/static/css/main.f8721fdd.css.map",
-    "main.6a2d0c3e.js.map": "/your-pet-front/static/js/main.6a2d0c3e.js.map"
+    "main.cc28c06b.js.map": "/your-pet-front/static/js/main.cc28c06b.js.map"
   },
   "entrypoints": [
     "static/css/main.f8721fdd.css",
-    "static/js/main.6a2d0c3e.js"
+    "static/js/main.cc28c06b.js"
   ]
 }
