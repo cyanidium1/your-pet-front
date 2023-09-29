@@ -9,12 +9,12 @@ const AuthNav = ({ closeMenu }) => {
       <nav className={s.authNav}>
         <ul className={s.authNavList}>
           <li onClick={closeMenu}>
-            <NavLink className={s.authLogIn} to="login">
+            <Link className={s.authLogIn} to="login">
               Log IN
               <svg className={s.pawprint}>
                 <use href={sprite + '#icon-pawprint-1'} />
               </svg>
-            </NavLink>
+            </Link>
           </li>
           <li onClick={closeMenu}>
             <NavLink className={s.authRegister} to="register">
