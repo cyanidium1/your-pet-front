@@ -1,20 +1,17 @@
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
 import { PersonalForm } from './Form';
-import { Formik, Field, Form } from 'formik';
 import { useState } from 'react';
 export const Card = () => {
   const [editMode, SetEditMode] = useState(false);
+
   const edit = () => SetEditMode(!editMode);
 
   return (
     <div>
       <h2>My information:</h2>
       <div className={scss.card}>
-        <div>
-          <svg className={scss.personalPhoto}>
-            <use href={`${defualtPhoto}#icon-Photo-default`}></use>
-          </svg>
+        <div id="photo">
           <button onClick={edit}>
             <svg className={scss.personalPhotoEdit}>
               <use
