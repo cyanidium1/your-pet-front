@@ -83,6 +83,9 @@ const ThirdStepSell = () => {
           <svg
             width="24px"
             height="24px"
+            fill={
+              sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
+            }
             stroke={
               sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
             }
@@ -100,6 +103,9 @@ const ThirdStepSell = () => {
           <svg
             width="24px"
             height="24px"
+            fill={
+              sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
+            }
             stroke={
               sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
             }
@@ -190,6 +196,7 @@ const ThirdStepSell = () => {
                   type="number"
                   id="price"
                   name="price"
+                  inputMode="numeric"
                   placeholder="Type of price"
                 />
                 <ErrorMessage
@@ -249,4 +256,3 @@ const ThirdStepSell = () => {
 };
 
 export default ThirdStepSell;
-
