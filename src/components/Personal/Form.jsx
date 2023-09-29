@@ -1,8 +1,10 @@
 import { Formik, Field, Form } from 'formik';
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
+import { useState } from 'react';
 
-export const PersonalForm = ({ mode, photo }) => {
+export const PersonalForm = ({ mode }) => {
+  const [file, setFile] = useState();
   return (
     <Formik
       enctype="multipart/form-data"
@@ -20,23 +22,41 @@ export const PersonalForm = ({ mode, photo }) => {
         alert(JSON.stringify(values, null, 2));
       }}
     >
-      {({ values }) => (
+      {({ values, handleChange, isValid }) => (
         <Form className={scss.form}>
-          {mode && (
-            <label className={scss.editPhotoBlock}>
-              <Field
-                onChange={e => photo(e.target.files[0])}
-                accept="image/*,image/jpeg"
-                className={scss.fileField}
-                type="file"
-                name="toggledEditPhoto"
-              ></Field>
-              <svg className={scss.editPhoto}>
-                <use href={`${defualtPhoto}#icon-camera`}></use>
-              </svg>
-              Edit photo
-            </label>
-          )}
+          <label className={scss.editPhotoBlock}>
+            <div>
+              {file ? (
+                <img
+                  src={file}
+                  alt="Selected img"
+                  className={scss.editPhotoBlock}
+                />
+              ) : (
+                <svg className={scss.personalPhoto}>
+                  <use href={`${defualtPhoto}#icon-Photo-default`}></use>
+                </svg>
+              )}
+            </div>
+            <Field
+              onChange={e => {
+                setFile(URL.createObjectURL(e.target.files[0]));
+                handleChange(e);
+              }}
+              accept="image/*,image/jpeg"
+              className={scss.fileField}
+              type="file"
+              name="toggledEditPhoto"
+            ></Field>
+            {mode && (
+              <div className={scss.editPhotoLabel}>
+                <svg className={scss.editPhoto}>
+                  <use href={`${defualtPhoto}#icon-camera`}></use>
+                </svg>
+                <span>Edit photo</span>
+              </div>
+            )}
+          </label>
 
           <label htmlFor="firstName" className={scss.label}>
             Name:
@@ -48,16 +68,6 @@ export const PersonalForm = ({ mode, photo }) => {
               disabled={!mode}
             />
           </label>
-          {/* <label htmlFor="firstName" className={scss.label}>
-            Name:
-            <Field
-              className={scss.input}
-              id="firstName"
-              name="firstName"
-              placeholder="Anna"
-              type="file"
-            />
-          </label> */}
 
           <label htmlFor="email" className={scss.label}>
             Email:
@@ -70,7 +80,6 @@ export const PersonalForm = ({ mode, photo }) => {
               disabled={!mode}
             />
           </label>
-
           <label htmlFor="birthday" className={scss.label}>
             Birthday:
             <Field
@@ -82,7 +91,6 @@ export const PersonalForm = ({ mode, photo }) => {
               disabled={!mode}
             />
           </label>
-
           <label htmlFor="phone" className={scss.label}>
             Phone:
             <Field
@@ -94,7 +102,6 @@ export const PersonalForm = ({ mode, photo }) => {
               disabled={!mode}
             />
           </label>
-
           <label htmlFor="city" className={scss.label}>
             City:
             <Field
