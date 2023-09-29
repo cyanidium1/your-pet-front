@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
+import 'the-new-css-reset/css/reset.css';
 import Profile from './pages/Profile';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
 import NewsPage from './pages/NewsPage';
