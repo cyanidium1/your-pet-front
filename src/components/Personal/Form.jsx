@@ -22,19 +22,18 @@ const validationSchema = Yup.object().shape({
 export const PersonalForm = ({ mode }) => {
   const [file, setFile] = useState();
   const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   return (
     <Formik
       enctype="multipart/form-data"
       method="patch"
       initialValues={{
-        firstName: user.name,
-        email: user.email,
-        birthday: user.birthday,
-        toggledEditPhoto: '',
-        phone: user.phone,
-        city: user.city,
+        firstName: user?.user.name,
+        email: user?.user.email,
+        birthday: user?.user.birthday,
+        phone: user?.user.phone,
+        city: user?.user.city,
       }}
       validationSchema={validationSchema}
       onSubmit={async values => {

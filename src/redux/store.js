@@ -15,13 +15,12 @@ import { formStepReducer } from './adddPetForm/addPetFormSlice';
 import { addPetSlice, addPetSliceReducer } from './myPets/addPetSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
-import { newsReducer } from "./news/newsSlice";
-
+import { newsReducer } from './news/newsSlice';
 
 const authConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'user'],
 };
 
 const authPersistedReducer = persistReducer(authConfig, authReducer);
@@ -36,7 +35,7 @@ export const store = configureStore({
     news: newsReducer,
   },
 
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
