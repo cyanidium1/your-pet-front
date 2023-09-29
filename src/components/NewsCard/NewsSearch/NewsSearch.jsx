@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchAllNews, fetchFilteredNews } from 'redux/news/newsOperation';
 import NewsList from '../NewsList/NewsList';
 
 import styles from '../NewsSearch/NewsSearch.module.css';
-import sprite from '../../../images/icons.svg'
+import sprite from '../../../images/icons.svg';
+import Search from 'components/Search/Search';
 
-  const NewsSearch = () => {
+const NewsSearch = () => {
   const [keyword, setKeyword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [currentNewsPage, setCurrentNewsPage] = useState(1);
@@ -17,7 +18,6 @@ import sprite from '../../../images/icons.svg'
   useEffect(() => {
     if (!submitted) {
       dispatch(fetchAllNews(currentNewsPage));
-      setCurrentFilterPage(1);
     }
   }, [currentNewsPage, submitted, dispatch]);
 
@@ -48,7 +48,7 @@ import sprite from '../../../images/icons.svg'
     <>
       <div className={styles.positioning}>
         <h3 className={styles.name}>News</h3>
-        <form onSubmit={handleSearch} className={styles.form}>
+        {/* <form onSubmit={handleSearch} className={styles.form}>
           <input
             value={keyword}
             onChange={handleChange}
@@ -61,9 +61,10 @@ import sprite from '../../../images/icons.svg'
           {keyword.length>0 && (<button onClick={handleClear} className={styles.buttonClose}> <svg height={24} width={24}><use href={sprite+'#icon-cross'}/>
             </svg> 
             </button>)}
-        </form>
+        </form> */}
+        <Search cb={setKeyword} />
       </div>
-      <NewsList/>
+      <NewsList />
     </>
   );
 };
