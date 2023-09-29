@@ -32,6 +32,8 @@ const PetCard = ({ info }) => {
   };
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
+  const normalAge =
+    age < 1 ? `${Math.ceil(age / (1 / 12))} mont` : `${Math.round(age)} years`;
   return (
     <li className={styles.item}>
       <div className={styles.card} style={dynamicStyle}>
@@ -49,13 +51,13 @@ const PetCard = ({ info }) => {
                 <use href={sprite + '#icon-heart'} />
               </svg>
             </div>
-            <div className={`${styles.trashIcon} ${styles.iconWrap}`}>
-              {isUserOwnerAd && (
+            {isUserOwnerAd && (
+              <div className={`${styles.trashIcon} ${styles.iconWrap}`}>
                 <svg className={styles.icon}>
                   <use href={sprite + '#icon-trash-2'} />
                 </svg>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.bottomParams}>
@@ -71,7 +73,7 @@ const PetCard = ({ info }) => {
             <svg className={styles.icon}>
               <use href={sprite + '#icon-clock'} />
             </svg>
-            <p>{age} year</p>
+            <p>{normalAge}</p>
           </div>
           <div className={styles.parameter}>
             <svg className={styles.icon}>
