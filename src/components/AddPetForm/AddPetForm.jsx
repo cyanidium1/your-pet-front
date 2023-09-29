@@ -67,7 +67,7 @@ const AddPetForm = () => {
       <div className={css.AddPetSectionWrapper}>
         <div className={css.WrapperAddPet}>
           <h2 className={css.AddPetHeading}>
-            Add{status === 'lost' ? ' lost ' : ' '}pet
+            Add{status === 'lost-found' ? ' lost ' : ' '}pet
             {status === 'sell' ? ' for sell ' : ' '}
           </h2>
           <Steps currentStep={step} />
@@ -78,4 +78,4 @@ const AddPetForm = () => {
   );
 };
 
-export default AddPetForm
+export default AddPetForm;
