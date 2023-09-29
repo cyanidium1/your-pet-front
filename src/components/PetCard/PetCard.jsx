@@ -22,7 +22,9 @@ const PetCard = ({ info }) => {
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
-  const { location, category, age, sex, favorites, file, owner, _id } = info;
+  const { title, location, category, age, sex, favorites, file, owner, _id } =
+    info;
+  console.log(info);
 
   const dispatch = useDispatch();
   const isModalPetCardDetailsOpen = useSelector(
@@ -105,7 +107,7 @@ const PetCard = ({ info }) => {
           </div>
         </div>
       </div>
-      <p className={styles.info}>Сute dog looking for a home</p>
+      <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
       {isModalPetCardDetailsOpen && (
         <Modal closeReducer={closeModalPetCardDetails}>
           <ModalPetCardDetails />

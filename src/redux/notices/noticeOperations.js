@@ -3,11 +3,12 @@ import { authInstance } from '../auth/authOperations';
 
 export const getAllNoticesThunk = createAsyncThunk(
   'notices/allNotices',
-  async (category, { rejectedWithValue }) => {
+  async ({ category, searchQuery }, { rejectedWithValue }) => {
     try {
       const { data } = await authInstance.get('/api/notices', {
         params: {
           category,
+          searchQuery,
         },
       });
       return data;

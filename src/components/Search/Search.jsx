@@ -11,8 +11,7 @@ function Search({ cb }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('Search Term:', searchTerm);
-
+    cb(searchTerm);
     setSearchTerm('');
   };
 

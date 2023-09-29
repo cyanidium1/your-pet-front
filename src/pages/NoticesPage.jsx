@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
@@ -17,6 +17,8 @@ import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState(null);
+
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
   const { notices } = useSelector(selectAllNotices);
 
@@ -25,7 +27,7 @@ const NoticesPage = () => {
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
-      dispatch(getAllNoticesThunk(categoryPath));
+      dispatch(getAllNoticesThunk({ category: categoryPath, searchQuery }));
     }
     if (tagsLinkAuth.includes(categoryPath)) {
       if (categoryPath === tagsLinkAuth[0]) {
@@ -35,10 +37,10 @@ const NoticesPage = () => {
         dispatch(getMyAdsThunk());
       }
     }
-  }, [categoryPath]);
+  }, [categoryPath, searchQuery]);
   return (
     <>
-      <Search />
+      <Search cb={setSearchQuery} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
     </>
