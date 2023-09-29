@@ -16,6 +16,11 @@ const extractTokenAction = createAction('auth/extractToken');
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    addToken: (state, { payload }) => {
+      state.token = payload.token;
+    },
+  },
   extraReducers: builder => {
     const handlePending = state => {
       state.isLoading = true;
@@ -76,6 +81,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { extractToken } = authSlice.actions;
+export const { extractToken, addToken } = authSlice.actions;
 export const authReducer = authSlice.reducer;
 export const resetAuthState = resetStateAction;
