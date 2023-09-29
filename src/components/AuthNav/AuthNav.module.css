@@ -8,6 +8,13 @@
   align-items: center;
   gap: 20px;
 }
+@media only screen and (max-width: 768px) {
+  .authNavList {
+    position: relative;
+    top: -110px;
+    right: 0;
+  }
+}
 @media only screen and (min-width: 768px) {
   .authNavList {
     flex-direction: row;
@@ -51,7 +58,4 @@
   width: 24px;
   height: 24px;
   fill: #fef9f9;
-}
-.active {
-  color: #fef9f9;
 }
