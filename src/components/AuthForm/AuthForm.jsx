@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import icons from '../../images/icons.svg';
 import css from './AuthForm.module.css';
 import { useDispatch } from 'react-redux';
-import { login, register } from 'redux/auth/authOperations';
+import { login, loginWithGoogle, register } from 'redux/auth/authOperations';
 
 const AuthForm = () => {
   const location = useLocation();
@@ -31,7 +31,7 @@ const AuthForm = () => {
           .min(6, 'Password must be at least 6 characters')
           .max(16, 'Password must be at most 16 characters')
           .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            /^(?=.[a-z])(?=.[A-Z])(?=.\d)[a-zA-Z\d!@#$%^&()_~"?+]{6,16}$/,
             'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
           )
           .required('Password is required'),
@@ -49,7 +49,7 @@ const AuthForm = () => {
           .min(6, 'Password must be at least 6 characters')
           .max(16, 'Password must be at most 16 characters')
           .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+            /^(?=.[a-z])(?=.[A-Z])(?=.\d)[a-zA-Z\d!@#$%^&()_~"?+]{6,16}$/,
             'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
           )
           .required('Password is required'),
@@ -306,6 +306,17 @@ const AuthForm = () => {
               >
                 <button className={css.auth_submit_button} type="submit">
                   {isLoginPageOpen ? 'Login' : 'Register'}
+                </button>
+
+                <span>OR</span>
+                <button
+                  className={css.auth_submit_button}
+                  onClick={() => {
+                    dispatch(loginWithGoogle());
+                  }}
+                  type="button"
+                >
+                  Login with Google
                 </button>
 
                 {!isLoginPageOpen ? (
