@@ -1,62 +1,70 @@
-import React, { useRef, useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import css from "./ThirdStep.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import css from './ThirdStep.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMyPet,
   selectMyPetComments,
-  selectMyPetID,
   selectMyPetImage,
-} from "../../../../redux/myPets/addPetSelectors";
+} from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
+  addNewPetNotice,
   updatePetInfo,
-} from "../../../../redux/myPets/addPetOperations";
+} from '../../../../redux/myPets/addPetOperations';
 import {
   prevStep,
   resetSteps,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
-import { useNavigate } from "react-router-dom";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
+import { useNavigate } from 'react-router-dom';
 import {
   addPetMoreInfo,
   resetState,
-} from "../../../../redux/myPets/addPetSlice";
-import sprite from "../../../../images/icons.svg";
+} from '../../../../redux/myPets/addPetSlice';
+import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required("Please upload a photo"),
-  location: Yup.string().required("Please type a location"),
+  file: Yup.mixed().required('Please upload a photo'),
+  location: Yup.string().required('Please type a location'),
+
   comments: Yup.string()
     .optional()
-    .max(120, "Title must be at most 120 characters"),
+    .max(120, 'Title must be at most 120 characters'),
 });
 
-const ThirdStepSell = () => {
+const ThirdStepFoundOrGoogHands = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
-  const photo = useSelector(selectMyPetImage);
+  const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
-  const [sex, setSex] = useState("");
-  const isButtonInactiveFirstTime = useRef(true);
+  const [sex, setSex] = useState('');
+  const [isSexIgnored, setIsSexIgnored] = useState(false);
 
-  const handleSubmit = (values) => {
-    if (!activeButton) {
-      isButtonInactiveFirstTime.current = false;
+  const handleSubmit = values => {
+    const { name, date, category, type, title } = petBody;
+
+    if (!sex) {
+      setIsSexIgnored(true);
       return;
     }
     const pet = {
+      name,
+      date,
+      category,
+      type,
+      title,
       sex,
       ...values,
-      photo: URL.createObjectURL(values.photo),
     };
     dispatch(addPetMoreInfo(pet));
-    const newPetBody = { ...petBody, ...pet };
-    dispatch(addNewPet(newPetBody));
+    const newPetBody = { ...pet };
+    dispatch(addNewPetNotice(pet));
     dispatch(resetSteps());
     dispatch(resetState());
+    // navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -65,23 +73,23 @@ const ThirdStepSell = () => {
   const handleOptionChange = (option, number) => {
     setSex(option);
     setActiveButton(number);
-    isButtonInactiveFirstTime.current = false;
+    setIsSexIgnored(false);
   };
   return (
     <>
       <div className={css.sexOption}>
         <button
           className={`${css.sexElement} ${
-            activeButton === 1 ? css.sexElementActive : ""
+            activeButton === 1 ? css.sexElementActive : ''
           }`}
           type="button"
-          onClick={() => handleOptionChange("female", 1)}
+          onClick={() => handleOptionChange('female', 1)}
         >
           <svg
             width="24px"
             height="24px"
             stroke={
-              sex === "female" ? "#fff" : sex === "male" ? "#888888" : "#F43F5E"
+              sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
             }
           >
             <use href={`${sprite}#icon-female`}></use>
@@ -90,29 +98,27 @@ const ThirdStepSell = () => {
         </button>
         <button
           className={`${css.sexElement} ${
-            activeButton === 2 ? css.sexElementActive : ""
+            activeButton === 2 ? css.sexElementActive : ''
           }`}
-          onClick={() => handleOptionChange("male", 2)}
+          onClick={() => handleOptionChange('male', 2)}
         >
           <svg
             width="24px"
             height="24px"
             stroke={
-              sex === "male" ? "#fff" : sex === "female" ? "#888888" : "#54ADFF"
+              sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
             }
           >
             <use href={`${sprite}#icon-male`}></use>
           </svg>
           Male
         </button>
-        {!activeButton && !isButtonInactiveFirstTime && (
-          <p className={css.errorComent}>Sex s required</p>
-        )}
+        {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ photo, comments }}
+        initialValues={{ file, comments }}
         validationSchema={validationSchema}
-        onSubmit={(values) => handleSubmit(values)}
+        onSubmit={values => handleSubmit(values)}
       >
         {({ setFieldValue }) => (
           <Form>
@@ -124,17 +130,17 @@ const ThirdStepSell = () => {
                 <div>
                   <input
                     type="file"
-                    id="photo"
-                    name="photo"
-                    onChange={(e) => {
-                      setFieldValue("photo", e.currentTarget.files[0]);
+                    id="file"
+                    name="file"
+                    onChange={e => {
+                      setFieldValue('file', e.currentTarget.files[0]);
                     }}
-                    style={{ display: "none" }}
+                    style={{ display: 'none' }}
                   />
                 </div>
-                <label htmlFor="photo">
-                  <div className={css.labelAdd}>
-                    <Field name="photo">
+                <label htmlFor="file">
+                  <div className={`${css.labelAdd} ${css.photoInputWrapper}`}>
+                    <Field name="file">
                       {({ field }) => (
                         <>
                           {field.value && (
@@ -144,7 +150,12 @@ const ThirdStepSell = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg width="30px" height="30px">
+                          <svg
+                            width="30px"
+                            height="30px"
+                            stroke="#54adff"
+                            className={css.iconAdd}
+                          >
                             <use href={`${sprite}#icon-plus`}></use>
                           </svg>
                         </>
@@ -226,4 +237,7 @@ const ThirdStepSell = () => {
   );
 };
 
-export default ThirdStepSell;
+export default ThirdStepFoundOrGoogHands;
+
+
+

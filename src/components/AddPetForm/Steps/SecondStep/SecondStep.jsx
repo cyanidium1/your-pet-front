@@ -1,34 +1,33 @@
-import React from "react";
-import css from "./SecondStep.module.css";
-import sprite from "../../../../images/icons.svg";
+import React from 'react';
+import css from './SecondStep.module.css';
+import sprite from '../../../../images/icons.svg';
 
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextStep,
   prevStep,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
   selectMyPetBirthDate,
   selectMyPetType,
-  selectMyPetID,
   selectMyPetName,
   selectMyPetTitle,
-} from "../../../../redux/myPets/addPetSelectors";
-import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
-import { addPetPersonalInfo } from "redux/myPets/addPetSlice";
+} from '../../../../redux/myPets/addPetSelectors';
+import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
+import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
-    .required("Title of add is required")
-    .min(6, "Title must be at least 6 characters")
-    .max(64, "Title must be at most 64 characters"),
-  name: Yup.string().required("Name pet is required"),
+    .required('Title of add is required')
+    .min(6, 'Title must be at least 6 characters')
+    .max(64, 'Title must be at most 64 characters'),
+  name: Yup.string().required('Name pet is required'),
   birthDate: Yup.date()
     .default(() => new Date())
-    .required("Birth date is required"),
-  type: Yup.string().required("Type is required"),
+    .required('Birth date is required'),
+  type: Yup.string().required('Type is required'),
 });
 
 const SecondStepSell = () => {
@@ -38,12 +37,27 @@ const SecondStepSell = () => {
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
 
-  const handleNext = (values) => {
+
+
+  const formattedDate = dateFromBackend => {
+    const date = new Date(dateFromBackend);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month
+      .toString()
+      .padStart(2, '0')}-${year}`;
+    return formattedDate;
+  };
+
+  const handleNext = values => {
     const pet = {
       ...values,
+      date: formattedDate(values.birthDate),
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
+    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {
@@ -60,7 +74,7 @@ const SecondStepSell = () => {
           type,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           handleNext(values);
         }}
       >

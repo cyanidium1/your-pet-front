@@ -31,7 +31,7 @@ const AuthForm = () => {
           .min(6, 'Password must be at least 6 characters')
           .max(16, 'Password must be at most 16 characters')
           .matches(
-            /^(?=.[a-z])(?=.[A-Z])(?=.\d)[a-zA-Z\d!@#$%^&()_~"?+]{6,16}$/,
+            /^(?=.*[a-z])(?=.*[A-Z]).{6,16}$/,
             'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
           )
           .required('Password is required'),
@@ -49,7 +49,7 @@ const AuthForm = () => {
           .min(6, 'Password must be at least 6 characters')
           .max(16, 'Password must be at most 16 characters')
           .matches(
-            /^(?=.[a-z])(?=.[A-Z])(?=.\d)[a-zA-Z\d!@#$%^&()_~"?+]{6,16}$/,
+            /^(?=.*[a-z])(?=.*[A-Z]).{6,16}$/,
             'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
           )
           .required('Password is required'),
@@ -309,7 +309,7 @@ const AuthForm = () => {
                 </button>
 
                 <span>OR</span>
-                <button
+                {/* <button
                   className={css.auth_submit_button}
                   onClick={() => {
                     dispatch(loginWithGoogle());
@@ -317,7 +317,15 @@ const AuthForm = () => {
                   type="button"
                 >
                   Login with Google
-                </button>
+                </button> */}
+
+                <a
+                  className={css.auth_submit_button}
+                  href="https://your-pet-backend-nci6.onrender.com/api/users/google"
+                >
+                  {!isLoginPageOpen ? 'Register ' : 'Login '}
+                  with Google
+                </a>
 
                 {!isLoginPageOpen ? (
                   <p className={css.navtext}>
