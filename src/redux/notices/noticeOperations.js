@@ -73,6 +73,7 @@ export const removeNoticeToFavoriteThunk = createAsyncThunk(
         `/api/notices/${_id}/remove-from-favorites`
       );
       dispatch(thunk);
+
       return data;
     } catch (error) {
       return rejectedWithValue(error.message);
