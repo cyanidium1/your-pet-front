@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './Search.module.css';
 import sprite from 'images/icons.svg';
 
-function Search({ searchParams, setSearchParams }) {
+function Search({ searchParams, setSearchParams, titleSearch }) {
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get('searchQuery') || ''
   );
@@ -31,7 +31,7 @@ function Search({ searchParams, setSearchParams }) {
 
   return (
     <div className={styles.positioning}>
-      <h3 className={styles.name}>Find your favorite pet</h3>
+      <h3 className={styles.name}>{titleSearch}</h3>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
