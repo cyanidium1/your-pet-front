@@ -6,44 +6,47 @@ import * as Yup from 'yup';
 import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
-import { refreshUser } from 'redux/auth/authOperations';
+import { userUpdate } from 'redux/user/userOperations';
+
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required('Please upload a photo'),
-  firstName: Yup.string()
-    .required()
-    .max(120, 'Title must be at most 120 characters'),
-  email: Yup.string().required,
-  birthday: Yup.date().optional(),
+  firstName: Yup.string(),
+  email: Yup.string().required(),
+  birthday: Yup.string().optional(),
   phone: Yup.string().optional(),
   city: Yup.string().optional(),
 });
 
 export const PersonalForm = ({ mode }) => {
-  const [file, setFile] = useState();
-  const dispatch = useDispatch();
+  const [file, setFile] = useState('');
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
+  const handleSubmit =(values) => {
+    console.log(123);
+    console.log(values);
+      dispatch(userUpdate(values));
+     };
   return (
     <Formik
       enctype="multipart/form-data"
       method="patch"
       initialValues={{
+        photo: '',
         firstName: user?.user.name,
         email: user?.user.email,
-        birthday: user?.user.birthday,
+        birthday: user?.user.birthday || '',
         phone: user?.user.phone,
         city: user?.user.city,
       }}
-      validationSchema={validationSchema}
-      onSubmit={async values => {
-        await new Promise(r => setTimeout(r, 500));
-        alert(JSON.stringify(values.name, null, 2));
-      }}
+      // validationSchema={validationSchema}
+      onSubmit={values => handleSubmit(values)}
     >
       {({ values, handleChange, isValid }) => (
         <Form className={scss.form}>
           <label className={scss.editPhotoBlock}>
+            {console.log(file)}
             <div>
               {file ? (
                 <img
@@ -65,17 +68,18 @@ export const PersonalForm = ({ mode }) => {
               accept="image/*,image/jpeg"
               className={scss.fileField}
               type="file"
-              name="toggledEditPhoto"
+              name="photo"
               disabled={!mode}
+              // value={file}
             ></Field>
-            {mode && !file ? (
-              <div className={scss.editPhotoLabel}>
+            
+            {mode  &&  (file === '' ? 
+            <div className={scss.editPhotoLabel}>
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-camera`}></use>
                 </svg>
                 <span>Edit photo</span>
-              </div>
-            ) : (
+              </div>: 
               <div className={scss.editPhotoLabel}>
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-check`}></use>
@@ -84,8 +88,10 @@ export const PersonalForm = ({ mode }) => {
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-cross-small`}></use>
                 </svg>
-              </div>
-            )}
+              </div>)}
+              
+            
+            
           </label>
 
           <label htmlFor="firstName" className={scss.label}>
@@ -96,7 +102,7 @@ export const PersonalForm = ({ mode }) => {
               name="firstName"
               placeholder="Anna"
               disabled={!mode}
-              value={values.firstName}
+              // value={values.firstName}
             />
           </label>
 
@@ -120,11 +126,12 @@ export const PersonalForm = ({ mode }) => {
               // type="date"
               className={scss.input}
               disabled={!mode}
-              onChange={e => {
-                console.log(e.currentTarget.value);
-                console.log(values.birthday);
-                handleChange(e);
-              }}
+              onChange={handleChange}
+              // onChange={e => {
+              //   console.log(e.currentTarget.value);
+              //   console.log(values.birthday);
+              //   handleChange(e);
+              // }}
             />
           </label>
           <label htmlFor="phone" className={scss.label}>
