@@ -125,6 +125,12 @@
   }
 }
 
+.sexIgnored {
+  color: #f43f5e;
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .comments {
   position: relative;
   color: #f43f5e;
@@ -218,16 +224,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* style fixed */
+}
+
+.photoInputWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .iconAdd {
-  width: 30px;
-  margin: 40px auto;
-
-  @media screen and (min-width: 768px) {
-    width: 48px;
-    margin: 65px auto;
-  }
+  stroke: #54adff;
+  fill: #54adff;
 }
 
 .wrapperTextareaOne {

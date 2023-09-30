@@ -1,3 +1,29 @@
+.AddPetSectionWrapper {
+  background-image: url('../../images/background/mob/bg-mob-1x.webp');
+
+  @media screen and (min-resolution: 2dppx) {
+    background-image: url('../../images/background/mob/bg-mob-1x.webp');
+  }
+
+  @media screen and (min-width: 768px) {
+    background-image: url('../../images/background/tablet/bg-tablet-1x.webp');
+  }
+
+  @media screen and (min-resolution: 2dppx),
+  (min-width: 768px) {
+    background-image: url('../../images/background/tablet/bg-tablet-2x.webp');
+  }
+
+  @media screen and (min-width: 1024px) {
+    background-image: url('../../images/background/desctop/bg-desctop-1x.webp');
+  }
+
+  @media screen and (min-resolution: 2dppx),
+  (min-width: 1024px) {
+    background-image: url('../../images/background/desctop/bg-desctop-2x.webp');
+  }
+}
+
 .WrapperAddPet {
   border-radius: 40px;
   background-color: #ffffff;
@@ -255,4 +281,10 @@
   .LinkAddPEtLitkCancel {
     padding: 8px 86px;
   }
+}
+.ErrorText {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #f43f5e;
 }
