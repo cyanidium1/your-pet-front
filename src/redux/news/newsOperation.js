@@ -12,11 +12,10 @@ export const fetchAllNews = createAsyncThunk(
       const { data } = await authInstance.get('/api/news',     
         { params: {
           searchQuery, 
-          page, 
-          limit
+          page,
+          limit 
             },
           });
-      console.log(data);
       return data;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
