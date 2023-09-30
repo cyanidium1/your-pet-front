@@ -1,0 +1,119 @@
+.item {
+  min-width: 395px;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 3px 8px 14px rgba(136, 198, 253, 0.19);
+  border-radius: 40px;
+  padding: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+  .item {
+    margin-top: 20px;
+  }
+}
+.descrWrap {
+  width: 100px;
+}
+.itemWrap {
+  display: flex;
+  width: 395px;
+}
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 27px;
+  align-items: center;
+  text-align: center;
+  color: #54adff;
+  margin: 16px 0;
+}
+.subtitle {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  align-items: center;
+  color: #111111;
+}
+@media only screen and (min-width: 768px) {
+  .subtitle {
+    width: 395px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    align-items: center;
+    color: #111111;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .subtitle {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+.value {
+  display: block;
+  width: 180px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  align-items: center;
+  color: #111111;
+  text-decoration: none;
+}
+.truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+@media only screen and (min-width: 768px) {
+  .value {
+    font-size: 14px;
+    line-height: 19px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .value {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+.value:hover,
+.value:focus {
+  color: #54adff;
+}
+.imgWrap {
+  margin-right: 12px;
+}
+@media only screen and (min-width: 1280px) {
+  .imgWrap {
+    margin-right: 40px;
+  }
+}
+.img {
+  width: 76px;
+  height: 68px;
+}
+@media only screen and (min-width: 768px) {
+  .img {
+    width: 124px;
+    height: 88px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .img {
+    width: 146px;
+    height: 104px;
+  }
+}
+.subtitle:not(:first-child) {
+  margin-top: 12px;
+}
+@media only screen and (min-width: minwidthpx) {
+  .subtitle:not(:first-child) {
+    margin-top: 16px;
+  }
+}

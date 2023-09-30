@@ -1,0 +1,21 @@
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+@media screen and (min-width: 768px) {
+  .cardList {
+    gap: 24px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .cardList {
+    gap: 32px;
+  }
+}
+
+.friendWrap {
+  padding-top: 100px;
+}
