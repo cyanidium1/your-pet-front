@@ -16,8 +16,9 @@ export const addNewPet = createAsyncThunk(
       formData.append('petImage', pet.file);
       formData.append('type', pet.type);
       formData.append('dateOfBirth', pet.date);
-      formData.append('comments', pet.comments);
-
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
       const response = await addPetInstance.post('api/pets', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
