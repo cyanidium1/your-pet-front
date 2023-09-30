@@ -82,7 +82,7 @@ export const refreshUser = createAsyncThunk(
       }
       setAuthHeader(tokenValue);
       const response = await authInstance.get('api/users/current');
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       rejectWithValue(error);

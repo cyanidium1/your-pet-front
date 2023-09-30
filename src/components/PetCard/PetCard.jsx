@@ -13,11 +13,18 @@ import { Modal } from 'components/Modal/Modal';
 import { selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
+  deleteNoticeThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
+import { useLocation } from 'react-router-dom';
+import { routerThunk } from 'Utils/constant';
 
 const PetCard = ({ info }) => {
-  const { location, category, age, sex, favorites, file, owner, _id } = info;
+  const { pathname } = useLocation();
+  const categoryPath = pathname.split('/').slice(-1).join('');
+
+  const { title, location, category, age, sex, favorites, file, owner, _id } =
+    info;
 
   const dispatch = useDispatch();
   const isModalPetCardDetailsOpen = useSelector(
@@ -28,7 +35,7 @@ const PetCard = ({ info }) => {
   const [isFavoriteCard, setisFavoriteCard] = useState(
     favorites.includes(user._id)
   );
-  const isUserOwnerAd = owner === user._id;
+  const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
   const normalAge =
@@ -44,10 +51,13 @@ const PetCard = ({ info }) => {
 
   const handleToggleFavoriteAds = () => {
     isFavoriteCard
-      ? dispatch(removeNoticeToFavoriteThunk(_id)).then(
-          setisFavoriteCard(false)
-        )
+      ? dispatch(
+          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+        ).then(setisFavoriteCard(false))
       : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
+  };
+  const handleDeleteCard = () => {
+    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
   };
 
   return (
@@ -69,7 +79,10 @@ const PetCard = ({ info }) => {
               </svg>
             </div>
             {isUserOwnerAd && (
-              <div className={`${styles.trashIcon} ${styles.iconWrap}`}>
+              <div
+                onClick={handleDeleteCard}
+                className={`${styles.trashIcon} ${styles.iconWrap}`}
+              >
                 <svg className={styles.icon}>
                   <use href={sprite + '#icon-trash-2'} />
                 </svg>
@@ -100,7 +113,7 @@ const PetCard = ({ info }) => {
           </div>
         </div>
       </div>
-      <p className={styles.info}>Сute dog looking for a home</p>
+      <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
       {isModalPetCardDetailsOpen && (
         <Modal closeReducer={closeModalPetCardDetails}>
           <ModalPetCardDetails />

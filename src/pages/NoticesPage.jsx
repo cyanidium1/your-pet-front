@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
@@ -12,33 +12,38 @@ import {
   selectAllNotices,
   selectIsNoticesLoading,
 } from 'redux/notices/noticeSelectors';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const productName = searchParams.get('searchQuery') ?? null;
+
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
-  const { notices } = useSelector(selectAllNotices);
 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
-      dispatch(getAllNoticesThunk(categoryPath));
+      dispatch(
+        getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
+      );
     }
     if (tagsLinkAuth.includes(categoryPath)) {
       if (categoryPath === tagsLinkAuth[0]) {
-        dispatch(getMyFavoriteAdsThunk());
+        dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
       }
       if (categoryPath === tagsLinkAuth[1]) {
-        dispatch(getMyAdsThunk());
+        dispatch(getMyAdsThunk({ searchQuery: productName }));
       }
     }
-  }, [categoryPath]);
+  }, [categoryPath, searchParams]);
   return (
     <>
-      <Search />
+      <Search searchParams={searchParams} setSearchParams={setSearchParams} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
     </>

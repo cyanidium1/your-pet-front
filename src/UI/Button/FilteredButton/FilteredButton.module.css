@@ -1,9 +1,9 @@
 .backdrop {
-  position: absolute;
-  top: -1000px;
-  left: -1500px;
-  width: 200vw;
-  height: 200vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   opacity: 0;
   z-index: 5;
 }
