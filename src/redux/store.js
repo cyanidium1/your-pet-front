@@ -16,7 +16,7 @@ import { userReducer } from './user/userSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
 import { newsReducer } from './news/newsSlice';
-import { addPetSliceReducer } from './adddPetForm/addPetFormSlice';
+import { addPetSliceReducer } from './myPets/addPetSlice';
 
 const authConfig = {
   key: 'auth',

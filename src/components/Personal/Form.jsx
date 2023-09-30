@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { userUpdate } from 'redux/user/userOperations';
 
-
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required('Please upload a photo'),
   firstName: Yup.string(),
@@ -23,15 +22,13 @@ export const PersonalForm = ({ mode }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const handleSubmit =(values) => {
-    console.log(123);
-    console.log(values);
-      dispatch(userUpdate(values));
-     };
+  const handleSubmit = values => {
+    dispatch(userUpdate(values));
+  };
   return (
     <Formik
-      enctype="multipart/form-data"
-      method="patch"
+      // enctype="multipart/form-data"
+      // method="patch"
       initialValues={{
         photo: '',
         firstName: user?.user.name,
@@ -72,26 +69,26 @@ export const PersonalForm = ({ mode }) => {
               disabled={!mode}
               // value={file}
             ></Field>
-            
-            {mode  &&  (file === '' ? 
-            <div className={scss.editPhotoLabel}>
-                <svg className={scss.editPhoto}>
-                  <use href={`${defualtPhoto}#icon-camera`}></use>
-                </svg>
-                <span>Edit photo</span>
-              </div>: 
-              <div className={scss.editPhotoLabel}>
-                <svg className={scss.editPhoto}>
-                  <use href={`${defualtPhoto}#icon-check`}></use>
-                </svg>
-                <span>Confirm</span>
-                <svg className={scss.editPhoto}>
-                  <use href={`${defualtPhoto}#icon-cross-small`}></use>
-                </svg>
-              </div>)}
-              
-            
-            
+
+            {mode &&
+              (file === '' ? (
+                <div className={scss.editPhotoLabel}>
+                  <svg className={scss.editPhoto}>
+                    <use href={`${defualtPhoto}#icon-camera`}></use>
+                  </svg>
+                  <span>Edit photo</span>
+                </div>
+              ) : (
+                <div className={scss.editPhotoLabel}>
+                  <svg className={scss.editPhoto}>
+                    <use href={`${defualtPhoto}#icon-check`}></use>
+                  </svg>
+                  <span>Confirm</span>
+                  <svg className={scss.editPhoto}>
+                    <use href={`${defualtPhoto}#icon-cross-small`}></use>
+                  </svg>
+                </div>
+              ))}
           </label>
 
           <label htmlFor="firstName" className={scss.label}>
