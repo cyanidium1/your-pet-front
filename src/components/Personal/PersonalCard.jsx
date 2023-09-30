@@ -29,7 +29,7 @@ export const Card = () => {
             </svg>
           </button>
         </div>
-        <PersonalForm mode={editMode} />
+        <PersonalForm mode={editMode} handleEdit={edit} />
         {!editMode && (
           <div className={scss.logoutblock}>
             <button onClick={handleLogOut}>

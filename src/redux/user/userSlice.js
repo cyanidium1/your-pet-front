@@ -25,6 +25,7 @@ const userSlice = createSlice({
         state.email = payload.email;
         state.birthday = payload.birthday;
         state.phone = payload.phone;
+        state.avataor = payload.photo;
       })
       .addCase(userUpdate.rejected, (state, { payload }) => {
         state.error = payload;

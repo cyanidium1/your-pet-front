@@ -11,9 +11,16 @@ const initialState = {
   isError: false,
 };
 
+const extractTokenAction = createAction('auth/extractToken');
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    addToken: (state, { payload }) => {
+      state.token = payload.token;
+    },
+  },
   extraReducers: builder => {
     const handlePending = state => {
       state.isLoading = true;
@@ -50,6 +57,13 @@ export const authSlice = createSlice({
         state.isRefresher = false;
       })
       .addCase(resetStateAction, () => initialState)
+      .addCase(extractTokenAction, (state, action) => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const token = searchParams.get('token');
+        if (token) {
+          state.token = token;
+        }
+      })
       .addMatcher(
         isAnyOf(
           register.pending,
@@ -66,6 +80,7 @@ export const authSlice = createSlice({
       );
   },
 });
+
+export const { extractToken, addToken } = authSlice.actions;
 export const authReducer = authSlice.reducer;
 export const resetAuthState = resetStateAction;
-export const { extractToken, addToken } = authSlice.actions;

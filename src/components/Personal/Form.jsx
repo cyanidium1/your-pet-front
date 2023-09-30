@@ -7,71 +7,77 @@ import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { userUpdate } from 'redux/user/userOperations';
+import { refreshUser } from 'redux/auth/authOperations';
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required('Please upload a photo'),
   firstName: Yup.string(),
   email: Yup.string().required(),
-  birthday: Yup.string().optional(),
+  birthday: Yup.string().required(),
   phone: Yup.string().optional(),
   city: Yup.string().optional(),
 });
 
-export const PersonalForm = ({ mode }) => {
-  const [file, setFile] = useState('');
+export const PersonalForm = ({ mode, handleEdit }) => {
   const user = useSelector(selectUser);
+
   const dispatch = useDispatch();
 
-  const handleSubmit = values => {
-    dispatch(userUpdate(values));
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      // Simulate an API call to update the user's data
+      await dispatch(userUpdate(values));
+      await dispatch(refreshUser());
+      handleEdit();
+    } catch (error) {
+      // Handle error here
+    } finally {
+      setSubmitting(false);
+    }
   };
   return (
     <Formik
       // enctype="multipart/form-data"
       // method="patch"
       initialValues={{
-        photo: '',
-        firstName: user?.user.name,
-        email: user?.user.email,
+        photo: user?.user.avatarURL || '',
+        firstName: user?.user.name || '',
+        email: user?.user.email || '',
         birthday: user?.user.birthday || '',
-        phone: user?.user.phone,
-        city: user?.user.city,
+        phone: user?.user.phone || '',
+        city: user?.user.city || '',
+        blobIMG: '',
       }}
       // validationSchema={validationSchema}
-      onSubmit={values => handleSubmit(values)}
+      onSubmit={handleSubmit}
     >
-      {({ values, handleChange, isValid }) => (
+      {({ values, handleChange, setFieldValue }) => (
         <Form className={scss.form}>
           <label className={scss.editPhotoBlock}>
-            {console.log(file)}
             <div>
-              {file ? (
-                <img
-                  src={file}
-                  alt="Selected img"
-                  className={scss.editPhotoBlock}
-                />
-              ) : (
-                <svg className={scss.personalPhoto}>
-                  <use href={`${defualtPhoto}#icon-Photo-default`}></use>
-                </svg>
-              )}
+              <img
+                src={
+                  typeof values.photo === 'object'
+                    ? URL.createObjectURL(values.photo)
+                    : values.photo
+                }
+                alt="Selected img"
+                className={scss.editPhotoBlock}
+              />
             </div>
-            <Field
+
+            <input
               onChange={e => {
-                setFile(URL.createObjectURL(e.target.files[0]));
-                handleChange(e);
+                setFieldValue('photo', e.target.files[0]);
               }}
-              accept="image/*,image/jpeg"
               className={scss.fileField}
               type="file"
               name="photo"
               disabled={!mode}
-              // value={file}
-            ></Field>
+            ></input>
 
             {mode &&
-              (file === '' ? (
+              (typeof values.photo === 'string' ? (
                 <div className={scss.editPhotoLabel}>
                   <svg className={scss.editPhoto}>
                     <use href={`${defualtPhoto}#icon-camera`}></use>
