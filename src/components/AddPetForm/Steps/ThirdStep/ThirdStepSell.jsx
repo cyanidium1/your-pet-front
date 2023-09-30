@@ -23,11 +23,15 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
+import { ToastContainer, toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
-  location: Yup.string().required('Please type a location'),
-  price: Yup.number()
+  location: Yup.string()
+    .required('Please type a location')
+    .matches(/^[A-Z][a-zA-Z]*$/, 'Location should start from capital letter'),
+  price: Yup.number('Price should be a number')
+    .typeError('Price must be a number')
     .required('Please set a price')
     .min(1, 'price should be bigger than 0'),
   comments: Yup.string()
@@ -45,6 +49,8 @@ const ThirdStepSell = () => {
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
+  const notifyPetAdded = () => toast('Pet added successfully');
+
   const handleSubmit = values => {
     if (!sex) {
       setIsSexIgnored(true);
@@ -53,13 +59,17 @@ const ThirdStepSell = () => {
     const pet = {
       sex,
       ...values,
+      price: Number(values.price),
     };
     dispatch(addPetMoreInfo(pet));
     const newPetBody = { ...petBody, ...pet };
     dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
+
     // navigate(-1);
+
+    notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -193,7 +203,7 @@ const ThirdStepSell = () => {
                 </label>
                 <Field
                   className={css.Input}
-                  type="number"
+                  type="text"
                   id="price"
                   name="price"
                   inputMode="numeric"

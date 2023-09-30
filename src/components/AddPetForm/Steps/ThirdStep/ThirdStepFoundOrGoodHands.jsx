@@ -26,8 +26,9 @@ import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
-  location: Yup.string().required('Please type a location'),
-
+  location: Yup.string()
+    .required('Please type a location')
+    .matches(/^[A-Z][a-zA-Z]*$/, 'Location should start from capital letter'),
   comments: Yup.string()
     .optional()
     .max(120, 'Title must be at most 120 characters'),
@@ -238,6 +239,3 @@ const ThirdStepFoundOrGoogHands = () => {
 };
 
 export default ThirdStepFoundOrGoogHands;
-
-
-

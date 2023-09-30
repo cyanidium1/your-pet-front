@@ -44,7 +44,9 @@ export const addNewPetNotice = createAsyncThunk(
       formData.append('date', pet.date);
       formData.append('sex', pet.sex);
       formData.append('title', pet.title);
-      formData.append('comments', pet.comments);
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
       formData.append('category', pet.category);
       if (pet.price) {
         formData.append('price', pet.price);

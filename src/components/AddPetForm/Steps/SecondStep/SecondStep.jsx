@@ -21,6 +21,7 @@ import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .required('Title of add is required')
+    .matches(/^[A-Z][a-zA-Z]*$/, 'Title should start from capital letter')
     .min(6, 'Title must be at least 6 characters')
     .max(64, 'Title must be at most 64 characters'),
   name: Yup.string().required('Name pet is required'),
@@ -36,8 +37,6 @@ const SecondStepSell = () => {
   const name = useSelector(selectMyPetName);
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
-
-
 
   const formattedDate = dateFromBackend => {
     const date = new Date(dateFromBackend);

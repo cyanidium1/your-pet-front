@@ -19,5 +19,6 @@ root.render(
         {/* </Container> */}
       </PersistGate>
     </Provider>
+    <ToastContainer />
   </BrowserRouter>
 );
