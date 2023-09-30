@@ -22,7 +22,6 @@ const NoticesPage = () => {
   const productName = searchParams.get('searchQuery') ?? null;
 
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
-  const { notices } = useSelector(selectAllNotices);
 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
