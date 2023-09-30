@@ -13,6 +13,7 @@ import { Modal } from 'components/Modal/Modal';
 import { selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
+  deleteNoticeThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
@@ -55,6 +56,9 @@ const PetCard = ({ info }) => {
         ).then(setisFavoriteCard(false))
       : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
   };
+  const handleDeleteCard = () => {
+    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+  };
 
   return (
     <li className={styles.item}>
@@ -75,7 +79,10 @@ const PetCard = ({ info }) => {
               </svg>
             </div>
             {isUserOwnerAd && (
-              <div className={`${styles.trashIcon} ${styles.iconWrap}`}>
+              <div
+                onClick={handleDeleteCard}
+                className={`${styles.trashIcon} ${styles.iconWrap}`}
+              >
                 <svg className={styles.icon}>
                   <use href={sprite + '#icon-trash-2'} />
                 </svg>

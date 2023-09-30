@@ -24,7 +24,6 @@ const UserNav = ({ showMenu }) => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  console.log(displayName);
   return (
     <div className={s.userNav}>
       {!isMobile && (!isTablet || (isTablet && showMenu)) && (

@@ -20,7 +20,7 @@ export const getAllNoticesThunk = createAsyncThunk(
 
 export const getMyAdsThunk = createAsyncThunk(
   'notices/myAds',
-  async ({ searchQuery }, { rejectedWithValue }) => {
+  async ({ searchQuery = null }, { rejectedWithValue }) => {
     try {
       const { data } = await authInstance.get('/api/notices/user-notices', {
         params: {
@@ -68,10 +68,25 @@ export const addNoticeToFavoriteThunk = createAsyncThunk(
 export const removeNoticeToFavoriteThunk = createAsyncThunk(
   'notices/removeNoticeToFavorite',
   async ({ _id, thunk }, { rejectedWithValue, dispatch }) => {
+    console.log(thunk);
     try {
       const { data } = await authInstance.patch(
         `/api/notices/${_id}/remove-from-favorites`
       );
+      dispatch(thunk);
+      return data;
+    } catch (error) {
+      return rejectedWithValue(error.message);
+    }
+  }
+);
+
+export const deleteNoticeThunk = createAsyncThunk(
+  'notices/deleteNotice',
+  async ({ _id, thunk }, { rejectedWithValue, dispatch }) => {
+    try {
+      const { data } = await authInstance.delete(`/api/notices/${_id}`);
+
       dispatch(thunk);
       return data;
     } catch (error) {
