@@ -23,6 +23,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
+import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -35,7 +36,7 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-addpet-styles-debug-and-backend-change
+  addpet - styles - debug - and - backend - change;
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
@@ -55,7 +56,8 @@ addpet-styles-debug-and-backend-change
     dispatch(addNewPet(pet));
     dispatch(resetSteps());
     dispatch(resetState());
-    // navigate(-1);
+    dispatch(showNotify());
+    navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());

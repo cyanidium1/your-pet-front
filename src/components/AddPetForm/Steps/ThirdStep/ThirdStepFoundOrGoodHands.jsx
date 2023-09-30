@@ -65,7 +65,8 @@ const ThirdStepFoundOrGoogHands = () => {
     dispatch(addNewPetNotice(pet));
     dispatch(resetSteps());
     dispatch(resetState());
-    // navigate(-1);
+    navigate(-1);
+    dispatch(showNotify());
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
