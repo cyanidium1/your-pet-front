@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import css from './FriendItem.module.css';
+import TimePicker from 'components/TimePicker/TimePicker';
 
 const FriendItem = ({
   _id,
@@ -23,11 +24,11 @@ const FriendItem = ({
 
         <div className={css.descrWrap}>
           <p className={css.subtitle}>Time:</p>
-          {/* <TimePicker
+          <TimePicker
             className={css.timePicker}
             timeOptions={workDays}
             menuZIndex={100}
-          /> */}
+          />
           <p className={css.subtitle}>Address:</p>
           <a
             className={isTruncated ? css.truncate : css.value}

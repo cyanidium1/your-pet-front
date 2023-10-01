@@ -4,7 +4,7 @@ import 'the-new-css-reset/css/reset.css';
 import Profile from './pages/Profile';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
 import NewsPage from './pages/NewsPage';
-import OurFriendsPage from './pages/OurFriendsPage';
+import OurFriendsPage from './pages/OurFriendsPage/OurFriendsPage';
 import NoticesPage from './pages/NoticesPage';
 import MainPage from './pages/MainPage';
 import RegisterPage from './pages/RegisterPage';

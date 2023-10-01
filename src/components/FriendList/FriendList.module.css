@@ -1,13 +1,15 @@
 .cardList {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   gap: 20px;
   margin-bottom: 40px;
+  justify-content: center;
 }
 @media screen and (min-width: 768px) {
   .cardList {
-    gap: 24px;
+    gap: 32px;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 @media screen and (min-width: 1280px) {
@@ -17,5 +19,18 @@
 }
 
 .friendWrap {
-  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media only screen and (min-width: 768px) {
+  .friendWrap {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .friendWrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }

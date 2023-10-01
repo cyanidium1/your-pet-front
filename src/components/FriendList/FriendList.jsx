@@ -22,6 +22,7 @@ const FriendList = () => {
             workDays,
           }) => (
             <FriendItem
+              key={_id}
               id={_id}
               title={title}
               address={address}
