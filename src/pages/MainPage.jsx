@@ -1,7 +1,14 @@
 import Main from 'components/Main/Main';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { addToken } from 'redux/auth/authSlice';
 
 const MainPage = () => {
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const productName = searchParams.get('token') || null;
+  dispatch(addToken({ token: productName }));
+
   return <Main />;
 };
 

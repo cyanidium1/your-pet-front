@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
@@ -12,16 +12,22 @@ import {
   selectAllNotices,
   selectIsNoticesLoading,
 } from 'redux/notices/noticeSelectors';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 import { toast } from 'react-toastify';
 import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const productName = searchParams.get('searchQuery') ?? null;
+
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
+
   const { notices } = useSelector(selectAllNotices);
   const isAddedNotify = useSelector(selectIsNotifyAddPet);
+
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
   const notifyAdded = () => {
@@ -31,20 +37,23 @@ const NoticesPage = () => {
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
-      dispatch(getAllNoticesThunk(categoryPath));
+      dispatch(
+        getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
+      );
     }
     if (tagsLinkAuth.includes(categoryPath)) {
       if (categoryPath === tagsLinkAuth[0]) {
-        dispatch(getMyFavoriteAdsThunk());
+        dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
       }
       if (categoryPath === tagsLinkAuth[1]) {
-        dispatch(getMyAdsThunk());
+        dispatch(getMyAdsThunk({ searchQuery: productName }));
       }
     }
-  }, [categoryPath]);
+  }, [categoryPath, searchParams]);
   return (
     <>
-      <Search />
+      <h3 className={styles.name}></h3>
+      <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
       isAddedNotify

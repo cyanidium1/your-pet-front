@@ -309,7 +309,7 @@ const AuthForm = () => {
                 </button>
 
                 <span>OR</span>
-                <button
+                {/* <button
                   className={css.auth_submit_button}
                   onClick={() => {
                     dispatch(loginWithGoogle());
@@ -317,10 +317,14 @@ const AuthForm = () => {
                   type="button"
                 >
                   Login with Google
-                </button>
+                </button> */}
 
-                <a href="https://your-pet-backend-nci6.onrender.com/api/users/google">
-                  Click me authorize with Google
+                <a
+                  className={css.auth_submit_button}
+                  href="https://your-pet-backend-nci6.onrender.com/api/users/google"
+                >
+                  {!isLoginPageOpen ? 'Register ' : 'Login '}
+                  with Google
                 </a>
 
                 {!isLoginPageOpen ? (

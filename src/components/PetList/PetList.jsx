@@ -9,7 +9,6 @@ import styles from './PetList.module.css';
 const PetList = () => {
   const { notices } = useSelector(selectAllNotices);
 
-  // console.log(notices);
   return (
     <ul className={styles.list}>
       {notices && notices?.map(el => <PetCard key={el._id} info={el} />)}
