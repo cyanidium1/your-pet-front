@@ -43,7 +43,8 @@ const NoticesPage = () => {
   }, [categoryPath, searchParams]);
   return (
     <>
-      <Search searchParams={searchParams} setSearchParams={setSearchParams} />
+      <h3 className={styles.name}></h3>
+      <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
     </>
