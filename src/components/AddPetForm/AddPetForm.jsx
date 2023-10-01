@@ -15,6 +15,7 @@ import ThirdStepFoundOrGoodHands from './Steps/ThirdStep/ThirdStepFoundOrGoodHan
 import css from './AddPetForm.module.css';
 import { selectToken } from 'redux/auth/authSelectors';
 import { addPetInstance } from 'redux/myPets/addPetOperations';
+import { ToastContainer } from 'react-toastify';
 
 const AddPetForm = () => {
   const dispatch = useDispatch();
@@ -63,19 +64,21 @@ const AddPetForm = () => {
   }
 
   return (
-    <section>
-      <div className={css.AddPetSectionWrapper}>
-        <div className={css.WrapperAddPet}>
-          <h2 className={css.AddPetHeading}>
-            Add{status === 'lost' ? ' lost ' : ' '}pet
-            {status === 'sell' ? ' for sell ' : ' '}
-          </h2>
-          <Steps currentStep={step} />
-          {currentStepComponent}
+    <>
+      <section>
+        <div className={css.AddPetSectionWrapper}>
+          <div className={css.WrapperAddPet}>
+            <h2 className={css.AddPetHeading}>
+              Add{status === 'lost-found' ? ' lost ' : ' '}pet
+              {status === 'sell' ? ' for sell ' : ' '}
+            </h2>
+            <Steps currentStep={step} />
+            {currentStepComponent}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
-export default AddPetForm
+export default AddPetForm;

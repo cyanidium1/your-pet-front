@@ -14,6 +14,8 @@ import {
 } from 'redux/notices/noticeSelectors';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
+import { toast } from 'react-toastify';
+import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
@@ -23,8 +25,15 @@ const NoticesPage = () => {
 
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
 
+  const { notices } = useSelector(selectAllNotices);
+  const isAddedNotify = useSelector(selectIsNotifyAddPet);
+
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
+  const notifyAdded = () => {
+    toast('Pet added successfully!');
+    dispatch(hideNotify());
+  };
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
@@ -47,6 +56,8 @@ const NoticesPage = () => {
       <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
+      isAddedNotify
+      {isAddedNotify && notifyAdded()}
     </>
   );
 };

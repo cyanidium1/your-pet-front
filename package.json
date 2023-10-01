@@ -21,6 +21,7 @@
     "react-use": "^17.4.0",
     "redux-persist": "^6.0.0",
     "the-new-css-reset": "^1.11.0",
+    "toastify": "^2.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
