@@ -23,8 +23,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
-import { ToastContainer, toast } from 'react-toastify';
-import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
@@ -15,8 +15,6 @@ import {
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 
-import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
-
 const NoticesPage = () => {
   const dispatch = useDispatch();
 
@@ -24,8 +22,6 @@ const NoticesPage = () => {
   const productName = searchParams.get('searchQuery') ?? null;
 
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
-
-  const isAddedNotify = useSelector(selectIsNotifyAddPet);
 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
