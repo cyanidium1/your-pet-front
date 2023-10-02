@@ -15,8 +15,8 @@ import { formStepReducer } from './adddPetForm/addPetFormSlice';
 import { addPetSlice, addPetSliceReducer } from './myPets/addPetSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
-import { newsReducer } from "./news/newsSlice";
-
+import { newsReducer } from './news/newsSlice';
+import { friendReducer } from './friends/friendSlice';
 
 const authConfig = {
   key: 'auth',
@@ -34,9 +34,10 @@ export const store = configureStore({
     global: globalReducer,
     notices: noticesReducer,
     news: newsReducer,
+    friend: friendReducer,
   },
 
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
