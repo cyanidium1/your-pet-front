@@ -19,11 +19,16 @@ import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
 import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string()
-    .required('Title of add is required')
-    .min(6, 'Title must be at least 6 characters')
-    .max(64, 'Title must be at most 64 characters'),
-  name: Yup.string().required('Name pet is required'),
+  name: Yup.string()
+    .required('Name pet is required')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Name should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Name should start with a capital letter'
+    ),
   birthDate: Yup.date()
     .default(() => new Date())
     .required('Birth date is required'),
@@ -32,12 +37,9 @@ const validationSchema = Yup.object().shape({
 
 const SecondStepMy = () => {
   const dispatch = useDispatch();
-  const title = useSelector(selectMyPetTitle);
   const name = useSelector(selectMyPetName);
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
-
-
 
   const formattedDate = dateFromBackend => {
     const date = new Date(dateFromBackend);
@@ -68,7 +70,6 @@ const SecondStepMy = () => {
     <div className="container">
       <Formik
         initialValues={{
-          title,
           name,
           birthDate,
           type,
@@ -80,23 +81,6 @@ const SecondStepMy = () => {
       >
         <Form>
           <div className={css.FormWrapper}>
-            <div className={css.WrapperLabelInput}>
-              <label className={css.LabelStep} htmlFor="title">
-                Title of add
-              </label>
-              <Field
-                className={css.Input}
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Type add title"
-              />
-              <ErrorMessage
-                name="title"
-                component="p"
-                className={css.ErrorTextLow}
-              />
-            </div>
             <div className={css.WrapperLabelInput}>
               <label className={css.LabelStep} htmlFor="name">
                 Name pet
@@ -120,9 +104,10 @@ const SecondStepMy = () => {
               </label>
               <Field
                 type="date"
-                id="Date"
+                id="birthDate"
                 name="birthDate"
                 className={css.Input}
+                required
               />
               <ErrorMessage
                 name="birthDate"
@@ -180,4 +165,3 @@ const SecondStepMy = () => {
 };
 
 export default SecondStepMy;
-

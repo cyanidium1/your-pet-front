@@ -17,6 +17,7 @@ import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
 import { newsReducer } from './news/newsSlice';
 import { friendReducer } from './friends/friendSlice';
+import { toggleNotifyReducer } from './addPetNotify/appPetNotifySlice';
 
 const authConfig = {
   key: 'auth',
@@ -35,6 +36,7 @@ export const store = configureStore({
     notices: noticesReducer,
     news: newsReducer,
     friend: friendReducer,
+    showNotifyAddPet: toggleNotifyReducer
   },
 
   middleware: getDefaultMiddleware =>
