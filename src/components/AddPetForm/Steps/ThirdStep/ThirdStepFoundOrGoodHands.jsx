@@ -28,7 +28,10 @@ const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
   location: Yup.string()
     .required('Please type a location')
-    .matches(/^[A-Z][a-zA-Z]*$/, 'Location should start from capital letter'),
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Location should start with a capital letter'
+    ),
   comments: Yup.string()
     .optional()
     .max(120, 'Title must be at most 120 characters'),

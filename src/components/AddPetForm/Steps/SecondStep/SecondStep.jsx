@@ -18,10 +18,19 @@ import {
 import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
 import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
+// const noSpecialSymbols = (message = 'Special symbols are not allowed') => {
+//   return Yup.test('no-special-symbols', message, value => {
+//     return /^[a-zA-Z0-9\s]*$/.test(value);
+//   });
+// };
+
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .required('Title of add is required')
-    .matches(/^[A-Z][a-zA-Z]*$/, 'Title should start from capital letter')
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Location should start with a capital letter'
+    )
     .min(6, 'Title must be at least 6 characters')
     .max(64, 'Title must be at most 64 characters'),
   name: Yup.string().required('Name pet is required'),

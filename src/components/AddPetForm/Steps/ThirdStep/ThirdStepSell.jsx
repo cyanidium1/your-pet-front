@@ -30,7 +30,10 @@ const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
   location: Yup.string()
     .required('Please type a location')
-    .matches(/^[A-Z][a-zA-Z]*$/, 'Location should start from capital letter'),
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Location should start with a capital letter'
+    ),
   price: Yup.number('Price should be a number')
     .typeError('Price must be a number')
     .required('Please set a price')
