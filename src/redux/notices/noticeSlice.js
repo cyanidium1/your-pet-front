@@ -5,9 +5,8 @@ import {
   getMyFavoriteAdsThunk,
   addNoticeToFavoriteThunk,
   removeNoticeToFavoriteThunk,
-  getSelectedNoticeThunk
+  getSelectedNoticeThunk,
 } from './noticeOperations.js';
-
 
 const initialState = {
   allNotices: [],
@@ -29,13 +28,13 @@ const handlePending = state => {
   state.isLoading = true;
 };
 
-
 export const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   extraReducers: builder => {
     builder
       .addCase(getAllNoticesThunk.pending, handlePending)
+      .addCase(getSelectedNoticeThunk.fulfilled, handleNoticeById)
       .addMatcher(
         isAnyOf(
           getAllNoticesThunk.fulfilled,
@@ -43,8 +42,7 @@ export const noticesSlice = createSlice({
           getMyFavoriteAdsThunk.fulfilled
         ),
         handleAllNotices
-      )
-      .addCase(getSelectedNoticeThunk.fulfilled, handleNoticeById);
+      );
   },
 });
 

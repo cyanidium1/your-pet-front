@@ -8,67 +8,62 @@ import { useDispatch } from 'react-redux';
 const modalContainer = document.getElementById('modal');
 
 export const Modal = ({ children, closeReducer }) => {
+  // const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const onCloseModalESC = e => {
-      if (e.code === 'Escape') {
-        dispatch(closeReducer());
-      }
-    };
-    window.addEventListener('keydown', onCloseModalESC);
-    return () => {
-      window.removeEventListener('keydown', onCloseModalESC);
-    };
-  }, [closeReducer, dispatch]);
-  
-  const onCloseModal = e => {
-    if (e.currentTarget === e.target) {
-      dispatch(closeReducer());
-    }
-  };
-
-  const handleCloseModal = () => {
-    dispatch(closeReducer());
-  };
-  
   // useEffect(() => {
   //   const onCloseModalESC = e => {
   //     if (e.code === 'Escape') {
-  //       closeReducer();
-  //       document.body.style.overflow = 'auto';
+  //       dispatch(closeReducer());
   //     }
   //   };
-
   //   window.addEventListener('keydown', onCloseModalESC);
-
   //   return () => {
   //     window.removeEventListener('keydown', onCloseModalESC);
   //   };
-  // }, [closeReducer]);
+  // }, [closeReducer, dispatch]);
 
   // const onCloseModal = e => {
   //   if (e.currentTarget === e.target) {
-  //     closeReducer();
-  //     document.body.style.overflow = 'auto';
+  //     dispatch(closeReducer());
   //   }
   // };
 
   // const handleCloseModal = () => {
-  //   closeReducer();
-  //   document.body.style.overflow = 'auto';
+  //   dispatch(closeReducer());
   // };
+
+  useEffect(() => {
+    const onCloseModalESC = e => {
+      if (e.code === 'Escape') {
+        closeReducer();
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    window.addEventListener('keydown', onCloseModalESC);
+
+    return () => {
+      window.removeEventListener('keydown', onCloseModalESC);
+    };
+  }, [closeReducer]);
+
+  const onCloseModal = e => {
+    if (e.currentTarget === e.target) {
+      closeReducer();
+      document.body.style.overflow = 'auto';
+    }
+  };
+
+  const handleCloseModal = () => {
+    closeReducer();
+    document.body.style.overflow = 'auto';
+  };
 
   return createPortal(
     <div className={styles.backdrop} onClick={onCloseModal}>
       <div className={styles.modalStyled}>
         <div className={styles.closeModalButton}>
-          <Button
-            svg={'#icon-cross'}
-            onClick={handleCloseModal}
-            aria-label="close modal"
-          />
+          <Button svg={'#icon-cross'} onClick={handleCloseModal} />
         </div>
         {children}
       </div>

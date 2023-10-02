@@ -4,9 +4,8 @@ import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/authOperations';
 import { closeModalApproveAction } from 'redux/global/globalSlice';
 import Button from 'UI/Button/Button';
-import { Modal } from 'components/Modal/Modal';
 
-const ModalApproveAction = ({ setIsModalApproveActionOpen }) => {
+const ModalApproveAction = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -25,21 +24,19 @@ const ModalApproveAction = ({ setIsModalApproveActionOpen }) => {
   };
 
   return (
-    <Modal closeReducer={() => setIsModalApproveActionOpen(false)}>
-      <div className={modal.modalWrapper}>
-        <h1 className={modal.modalTitle}>Already leaving?</h1>
-        <div className={modal.modalButtonsWrapper}>
-          <Button text={'Cancel'} onClick={handleCloseModal} />
-          <Button
-            text={'Yes'}
-            isFilled={true}
-            color={'blue'}
-            svg={'#icon-logout'}
-            onClick={handleLogOut}
-          />
-        </div>
+    <div className={modal.modalWrapper}>
+      <h1 className={modal.modalTitle}>Already leaving?</h1>
+      <div className={modal.modalButtonsWrapper}>
+        <Button text={'Cancel'} onClick={handleCloseModal} />
+        <Button
+          text={'Yes'}
+          isFilled={true}
+          color={'blue'}
+          svg={'#icon-logout'}
+          onClick={handleLogOut}
+        />
       </div>
-    </Modal>
+    </div>
   );
 };
 
