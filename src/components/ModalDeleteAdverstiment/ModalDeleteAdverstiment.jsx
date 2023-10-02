@@ -1,60 +1,48 @@
 import React from 'react';
-import { Modal } from 'components/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModalDeleteAdverstiment } from 'redux/global/globalSlice';
 import styles from './ModalDeleteAdverstiment.module.css';
-import sprite from '../../images/icons.svg';
+import Button from 'UI/Button/Button';
+import { useLocation } from 'react-use';
+import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 
 const ModalDeleteAdverstiment = () => {
-  // const adverstiment=useSelector(selectAdverstiment)
-  // const dispatch = useDispatch();
+  const selectedNotice = useSelector(selectSelectedNotice);
+  const { title, _id } = selectedNotice?.notice || {};
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const categoryPath = pathname.split('/').slice(-1).join('');
 
-  // const handleDeleteAdverstiment = () => {
-  //    // Закрыть модальное окно при нажатии на кнопку
-  //    dispatch(closeModalDeleteAdverstiment());
-  // };
+  const handleDeleteCard = () => {
+    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+    dispatch(closeModalDeleteAdverstiment());
+  };
+
+  const handleCloseModal = () => {
+    dispatch(closeModalDeleteAdverstiment());
+  };
 
   return (
     <div className={styles.deleteModalWrapper}>
-      <div class={styles.closeModalIconWrapper}>
-        <svg className={styles.closeModalIcon}>
-          <use href={sprite + '#icon-cross'}></use>
-        </svg>
-      </div>
-      <h2 className={styles.modalTitle}>Delete adverstiment?</h2>
-      <p className={styles.modalText}>
-        Are you sure you want to delete “Cute dog looking for a home”?
+      <h3 className={styles.modalTitle}>Delete adverstiment?</h3>
+      <h4 className={styles.modalText}>
+        Are you sure you want to delete{' '}
+        <span className={styles.modalTitleToDelete}>"{title}"?</span>
         <br /> You can`t undo this action.
-      </p>
+      </h4>
 
       <div className={styles.modalButtonsWrapper}>
-        <button
-          className={styles.cancelButton}
-          type="button"
-          onClick={() => dispatch(closeModalLogout())}
-          variant={'secondary'}
-        >
-          Cancel
-        </button>
-        <button
-          className={styles.yesButton}
-          type="button"
-          // onClick={handleLogOut}
-        >
-          <div className={styles.buttonContent}>
-            <span>Yes</span>
-            <svg className={styles.logOutIcon}>
-              <use href={sprite + '#icon-trash-2'}></use>
-            </svg>
-          </div>
-        </button>
+        <Button text={'Cancel'} onClick={handleCloseModal} />
+        <Button
+          text={'Yes'}
+          isFilled={true}
+          color={'blue'}
+          svg={'#icon-trash-2'}
+          onClick={handleDeleteCard}
+        />
       </div>
     </div>
   );
 };
-
-// ModalDeleteAdverstiment.propTypes = {
-//   advarstimentId: PropTypes.string.isRequired,
-// };
 
 export default ModalDeleteAdverstiment;

@@ -1,121 +1,29 @@
-.modalWrapper {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  position: relative;
-  flex-wrap: wrap;
-  border-radius: 20px;
-  background-color: #ffffff;
-  width: 280px;
-  padding: 12px 12px 60px 12px;
-  margin: 100px auto;
-
-  @media screen and (min-width: 768px) {
-    width: 608px;
-    margin: 300px auto;
-    padding: 108px 155px;
-    border-radius: 40px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    margin-top: 112px;
-  }
-}
-
-.closeModalIconWrapper {
-  cursor: pointer;
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  @media screen and (min-width: 768px) {
-    top: 24px;
-    right: 24px;
-  }
-}
-
-.closeModalIcon {
-  width: 24px;
-  height: 24px;
-}
-
 .modalTitle {
-  font-size: 24px;
   margin-bottom: 44px;
   margin-top: 77px;
-  font-weight: 500;
-  letter-spacing: 0.96px;
-
   @media screen and (min-width: 768px) {
-    font-size: 36px;
-    letter-spacing: 1.44px;
     margin-bottom: 48px;
-    margin-top: 0px;
+    margin-top: 108px;
   }
-}
-
-.cancelButton {
-  display: inline-block;
-  width: 256px;
-  height: 40px;
-  text-align: center;
-  color: #54adff;
-  border: 2px solid #54adff;
-  border-radius: 40px;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    width: 129px;
-  }
-}
-
-.cancelButton:hover,
-.logOutButton:hover {
-  background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
-  color: #fef9f9;
-  color: #fef9f9;
-  border: transparent;
-}
-
-.logOutButton {
-  background-color: #54adff;
-  color: #fef9f9;
-  display: inline-block;
-  width: 256px;
-  height: 40px;
-  text-align: center;
-  border: 2px solid #54adff;
-  border-radius: 40px;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    width: 129px;
-  }
-}
-
-.buttonContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.logOutIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  right: 98px;
-  bottom: 79px;
-  stroke: #fef9f9;
-  fill: #54adff;
 }
 
 .modalButtonsWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-weight: 700;
+  margin-bottom: 60px;
   @media screen and (min-width: 768px) {
     flex-direction: row;
+    justify-content: center;
     gap: 17px;
+    margin-bottom: 109px;
+  }
+}
+
+.modalButtonsWrapper button {
+  width: 256px;
+  height: 40px;
+  @media screen and (min-width: 768px) {
+    width: 129px;
   }
 }

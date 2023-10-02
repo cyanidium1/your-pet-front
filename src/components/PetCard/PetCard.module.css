@@ -112,3 +112,22 @@
   padding-top: 20px;
   padding-bottom: 24px;
 }
+
+.btn button{
+  width: 248px;
+  height: 38px;
+}
+
+/* Styles for screens from 768px to 1279px */
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .item {
+    width: calc(50% - 24px); /* Display 2 items in a row */
+  }
+}
+
+/* Styles for screens from 1280px and above */
+@media screen and (min-width: 1280px) {
+  .item {
+    width: calc(25% - 48px); /* Display 4 items in a row */
+  }
+}
