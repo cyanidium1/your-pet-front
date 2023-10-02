@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 const Profile = () => {
   const notifyAdded = () => {
     const dispatch = useDispatch();
-    toast('Pet added successfully!');
+    // toast('Pet added successfully!');
     dispatch(hideNotify());
   };
   return (

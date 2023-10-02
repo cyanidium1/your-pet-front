@@ -19,9 +19,6 @@ import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
 
 const NoticesPage = () => {
-  // const isModalPetCardDetailsOpen = useSelector(
-  //   selectIsModalPetCardDetailsOpen
-  // );
   const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,10 +31,11 @@ const NoticesPage = () => {
 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
-  const notifyAdded = () => {
-    toast('Pet added successfully!');
-    dispatch(hideNotify());
-  };
+  // const notifyAdded = () => {
+  //   debugger;
+  //   toast('Pet added successfully!');
+  //   dispatch(hideNotify());
+  // };
 
   useEffect(() => {
     if (tagsLinkNotAuth.includes(categoryPath)) {
@@ -56,10 +54,13 @@ const NoticesPage = () => {
   }, [categoryPath, searchParams]);
   return (
     <>
-      <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
+      <Search
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        titleSearch={'Find your favorite pets'}
+      />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
-      isAddedNotify
       {isAddedNotify && notifyAdded()}
     </>
   );
