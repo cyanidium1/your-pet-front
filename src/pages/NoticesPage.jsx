@@ -19,9 +19,9 @@ import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
 
 const NoticesPage = () => {
-  const isModalPetCardDetailsOpen = useSelector(
-    selectIsModalPetCardDetailsOpen
-  );
+  // const isModalPetCardDetailsOpen = useSelector(
+  //   selectIsModalPetCardDetailsOpen
+  // );
   const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
