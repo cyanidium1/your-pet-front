@@ -46,9 +46,10 @@ const PetCard = ({ info }) => {
     backgroundImage: `url(${file})`,
   };
 
-  const handleOpenModal = (id) => {
-    dispatch(getSelectedNoticeThunk({id}));
-    dispatch(openModalPetCardDetails())
+  const handleOpenModal = id => {
+    dispatch(getSelectedNoticeThunk({ id }));
+    dispatch(openModalPetCardDetails());
+    // handleToggleFavoriteAds(_id);
   };
 
   const handleToggleFavoriteAds = () => {
@@ -75,6 +76,7 @@ const PetCard = ({ info }) => {
                   : `${styles.heartIcon} ${styles.iconWrap}`
               }
               onClick={handleToggleFavoriteAds}
+           
             >
               <svg className={`${styles.heart} ${styles.icon}`}>
                 <use href={sprite + '#icon-heart'} />
@@ -117,7 +119,7 @@ const PetCard = ({ info }) => {
       </div>
       <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
       <div className={styles.btn}>
-        <Button text={'Learn more'} onClick={()=>handleOpenModal(_id)} />
+        <Button text={'Learn more'} onClick={() => handleOpenModal(_id)} />
       </div>
     </li>
   );
