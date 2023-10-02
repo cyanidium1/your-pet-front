@@ -31,6 +31,7 @@ const validationSchema = Yup.object().shape({
     ),
   birthDate: Yup.date()
     .default(() => new Date())
+    .typeError('Invalid date format')
     .required('Birth date is required'),
   type: Yup.string().required('Type is required'),
 });

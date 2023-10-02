@@ -49,8 +49,9 @@ const validationSchema = Yup.object().shape({
     ),
   birthDate: Yup.date()
     .default(() => new Date())
+    .typeError('Invalid date format')
     .required('Date is required')
-    .max(new Date(), 'Birthdate cannot be in the future'),
+    .max(new Date(), 'Please set a correct date in the past'),
   type: Yup.string().required('Type is required'),
 });
 
