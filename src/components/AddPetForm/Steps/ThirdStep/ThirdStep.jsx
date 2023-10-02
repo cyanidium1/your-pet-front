@@ -36,7 +36,7 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  addpet - styles - debug - and - backend - change;
+
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
@@ -105,14 +105,16 @@ const ThirdStep = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>
