@@ -2,15 +2,30 @@ import css from './Pagination.module.css'
 import sprite from '../../images/icons.svg'
 import { useState } from 'react';
 
-const Pagination = ({totalNewsPages, currentPage, nextPage, prevPage}) => {
+const Pagination = ({totalNewsPages, setSearchParams }) => {
 
    
    const [activePage, setActivePage] = useState(1);
     
    const handlePageClick = (number) => {
+        setSearchParams({page: number})
         setActivePage(number);
-        currentPage(number);
       };
+
+      const handleNextPage = () => {
+         if (activePage < totalNewsPages) {
+           const newPage = activePage + 1;
+           setSearchParams({page: newPage})
+           setActivePage(newPage);
+         }
+       };
+       const handlePrevPage = () => {
+         if (activePage > 1) {
+           const newPage = activePage - 1;
+           setSearchParams({page: newPage})
+           setActivePage(newPage);
+         }
+       };
 
 
     const pageNumber = []
@@ -18,7 +33,7 @@ const Pagination = ({totalNewsPages, currentPage, nextPage, prevPage}) => {
     pageNumber.push(i)
     return (
        <div className={css.paginationWrap}>
-         <button className={css.btnLeft} onClick={prevPage}>
+         <button className={css.btnLeft}  onClick={handlePrevPage} disabled={activePage===1}>
       <svg width={35} height={35}>
          < use href={sprite+'#icon-left'}/> 
       </svg>
@@ -36,7 +51,7 @@ const Pagination = ({totalNewsPages, currentPage, nextPage, prevPage}) => {
         }
      </ul>
      
-     <button className={css.btnRight} onClick={nextPage}>
+     <button className={css.btnRight} onClick={handleNextPage} disabled={activePage===totalNewsPages}>
       <svg width={35} height={35}>
          <use  href={sprite +'#icon-right'}/>
       </svg>
