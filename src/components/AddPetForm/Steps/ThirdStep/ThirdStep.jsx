@@ -91,6 +91,9 @@ const ThirdStep = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">

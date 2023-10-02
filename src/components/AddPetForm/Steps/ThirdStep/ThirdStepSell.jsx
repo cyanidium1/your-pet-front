@@ -159,6 +159,9 @@ const ThirdStepSell = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -204,6 +207,9 @@ const ThirdStepSell = () => {
                   id="location"
                   name="location"
                   placeholder="Type of location"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="location"
@@ -222,6 +228,9 @@ const ThirdStepSell = () => {
                   name="price"
                   inputMode="numeric"
                   placeholder="Type of price"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="price"

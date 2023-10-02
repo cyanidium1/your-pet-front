@@ -113,6 +113,9 @@ const SecondStepSell = () => {
                 id="title"
                 name="title"
                 placeholder="Type add title"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="title"
@@ -130,6 +133,9 @@ const SecondStepSell = () => {
                 id="name"
                 name="name"
                 placeholder="Type pet name"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="name"
@@ -147,6 +153,9 @@ const SecondStepSell = () => {
                 name="birthDate"
                 className={css.Input}
                 required
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="birthDate"
@@ -164,6 +173,9 @@ const SecondStepSell = () => {
                 id="type"
                 name="type"
                 placeholder="Type of pet"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="type"
