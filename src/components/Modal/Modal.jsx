@@ -8,29 +8,6 @@ import { useDispatch } from 'react-redux';
 const modalContainer = document.getElementById('modal');
 
 export const Modal = ({ children, closeReducer }) => {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const onCloseModalESC = e => {
-  //     if (e.code === 'Escape') {
-  //       dispatch(closeReducer());
-  //     }
-  //   };
-  //   window.addEventListener('keydown', onCloseModalESC);
-  //   return () => {
-  //     window.removeEventListener('keydown', onCloseModalESC);
-  //   };
-  // }, [closeReducer, dispatch]);
-
-  // const onCloseModal = e => {
-  //   if (e.currentTarget === e.target) {
-  //     dispatch(closeReducer());
-  //   }
-  // };
-
-  // const handleCloseModal = () => {
-  //   dispatch(closeReducer());
-  // };
 
   useEffect(() => {
     const onCloseModalESC = e => {

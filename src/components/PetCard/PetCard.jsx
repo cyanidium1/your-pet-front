@@ -14,6 +14,7 @@ import { selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
   deleteNoticeThunk,
+  getSelectedNoticeThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
@@ -27,9 +28,9 @@ const PetCard = ({ info }) => {
     info;
 
   const dispatch = useDispatch();
-  const isModalPetCardDetailsOpen = useSelector(
-    selectIsModalPetCardDetailsOpen
-  );
+  // const isModalPetCardDetailsOpen = useSelector(
+  //   selectIsModalPetCardDetailsOpen
+  // );
 
   const { user = {} } = useSelector(selectUser) || {};
   const [isFavoriteCard, setisFavoriteCard] = useState(
@@ -45,8 +46,9 @@ const PetCard = ({ info }) => {
     backgroundImage: `url(${file})`,
   };
 
-  const handleOpenModal = () => {
-    dispatch(openModalPetCardDetails());
+  const handleOpenModal = (id) => {
+    dispatch(getSelectedNoticeThunk({id}));
+    dispatch(openModalPetCardDetails())
   };
 
   const handleToggleFavoriteAds = () => {
@@ -114,13 +116,8 @@ const PetCard = ({ info }) => {
         </div>
       </div>
       <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
-      {isModalPetCardDetailsOpen && (
-        <Modal closeReducer={closeModalPetCardDetails}>
-          <ModalPetCardDetails />
-        </Modal>
-      )}
       <div className={styles.btn}>
-        <Button text={'Learn more'} onClick={handleOpenModal} />
+        <Button text={'Learn more'} onClick={()=>handleOpenModal(_id)} />
       </div>
     </li>
   );

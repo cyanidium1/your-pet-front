@@ -7,7 +7,7 @@ import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { Modal } from 'components/Modal/Modal';
 import { useLocation } from "react-use";
 
-const ModalPetCardDetails = ({ setIsModalOpen }) => {
+const ModalPetCardDetails = () => {
   const selectedNotice = useSelector(selectSelectedNotice);
   console.log(selectedNotice);
 
@@ -50,7 +50,8 @@ const ModalPetCardDetails = ({ setIsModalOpen }) => {
 
 
   return (
-    <Modal closeReducer={() => setIsModalOpen(false)} >
+    // <Modal closeReducer={() => setIsModalOpen(false)} >
+      <>
       <div className={modal.modalPetCardDetailsWrapper} key={_id}>
         <div className={modal.imageWrapper}>
           <h6 className={modal.category}>{category}</h6>
@@ -141,7 +142,8 @@ const ModalPetCardDetails = ({ setIsModalOpen }) => {
           onClick={handleToggleFavoriteAds}
         />
       </div>
-    </Modal>
+      </>
+    // </Modal>
   );
 };
 
