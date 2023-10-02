@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -56,13 +56,15 @@ const ThirdStepSell = () => {
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
+  useEffect(() => {
+    setIsSexIgnored(true);
+  }, []);
 
   const notifyPetAdded = () => toast('Pet added successfully');
 
   const handleSubmit = values => {
     if (!sex) {
       setIsSexIgnored(true);
-      return;
     }
     const pet = {
       sex,

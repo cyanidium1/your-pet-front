@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -55,13 +55,16 @@ const ThirdStepFoundOrGoogHands = () => {
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
+  useEffect(() => {
+    setIsSexIgnored(true);
+  }, []);
 
   const handleSubmit = values => {
     const { name, date, category, type, title } = petBody;
 
     if (!sex) {
       setIsSexIgnored(true);
-      return;
+      // return;
     }
     const pet = {
       name,
