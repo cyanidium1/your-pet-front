@@ -1,5 +1,3 @@
-/* Modal.module.css */
-
 .backdrop {
   background: rgba(97, 97, 97, 0.6);
   backdrop-filter: blur(4px);
@@ -12,86 +10,101 @@
 }
 
 .modalStyled {
-  /* text-align: center;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  position: relative;
-  flex-wrap: wrap; */
+  position: absolute;
   background: #ffffff;
   width: 280px;
-  /* margin: 100px auto; */
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, 100px);
   border-radius: 20px;
-  /* padding: 12px 12px 60px 12px; */
+  padding-left: 12px;
+  padding-right: 12px;
 
   @media screen and (min-width: 768px) {
-    /* width: var(--spacing-135);
-    min-height: var(--spacing-145);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
     width: 608px;
-    /* margin: 300px auto; */
-    /* padding: 108px 155px; */
     border-radius: 40px;
     flex-direction: column;
   }
   @media screen and (min-width: 1280px) {
-    /* margin-top: 112px; */
+  }
+}
+
+.modalStyled h1 {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.96px;
+  text-align: center;
+  @media screen and (min-width: 768px) {
+    font-size: 36px;
+    letter-spacing: 1.44px;
+  }
+}
+
+.modalStyled h2 {
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0.64px;
+  font-weight: 500;
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+    letter-spacing: 0.96px;
+  }
+}
+
+.modalStyled h3 {
+  font-size: 24px;
+  /* font-weight: 500; */
+  font-weight: 700;
+  letter-spacing: 0.96px;
+  text-align: center;
+  @media screen and (min-width: 768px) {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.28px;
+  }
+}
+
+.modalStyled h4 {
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.56px;
+  font-weight: 500;
+  line-height: 1.29;
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.16px;
+  }
+}
+
+.modalStyled p {
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.56px;
+  font-weight: 500;
+  line-height: 1.29;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.4;
+    letter-spacing: 0.8px;
   }
 }
 
 .closeModalButton {
-  cursor: pointer;
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  @media screen and (min-width: 768px) {
-    top: 24px;
-    right: 24px;
-  }
-}
-
-.closeModalIcon {
   width: 24px;
   height: 24px;
-}
-
-.modalTitle {
-  font-size: 24px;
-  margin-bottom: 44px;
-  margin-top: 77px;
-  font-weight: 500;
-  letter-spacing: 0.96px;
-
+  position: absolute;
+  right: 24px;
+  top: 12px;
   @media screen and (min-width: 768px) {
-    font-size: 36px;
-    letter-spacing: 1.44px;
-    margin-bottom: 48px;
-    margin-top: 0px;
+    top: 23px;
+    right: 38px;
   }
 }
-
-/* .iconCloseModal {
-  width: var(--spacing-7);
-  height: var(--spacing-7);
-
-  position: absolute;
-  top: var(--spacing-5);
-  right: var(--spacing-5);
+.closeModalButton button {
+  border: none;
 }
-
-.iconCloseModal:hover {
-  cursor: pointer;
-}
-
-.exitModalBtn {
-  width: var(--spacing-7.4);
-  height: var(--spacing-7.4);
-} */
-
-/* .exitModalBtn:hover {
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-  } */

@@ -12,12 +12,6 @@ import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import AddPetPage from './pages/AddPetPage';
 import './App.css';
-import Logout from 'components/Logout/Logout';
-import ModalApproveAction from 'components/ModalApproveAction/ModalApproveAction';
-import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
-import ModalAttention from 'components/ModalAttention/ModalAttention';
-import ModalCongrats from 'components/ModalCongrats/ModalCongrats';
-import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 
 const App = () => {
   return (

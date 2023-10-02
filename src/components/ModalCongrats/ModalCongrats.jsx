@@ -1,30 +1,20 @@
 import React from 'react';
-import sprite from '../../images/icons.svg';
 import modal from './ModalCongrats.module.css';
-import { Link } from 'react-router-dom';
+import Button from 'UI/Button/Button';
 
-const ModalCongrats = () => {
+const ModalCongrats = ({ setIsModalCongratsOpen }) => {
   return (
     <div className={modal.modalCongratsWrapper}>
-      <div class={modal.closeModalIconWrapper}>
-        <svg className={modal.closeModalIcon}>
-          <use href={sprite + '#icon-cross'}></use>
-        </svg>
-      </div>
-
-      <p className={modal.modalTitle}>Congrats!</p>
-      <p className={modal.modalText}>Youre registration is success</p>
+      <h1 className={modal.modalTitle}>Congrats!</h1>
+      <h2 className={modal.modalText}>Your registration is success</h2>
       <div className={modal.modalButtonsWrapper}>
-        <Link to="/profile">
-          <button className={modal.goToProfileButton} type="button">
-            <div className={modal.buttonContent}>
-              <span>Go to profile</span>
-              <svg className={modal.pawprintIcon}>
-                <use href={sprite + '#icon-pawprint-1'}></use>
-              </svg>
-            </div>
-          </button>
-        </Link>
+        <Button
+          text={'Go to profile'}
+          isFilled={true}
+          color={'blue'}
+          svg={'#icon-pawprint-white'}
+          to="/profile"
+        />
       </div>
     </div>
   );
