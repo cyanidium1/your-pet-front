@@ -74,11 +74,9 @@ const ThirdStepSell = () => {
     dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
-
+    toast.success('Pet added successfully');
     // dispatch(showNotify());
-
     navigate(-1);
-
     // notifyPetAdded();
   };
   const handlePreviousStep = () => {

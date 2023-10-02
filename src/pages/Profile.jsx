@@ -5,18 +5,12 @@ import { toast } from 'react-toastify';
 import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 import { useDispatch } from 'react-redux';
 const Profile = () => {
-  const notifyAdded = () => {
-    const dispatch = useDispatch();
-    // toast('Pet added successfully!');
-    dispatch(hideNotify());
-  };
   return (
     <>
       <section className={`container ${scss.section}`}>
         <Card />
         <Pets />
       </section>
-      {isAddedNotify && notifyAdded()}
     </>
   );
 };
