@@ -1,141 +1,158 @@
-import React, { useEffect, useState } from 'react';
-import sprite from '../../images/icons.svg';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import modal from './ModalPetCardDetails.module.css';
-import {
-  closeModalPetCardDetails,
-  openModalAttention,
-} from 'redux/global/globalSlice';
+import Button from 'UI/Button/Button';
+import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
+import { Modal } from 'components/Modal/Modal';
+import { useState } from 'react';
+// import { selectUser } from 'redux/auth/authSelectors';
+import { useLocation } from 'react-use';
+import { closeModalPetCardDetails } from 'redux/global/globalSlice';
+import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 
 const ModalPetCardDetails = () => {
   const dispatch = useDispatch();
+  const selectedNotice = useSelector(selectSelectedNotice);
+  const {
+    title,
+    name,
+    _id,
+    file,
+    category,
+    date,
+    type,
+    location,
+    sex,
+    comments,
+  } = selectedNotice?.notice || {};
+  const { email, phone } = selectedNotice?.notice.owner || {};
 
-  const handleCloseModal = () => {
-    dispatch(closeModalPetCardDetails());
+  const telURI = `tel:${phone}`;
+  const birthday = formatDate(date);
+
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleDateString('en-US', options);
+  }
+
+  const { pathname } = useLocation();
+  const categoryPath = pathname.split('/').slice(-1).join('');
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+
+  const handleToggleFavoriteAds = () => {
+    isFavoriteCard
+      ? dispatch(
+          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+        ).then(setisFavoriteCard(false))
+      : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
   };
 
-  const handleAddPetToFavorite = () => {
-    dispatch(openModalAttention());
-  };
-
-  // const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
-  // const handleAddPetToFavorite =()=>{
-  //   {
-  //     if (isUserLoggedIn) {
-  //       dispatch(addPetToFavorite());
-  //     } else {
-  //       dispatch(openModalAttention());
-  //     }
-  //   };
-
-  // }
+  // const handleCloseModal = () => {
+  //   dispatch(closeModalPetCardDetails());
+  // };
 
   return (
-    <div className={modal.modalPetCardDetailsWrapper}>
-      <div className={modal.closeModalIconWrapper} onClick={handleCloseModal}>
-        <svg className={modal.closeModalIcon}>
-          <use href={sprite + '#icon-cross'}></use>
-        </svg>
-      </div>
-      <div className={modal.imageAndInfoWrapper}>
-      <img
-        className={modal.petImage}
-        src="#"
-        alt="pet's image"
-        width="240"
-        height="240"
-      />
-      <div className={modal.topParams}>
-          <p className={modal.type}>In good hands</p>
-      
-        </div>
+    
       <div>
-      <p className={modal.modalTitle}>Сute dog looking for a home</p>
-      <table>
-        <tbody>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Name:</strong>
-            </td>
-            <td className={modal.normalCell}>Rich</td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Birthday:</strong>
-            </td>
-            <td className={modal.normalCell}>21.09.2020</td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Type:</strong>
-            </td>
-            <td className={modal.normalCell}>Pomeranian</td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Place:</strong>
-            </td>
-            <td className={modal.normalCell}>Lviv</td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>The sex:</strong>
-            </td>
-            <td className={modal.normalCell}>male</td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Email:</strong>
-            </td>
-            <td className={modal.normalCell}>
-              <a href="mailto:user@mail.com" className={modal.link}>
-                user@mail.com
-              </a>
-            </td>
-          </tr>
-          <tr >
-            <td className={modal.boldCell}>
-              <strong>Phone:</strong>
-            </td>
-            <td className={modal.normalCell}>
-              <a href="tel:+380971234567" className={modal.link}>
-                +380971234567
-              </a>
-            </td>
-          </tr>
-         
-         
-        </tbody>
-      </table>
-      </div>
+      <div className={modal.modalPetCardDetailsWrapper} key={_id}>
+        <div className={modal.imageWrapper}>
+          <h6 className={modal.category}>{category}</h6>
+          <img
+            className={modal.petImage}
+            src={file}
+            alt="pet's image"
+            width="240"
+            height="240"
+          />
+        </div>
+        <div>
+          <h5 className={modal.modalTitle}>{title}</h5>
+          <table>
+            <tbody>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Name:</strong>
+                </td>
+                <td className={modal.normalCell}>{name}</td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Birthday:</strong>
+                </td>
+                <td className={modal.normalCell}>{birthday}</td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Type:</strong>
+                </td>
+                <td className={modal.normalCell}>{type}</td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Place:</strong>
+                </td>
+                <td className={modal.normalCell}>{location}</td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>The sex:</strong>
+                </td>
+                <td className={modal.normalCell}>{sex}</td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Email:</strong>
+                </td>
+                <td className={modal.normalCell}>
+                  <a href="mailto:user@mail.com" className={modal.link}>
+                    {email}
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td className={modal.boldCell}>
+                  <strong>Phone:</strong>
+                </td>
+                <td className={modal.normalCell}>
+                  <a href="tel:+380971234567" className={modal.link}>
+                    {phone}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className={modal.commentsSection}>
-      <strong >Comments:</strong> <span>Rich would be the perfect addition to
-              an active family that loves to play and go on walks. I bet he
-              would love having a doggy playmate too!</span>
+        {comments ? (
+          <>
+            <strong>Comments:</strong> <span>{comments}</span>
+          </>
+        ) : null}
       </div>
-      
+
       <div className={modal.modalButtonsWrapper}>
-        <button className={modal.contactButton} type="button">
-          <a href="tel:№" className={modal.buttonContent}>
-            Contact
-          </a>
-        </button>
-        <button
-          className={modal.heartButton}
-          type="button"
-          onClick={handleAddPetToFavorite}
-        >
-          <div className={modal.buttonContent}>
-            <span>Add to </span>
-            <svg className={modal.heartIcon}>
-              <use href={sprite + '#icon-heart'}></use>
-            </svg>
-          </div>
-        </button>
+        <Button
+          text={'Contact'}
+          onClick={() => (window.location.href = telURI)}
+        />
+        <Button
+          text={isFavorite ? 'Remove from ' : 'Add to '}
+          isFilled={true}
+          color={isFavorite ? '' : 'blue'}
+          svg={'#icon-heart'}
+          onClick={handleToggleFavoriteAds}
+        />
       </div>
-    </div>
+      </div>
+    
   );
 };
 
 export default ModalPetCardDetails;
+
+ModalPetCardDetails.propTypes = {
+  setIsModalPetCardDetailsOpen: PropTypes.func,
+};

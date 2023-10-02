@@ -18,6 +18,9 @@ import { toast } from 'react-toastify';
 import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const NoticesPage = () => {
+  const isModalPetCardDetailsOpen = useSelector(
+    selectIsModalPetCardDetailsOpen
+  );
   const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();

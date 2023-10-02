@@ -5,15 +5,23 @@ import {
   getMyFavoriteAdsThunk,
   addNoticeToFavoriteThunk,
   removeNoticeToFavoriteThunk,
+  getSelectedNoticeThunk
 } from './noticeOperations.js';
+
 
 const initialState = {
   allNotices: [],
+  selectedNotice: null,
   isLoading: false,
 };
 
 const handleAllNotices = (state, { payload }) => {
   state.allNotices = payload;
+  state.isLoading = false;
+};
+
+const handleNoticeById = (state, action) => {
+  state.selectedNotice = action.payload;
   state.isLoading = false;
 };
 
@@ -35,7 +43,8 @@ export const noticesSlice = createSlice({
           getMyFavoriteAdsThunk.fulfilled
         ),
         handleAllNotices
-      );
+      )
+      .addCase(getSelectedNoticeThunk.fulfilled, handleNoticeById);
   },
 });
 

@@ -1,13 +1,12 @@
 import React from 'react';
 import modal from './ModalApproveAction.module.css';
-import sprite from '../../images/icons.svg';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/authOperations';
 import { closeModalApproveAction } from 'redux/global/globalSlice';
+import Button from 'UI/Button/Button';
+import { Modal } from 'components/Modal/Modal';
 
-
-const ModalApproveAction = () => {
-
+const ModalApproveAction = ({ setIsModalApproveActionOpen }) => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
@@ -26,37 +25,21 @@ const ModalApproveAction = () => {
   };
 
   return (
-    <div className={modal.modalWrapper}>
-      <div className={modal.closeModalIconWrapper} onClick={handleCloseModal}>
-        <svg className={modal.closeModalIcon}>
-          <use href={sprite + '#icon-cross'}></use>
-        </svg>
+    <Modal closeReducer={() => setIsModalApproveActionOpen(false)}>
+      <div className={modal.modalWrapper}>
+        <h1 className={modal.modalTitle}>Already leaving?</h1>
+        <div className={modal.modalButtonsWrapper}>
+          <Button text={'Cancel'} onClick={handleCloseModal} />
+          <Button
+            text={'Yes'}
+            isFilled={true}
+            color={'blue'}
+            svg={'#icon-logout'}
+            onClick={handleLogOut}
+          />
+        </div>
       </div>
-
-      <p className={modal.modalTitle}>Already leaving?</p>
-      <div className={modal.modalButtonsWrapper}>
-        <button
-          className={modal.cancelButton}
-          type="button"
-          onClick={handleCloseModal}
-          variant={'secondary'}
-        >
-          Cancel
-        </button>
-        <button
-          className={modal.logOutButton}
-          type="button"
-          onClick={handleLogOut}
-        >
-          <div className={modal.buttonContent}>
-            <span>Yes</span>
-            <svg className={modal.logOutIcon}>
-              <use href={sprite + '#icon-logout'}></use>
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
+    </Modal>
   );
 };
 

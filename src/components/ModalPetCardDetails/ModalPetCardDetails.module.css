@@ -1,103 +1,55 @@
-.modalPetCardDetailsWrapper{
-    /* align-items: center;
-  justify-content: center; */
-  display: flex;
-  position: relative;
-  flex-wrap: wrap;
-  border-radius: 20px;
-  background-color: #ffffff;
-  width: 280px;
-  margin: 100px auto;
-  padding-left: 12px;
-  padding-right: 12px;
-
-  @media screen and (min-width: 768px) {
-    width: 681px;
-    margin: 200px auto;
-    border-radius: 40px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    margin-top: 200px;
-  }
-}
-
-.imageAndInfoWrapper{
-  display: block;
-  position: relative;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
-  /* padding: 16px 0; */
-  /* height: 288px; */
-  /* width: 100%; */
-  /* background-size: cover;
-  background-position: center; */
+.modalPetCardDetailsWrapper {
   @media screen and (min-width: 768px) {
     display: flex;
     margin-top: 32px;
+    padding-left: 20px;
   }
+}
+
+.imageWrapper {
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
 }
 
 .petImage {
   border-radius: 0px 0px 40px 40px;
- margin-left: auto;
- margin-right: auto;
- margin-top: 44px;
- @media screen and (min-width: 768px) {
-  margin-top: 0px;
-  margin-right: 24px;
-  width: 262px;
-  height: 298px;
-}
-}
-
-.topParams {
-  /* display: flex; */
-  /* justify-content: space-between; */
-  position:absolute;
-  top: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 44px;
+  @media screen and (min-width: 768px) {
+    margin-top: 0px;
+    margin-right: 24px;
+    width: 262px;
+    height: 298px;
+  }
 }
 
-.type {
-  display: flex;
+.category {
   font-size: 14px;
-  font-weight: 700;
+font-weight: 500;
   background-color: #cce4fb;
-  padding: 10px 17px;
+  padding: 11px 22px 11px 12px;
   border-radius: 0 16px 16px 0;
+  position: absolute;
+  top: 16px;
+  left: 8px;
+  @media screen and (min-width: 768px) {
+    left: 0;
+  }
 }
-
-.closeModalIconWrapper {
-    cursor: pointer;
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    @media screen and (min-width: 768px) {
-      top: 24px;
-      right: 24px;
-    }
-  }
-  
-  .closeModalIcon {
-    width: 24px;
-    height: 24px;
-  }
 
 .modalTitle {
   font-size: 24px;
-  margin-bottom: 20px;
-  margin-top: 12px;
   font-weight: 700;
   letter-spacing: -0.24px;
-  width: 198px;
-  text-align:left;
-  
+  margin-bottom: 20px;
+  max-width: 198px;
 
   @media screen and (min-width: 768px) {
     font-size: 28px;
     letter-spacing: -0.28px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     margin-top: 0px;
     width: 321px;
   }
@@ -107,8 +59,7 @@
   font-size: 12px;
   font-weight: 500;
   font-style: normal;
-  padding-bottom: 11px; 
-  padding-left: 20px;
+  padding-bottom: 11px;
   @media screen and (min-width: 768px) {
     font-size: 16px;
   }
@@ -118,124 +69,43 @@
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
+  padding-right: 20px;
   @media screen and (min-width: 768px) {
+    padding-right: 51px;
     font-size: 16px;
   }
 }
 
-
 .commentsSection {
-  margin-top: 2px;
-  margin-bottom: 12px;
   width: 100%;
   font-size: 14px;
   font-weight: 600;
   @media screen and (min-width: 768px) {
-    margin-top: 17px;
+    padding-left: 20px;
     font-size: 16px;
   }
-  @media screen and (min-width: 1280px) {
-    margin-bottom: 70px;
-  }
-}
-
-.link{
-  color: #FFC107;
-  text-decoration: none;
-  text-decoration: underline; 
-}
-
-.link:hover {
-  cursor: pointer;
-}
-
-
-/* .modalText {
-  font-size: 14px;
-  text-align: center;
-  letter-spacing: -0.14px;
-  font-weight: 500;
-  width: 240px;
-  margin-bottom: 44px;
-  @media screen and (min-width: 768px) {
-    width: 393px;
-    font-size: 16px;
-    line-height: normal;
-    letter-spacing: -0.16px;
-    margin-bottom: 48px;
-  }
-} */
-
-.contactButton {
-  display: inline-block;
-  width: 256px;
-  height: 40px;
-  text-align: center;
-  color: #54adff;
-  border: 2px solid #54adff;
-  border-radius: 40px;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    width: 129px;
-  }
-}
-
-.contactButton:hover,
-.heartButton:hover {
-  background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
-  color: #fef9f9;
-  color: #fef9f9;
-  border: transparent;
-}
-
-.heartButton {
-  background-color: #54adff;
-  color: #fef9f9;
-  display: inline-block;
-  width: 256px;
-  height: 40px;
-  text-align: center;
-  border: 2px solid #54adff;
-  border-radius: 40px;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    width: 129px;
-  }
-}
-
-.buttonContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.heartIcon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  right: 98px;
-  bottom: 79px;
-  stroke: #fef9f9;
-  fill: #54adff;
 }
 
 .modalButtonsWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-weight: 700;
   padding-bottom: 16px;
+  margin-top: 12px;
   @media screen and (min-width: 768px) {
+    padding-bottom: 24px;
     flex-direction: row;
+    justify-content: flex-end;
     margin-right: 19px;
-    margin-left: auto;
+    margin-top: 70px;
     gap: 17px;
   }
-  @media screen and (min-width: 1280px) {
-    padding-bottom: 24px;
+}
+
+.modalButtonsWrapper button {
+  width: 256px;
+  height: 40px;
+  @media screen and (min-width: 768px) {
+    width: 129px;
   }
-  
 }

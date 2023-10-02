@@ -94,3 +94,15 @@ export const deleteNoticeThunk = createAsyncThunk(
     }
   }
 );
+
+export const getSelectedNoticeThunk = createAsyncThunk(
+  'notices/noticeById',
+  async (noticeId, { rejectedWithValue }) => {
+    try {
+      const { data } = await noticeInstance.get(`/notices/${noticeId}`);
+      return data; 
+    } catch (error) {
+      return rejectedWithValue(error.message);
+    }
+  }
+);
