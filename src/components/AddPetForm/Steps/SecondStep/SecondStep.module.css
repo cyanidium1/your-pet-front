@@ -46,7 +46,6 @@
 .ErrorText {
   position: absolute;
   bottom: -25%;
-  right: 67%;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -56,7 +55,6 @@
 .ErrorTextLow {
   position: absolute;
   bottom: -30%;
-  right: 65%;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -64,7 +62,7 @@
 
   @media screen and (min-width: 768px) {
     bottom: -25%;
-    right: 76%;
+    right: auto;
   }
 }
 

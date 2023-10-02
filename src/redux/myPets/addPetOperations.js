@@ -1,42 +1,77 @@
-import axios from "axios";
+import axios from 'axios';
 
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = "https://650e940454d18aabfe994535.mockapi.io";
+export const addPetInstance = axios.create({
+  baseURL: 'https://your-pet-backend-nci6.onrender.com/',
+});
 
 export const addNewPet = createAsyncThunk(
-  "addPet/newPet",
+  'addPet/newPet',
   async (pet, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/myPets", {
-        ...pet,
+      const formData = new FormData();
+
+      formData.append('name', pet.name);
+      formData.append('petImage', pet.file);
+      formData.append('type', pet.type);
+      formData.append('dateOfBirth', pet.date);
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
+      const response = await addPetInstance.post('api/pets', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      return data;
+
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const updatePetInfo = createAsyncThunk(
-  "addPet/updatePetInfo",
+export const addNewPetNotice = createAsyncThunk(
+  'addPet/newPetNotice',
   async (pet, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/myPets/${pet.id}`, {
-        ...pet,
+      const formData = new FormData();
+
+      formData.append('name', pet.name);
+      formData.append('location', pet.location);
+      formData.append('file', pet.file);
+      formData.append('type', pet.type);
+      formData.append('date', pet.date);
+      formData.append('sex', pet.sex);
+      formData.append('title', pet.title);
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
+      formData.append('category', pet.category);
+      if (pet.price) {
+        formData.append('price', pet.price);
+      }
+      console.log(formData);
+
+      const response = await addPetInstance.post('api/notices', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      return data;
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
+
 export const deletePet = createAsyncThunk(
-  "addPet/deletePet",
+  'addPet/deletePet',
   async (pet, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/myPets/${pet.id}`);
+      const { data } = await addPetInstance.delete(`api/pets/${pet.id}`);
 
       return data;
     } catch (error) {

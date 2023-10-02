@@ -4,7 +4,19 @@
   background-color: #fff;
   box-shadow: 3px 8px 14px 0px #88c6fd30;
   border-radius: 0 0 40px 40px;
-  margin: 12px;
+}
+/* Styles for screens from 768px to 1279px */
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .item {
+    width: calc((100% - 32px) / 2); /* Display 2 items in a row */
+  }
+}
+
+/* Styles for screens from 1280px and above */
+@media screen and (min-width: 1280px) {
+  .item {
+    width: calc((100% - 96px) / 4); /* Display 4 items in a row */
+  }
 }
 
 .card {
@@ -25,9 +37,12 @@
 .type {
   display: flex;
   font-size: 14px;
-  font-weight: 700;
+  height: 32px;
+  align-items: center;
+
+  font-weight: 500;
   background-color: #cce4fb;
-  padding: 10px 17px;
+  padding: 0px 17px;
   border-radius: 0 16px 16px 0;
 }
 
@@ -38,36 +53,51 @@
 }
 .parameter {
   display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 12px;
   font-weight: 700;
   background-color: #cce4fb;
   width: 80px;
   height: 28px;
-  padding: 5px 10px 5px 10px;
+  padding: 2px 4px;
   border-radius: 16px;
 }
 
-.icon {
-  height: 22px;
-  width: 22px;
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 16px;
+  background-color: #cce4fb;
 }
 
 .heartIcon {
-  margin-right: 16px;
-  background-color: #cce4fb;
-  height: 40px;
-  width: 40px;
-  padding: 13px 8px 8px 12px;
-  border-radius: 50%;
+  color: transparent;
+}
+.heartActiveIcon {
+  color: #54adff;
+}
+.heart {
+  stroke: #54adff;
+  fill: currentColor;
+}
+
+.trashIcon {
+  margin-top: 16px;
 }
 
 .heartIconActive {
-  margin-right: 16px;
-  background-color: #cce4fb;
-  height: 40px;
-  width: 40px;
-  padding: 13px 8px 8px 12px;
-  border-radius: 50%;
+  fill: '#54ADFF';
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
 }
 
 .info {
@@ -81,18 +111,4 @@
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 24px;
-}
-
-/* Styles for screens from 768px to 1279px */
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .item {
-    width: calc(50% - 24px); /* Display 2 items in a row */
-  }
-}
-
-/* Styles for screens from 1280px and above */
-@media screen and (min-width: 1280px) {
-  .item {
-    width: calc(25% - 48px); /* Display 4 items in a row */
-  }
 }

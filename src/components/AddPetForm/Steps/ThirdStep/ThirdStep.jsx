@@ -1,66 +1,64 @@
-import React, { useRef, useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import css from "./ThirdStep.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import css from './ThirdStep.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectMyPet,
   selectMyPetComments,
-  selectMyPetID,
   selectMyPetImage,
-} from "redux/myPets/addPetSelectors";
+} from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
+  addNewPetNotice,
   updatePetInfo,
-} from "../../../../redux/myPets/addPetOperations";
+} from '../../../../redux/myPets/addPetOperations';
 import {
   prevStep,
   resetSteps,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
-import { useNavigate } from "react-router-dom";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
+import { useNavigate } from 'react-router-dom';
 import {
   addPetMoreInfo,
-  addPetPersonalInfo,
   resetState,
-} from "../../../../redux/myPets/addPetSlice";
-import sprite from "../../../../images/icons.svg";
+} from '../../../../redux/myPets/addPetSlice';
+import sprite from '../../../../images/icons.svg';
+import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const validationSchema = Yup.object().shape({
-  photo: Yup.mixed().required("Please upload a photo"),
+  file: Yup.mixed().required('Please upload a photo'),
+
   comments: Yup.string()
     .optional()
-    .max(120, "Title must be at most 120 characters"),
+    .max(120, 'Title must be at most 120 characters'),
 });
 
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const photo = useSelector(selectMyPetImage);
-  const comments = useSelector(selectMyPetComments);
-  const [activeButton, setActiveButton] = useState(null);
-  const [sex, setSex] = useState("");
-  const isButtonInactiveFirstTime = useRef(true);
+  addpet - styles - debug - and - backend - change;
   const petBody = useSelector(selectMyPet);
+  const file = useSelector(selectMyPetImage);
+  const comments = useSelector(selectMyPetComments);
 
-  const handleSubmit = (values) => {
-    if (!activeButton) {
-      isButtonInactiveFirstTime.current = false;
-      return;
-    }
+  const handleSubmit = values => {
+    const { name, date, type } = petBody;
+
     const pet = {
-      sex,
-      id: crypto.randomUUID(),
+      name,
+      date,
+      type,
       ...values,
-      photo: URL.createObjectURL(values.photo),
     };
-    const newPetBody = { ...petBody, ...pet };
+    console.log(pet);
     dispatch(addPetMoreInfo(pet));
-    dispatch(addNewPet(newPetBody));
-    dispatch(resetState());
-    // navigate(-1);
+    // const newPetBody = { ...pet };
+    dispatch(addNewPet(pet));
     dispatch(resetSteps());
+    dispatch(resetState());
+    dispatch(showNotify());
+    navigate(-1);
   };
-
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
@@ -68,54 +66,14 @@ const ThirdStep = () => {
   const handleOptionChange = (option, number) => {
     setSex(option);
     setActiveButton(number);
-    isButtonInactiveFirstTime.current = false;
+    setIsSexIgnored(false);
   };
   return (
     <>
-      <div className={css.sexOption}>
-        <button
-          className={`${css.sexElement} ${
-            activeButton === 1 ? css.sexElementActive : ""
-          }`}
-          type="button"
-          onClick={() => handleOptionChange("female", 1)}
-        >
-          <svg
-            width="24px"
-            height="24px"
-            stroke={
-              sex === "female" ? "#fff" : sex === "male" ? "#888888" : "#F43F5E"
-            }
-          >
-            <use href={`${sprite}#icon-female`}></use>
-          </svg>
-          Female
-        </button>
-        <button
-          className={`${css.sexElement} ${
-            activeButton === 2 ? css.sexElementActive : ""
-          }`}
-          onClick={() => handleOptionChange("male", 2)}
-        >
-          <svg
-            width="24px"
-            height="24px"
-            stroke={
-              sex === "male" ? "#fff" : sex === "female" ? "#888888" : "#54ADFF"
-            }
-          >
-            <use href={`${sprite}#icon-male`}></use>
-          </svg>
-          Male
-        </button>
-        {!activeButton && !isButtonInactiveFirstTime && (
-          <p className={css.errorComent}>Sex s required</p>
-        )}
-      </div>
       <Formik
-        initialValues={{ photo, comments }}
+        initialValues={{ file, comments }}
         validationSchema={validationSchema}
-        onSubmit={(values) => handleSubmit(values)}
+        onSubmit={values => handleSubmit(values)}
       >
         {({ setFieldValue }) => (
           <Form>
@@ -127,17 +85,17 @@ const ThirdStep = () => {
                 <div>
                   <input
                     type="file"
-                    id="photo"
-                    name="photo"
-                    onChange={(e) => {
-                      setFieldValue("photo", e.currentTarget.files[0]);
+                    id="file"
+                    name="file"
+                    onChange={e => {
+                      setFieldValue('file', e.currentTarget.files[0]);
                     }}
-                    style={{ display: "none" }}
+                    style={{ display: 'none' }}
                   />
                 </div>
-                <label htmlFor="photo">
-                  <div className={css.labelAdd}>
-                    <Field name="photo">
+                <label htmlFor="file">
+                  <div className={`${css.labelAdd} ${css.photoInputWrapper}`}>
+                    <Field name="file">
                       {({ field }) => (
                         <>
                           {field.value && (
@@ -147,7 +105,12 @@ const ThirdStep = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg width="30px" height="30px">
+                          <svg
+                            width="30px"
+                            height="30px"
+                            stroke="#54adff"
+                            className={css.iconAdd}
+                          >
                             <use href={`${sprite}#icon-plus`}></use>
                           </svg>
                         </>
@@ -161,6 +124,7 @@ const ThirdStep = () => {
                   className={css.errorComent}
                 />
               </div>
+
               <div className={css.wrapperTextareaOne}>
                 <label className={css.textareaText} htmlFor="comments">
                   Comments

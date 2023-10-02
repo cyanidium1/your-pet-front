@@ -11,7 +11,6 @@ export default function BurgerMenu({
   closeModalMenu,
   isLoggedIn,
 }) {
-  // const [nav, setNav] = useState(false);
   return (
     <div className={s.container}>
       <div className={s.box}>
@@ -35,17 +34,3 @@ export default function BurgerMenu({
     </div>
   );
 }
-
-// <div className={`${s.container} ${s.navContainer}`}>
-//   <input className={s.checkbox} type="checkbox" name="" id="" />
-//   <div className={s.logoMobile}>{/* <Logo /> */}</div>
-//   <div className={s.hamburgerLines}>
-//     <span className={`${s.line} ${s.line1}`}></span>
-//     <span className={`${s.line} ${s.line2}`}></span>
-//     <span className={`${s.line} ${s.line3}`}></span>
-//   </div>
-
-//   <div className={s.menuItems}>
-//     <Navigation />
-//   </div>
-// </div>;

@@ -1,16 +1,16 @@
-.container {
+/* .container {
   width: 100%;
   height: 100%;
   background: url('../../images/background/desctop/bg-desctop-2x.webp')
     no-repeat cover;
-}
+} */
 
 .wrap {
   padding: 16px;
   background: #fef9f9;
   position: relative;
   max-width: 1280px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .img {

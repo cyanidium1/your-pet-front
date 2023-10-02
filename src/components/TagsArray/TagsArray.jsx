@@ -5,25 +5,23 @@ import { useSelector } from 'react-redux';
 import { selectIsAuth } from 'redux/auth/authSelectors';
 import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
 import AddButton from 'UI/Button/AddButton/AddButton';
-const tags = ['sell', 'lost/found', 'in good hands'];
-const tagsLinks = ['sell', 'lost-found', 'in-good-hands'];
+import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
 const TagsArray = () => {
   const isLoggedIn = useSelector(selectIsAuth);
-  if (isLoggedIn) {
-    tags.push('favorite ads', 'my ads');
-  }
+  const allButtonsArray = isLoggedIn ? tagsAuth : tags;
 
   return (
     <div className={styles.container}>
       <div className={styles.tags}>
-        {tags.map((tag, id) => (
+        {allButtonsArray.map((tag, id) => (
           <Tag key={tag} text={tag} link={tagsLinks[id]} />
         ))}
       </div>
       <div className={styles.rightSideFilter}>
         <FilteredButton />
-        <AddButton />
+        <AddPetBtn />
       </div>
     </div>
   );

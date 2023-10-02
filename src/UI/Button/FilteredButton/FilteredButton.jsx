@@ -2,52 +2,54 @@ import styles from './FilteredButton.module.css';
 import sprite from '../../../images/icons.svg';
 import { useMedia } from 'react-use';
 import { screen } from 'Utils/screen';
-import { useEffect, useState } from 'react';
 import DropDownList from 'UI/DropDownList/DropDownList';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsFilterModalOpen } from 'redux/global/globalSelectors';
-import { filterModal, closeFilterModal } from 'redux/global/globalSlice';
+import { useEffect, useState } from 'react';
 
 const FilteredButton = () => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
-  const isFilterModalOpen = useSelector(selectIsFilterModalOpen);
-  const dispatch = useDispatch();
 
-  const handleClick = e => {
-    if (
-      e.currentTarget === e.target ||
-      e.target.nodeName === 'P' ||
-      e.target.nodeName === 'svg' ||
-      e.target.nodeName === 'use'
-    ) {
-      dispatch(filterModal());
+  const [isFilterModalOpen, setFilterModal] = useState(false);
+
+  const handleEscapeKey = e => {
+    if (e.key === 'Escape') {
+      setFilterModal(false);
     }
   };
 
   useEffect(() => {
-    const onCloseModalESC = e => {
-      if (e.code === 'Escape') {
-        dispatch(closeFilterModal());
-      }
-    };
+    if (isFilterModalOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+    } else {
+      document.removeEventListener('keydown', handleEscapeKey);
+    }
 
-    window.addEventListener('keydown', onCloseModalESC);
     return () => {
-      window.removeEventListener('keydown', onCloseModalESC);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
-  }, [dispatch]);
+  }, [isFilterModalOpen]);
+
   return (
     <div className="filter_modal">
       {isFilterModalOpen ? (
-        <div className={styles.dropDownMenu} onClick={handleClick}>
-          <p>Filters</p>
+        <>
+          <div
+            onClick={() => {
+              setFilterModal(false);
+            }}
+            className={styles.backdrop}
+          ></div>
+          <div className={styles.dropDownMenu}>
+            <p>Filters</p>
 
-          <DropDownList text={'By age'} />
-          <DropDownList text={'By gender'} />
-        </div>
+            <DropDownList text={'By age'} />
+            <DropDownList text={'By gender'} />
+          </div>
+        </>
       ) : (
         <button
-          onClick={handleClick}
+          onClick={() => {
+            setFilterModal(true);
+          }}
           id="open_filter"
           className={styles.filtersButton}
         >

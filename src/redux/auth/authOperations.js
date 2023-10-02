@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const authInstance = axios.create({
+export const authInstance = axios.create({
   baseURL: 'https://your-pet-backend-nci6.onrender.com/',
 });
 const setAuthHeader = token => {
@@ -53,6 +54,7 @@ export const login = createAsyncThunk(
         draggable: true,
         progress: undefined,
       });
+      console.log(response.data);
       return response.data;
     } catch (error) {
       toast.error('Email or password is incorrect', {
@@ -80,6 +82,7 @@ export const refreshUser = createAsyncThunk(
       }
       setAuthHeader(tokenValue);
       const response = await authInstance.get('api/users/current');
+
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -105,5 +108,12 @@ export const logOut = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
+  }
+);
+export const loginWithGoogle = createAsyncThunk(
+  'auth/loginWithGoogle',
+  async () => {
+    const response = await authInstance.get('api/users/google');
+    return response.data;
   }
 );
