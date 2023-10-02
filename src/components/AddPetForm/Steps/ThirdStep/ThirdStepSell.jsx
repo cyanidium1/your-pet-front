@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -53,18 +54,18 @@ const ThirdStepSell = () => {
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
+  const location = useSelector(selectMyPetLocation);
+
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
-  useEffect(() => {
-    setIsSexIgnored(true);
-  }, []);
 
   const notifyPetAdded = () => toast('Pet added successfully');
 
   const handleSubmit = values => {
     if (!sex) {
       setIsSexIgnored(true);
+      return;
     }
     const pet = {
       sex,
@@ -139,7 +140,7 @@ const ThirdStepSell = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >

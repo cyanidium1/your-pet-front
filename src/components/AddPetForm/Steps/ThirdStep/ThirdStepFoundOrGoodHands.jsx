@@ -64,7 +64,7 @@ const ThirdStepFoundOrGoogHands = () => {
 
     if (!sex) {
       setIsSexIgnored(true);
-      console.log('isSexIgnored:', isSexIgnored);
+
       return;
     }
     const pet = {
