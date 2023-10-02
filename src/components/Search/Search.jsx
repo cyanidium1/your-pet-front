@@ -7,6 +7,7 @@ function Search({ searchParams, setSearchParams, titleSearch }) {
     searchParams.get('searchQuery') || ''
   );
 
+
   const handleInputChange = e => {
     setSearchTerm(e.target.value);
   };
@@ -15,9 +16,13 @@ function Search({ searchParams, setSearchParams, titleSearch }) {
     e.preventDefault();
     setSearchTerm('');
 
-    const nextParams = searchTerm !== '' ? { searchQuery: searchTerm } : null;
+
+    const nextParams = searchTerm !== '' ? { searchQuery: searchTerm, page: 1 } : null;
     setSearchParams(nextParams);
+
   };
+
+
 
   const clearSearch = () => {
     setSearchTerm('');

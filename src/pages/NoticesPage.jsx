@@ -16,6 +16,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 import { toast } from 'react-toastify';
 import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
+import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
 
 const NoticesPage = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,6 @@ const NoticesPage = () => {
   }, [categoryPath, searchParams]);
   return (
     <>
-      <h3 className={styles.name}></h3>
       <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
       <TagsArray />
       {!isNoticesLoading && <PetList />}

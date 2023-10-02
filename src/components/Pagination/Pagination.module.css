@@ -22,9 +22,12 @@
     gap: 40px;
 }
 
-.bntRight{
-    transform: rotate(90deg);
+
+.btnRight[disabled],.btnLeft[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
 }
+
 
 .activePage{
     background-color: #54ADFF ;
