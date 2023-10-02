@@ -3,7 +3,7 @@ import { Card } from '../components/Personal/PersonalCard';
 import { Pets } from '../components/Personal/PetsCards';
 const Profile = () => {
   return (
-    <section className={`container ${scss.section}`}>
+    <section className="section">
       <Card />
       <Pets />
     </section>

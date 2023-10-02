@@ -65,7 +65,9 @@
 .label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  margin-right: auto;
 
   font-size: 18px;
 }
@@ -76,15 +78,16 @@
 }
 .input {
   border-radius: 20px;
-  border: 1px solid var(--unnamed, #54adff);
+  border: 1px solid #54adff;
   margin-bottom: 8px;
   font-size: 16px;
   padding: 4px 12px;
   width: 255px;
-  &::placeholder {
-    color: grey;
-    opacity: 0.5;
-  }
+  margin-left: auto;
+  // &::placeholder {
+  //   color: grey;
+  //   opacity: 0.5;
+  // }
 }
 
 .input:invalid {
@@ -92,14 +95,24 @@
 }
 
 .logout {
+  display: flex;
+
+  // padding-left: 16px;
+  // margin-left: auto;
+}
+.logoutImg {
   width: 24px;
   height: 24px;
-  display: inline-block;
+
   margin-right: 12px;
+  // padding-left: 16px;
+  // margin-left: auto;
 }
 
 .logoutblock {
   display: flex;
+  align-items: center;
+  color: #888;
 }
 
 .editPhoto {
@@ -115,10 +128,16 @@
   align-items: center;
   font-size: 12px;
   cursor: pointer;
-  margin-bottom: 26px;
+  // margin-bottom: 63px;
   width: 182px;
   height: 182px;
   border-radius: 40px;
+}
+.confirmPhoto {
+  display: flex;
+  height: 63px;
+  padding-top: 15px;
+  padding-bottom: 26px;
 }
 
 .fileField {
@@ -128,5 +147,32 @@
 .editPhotoLabel {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  & span {
+    font-size: 12px;
+    text-align: center;
+    // display: table-cell;
+    // vertical-align: middle;
+    line-height: 10px;
+  }
+}
+
+.inputLabelRoot {
+  // transform: translate(0px, 0px) scale(1);
+  // top: 14px;
+  border-radius: 20px;
+}
+
+.userFields {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-top: 63px;
+}
+
+.notActiveBtn {
+  cursor: not-allowed;
+  background-color: gray;
 }

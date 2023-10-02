@@ -31,9 +31,13 @@ export const Card = () => {
         </div>
         <PersonalForm mode={editMode} handleEdit={edit} />
         {!editMode && (
-          <div className={scss.logoutblock}>
-            <button onClick={handleLogOut}>
-              <svg className={scss.logout}>
+          <div>
+            <button
+              onClick={handleLogOut}
+              // style={{ height: 24 }}
+              className={scss.logoutblock}
+            >
+              <svg className={scss.logoutImg}>
                 <use href={`${defualtPhoto}#icon-logout`}></use>
               </svg>
               <span>Log Out</span>
