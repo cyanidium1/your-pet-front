@@ -25,13 +25,7 @@ const App = () => {
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<MainPage />} />
         <Route path="news" element={<NewsPage />} />
-        <Route path="notices">
-          <Route path="sell" index element={<NoticesPage />} />
-          <Route path="lost-found" element={<NoticesPage />} />
-          <Route path="in-good-hands" element={<NoticesPage />} />
-          <Route path="favorite-ads" element={<NoticesPage />} />
-          <Route path="my-ads" element={<NoticesPage />} />
-        </Route>
+        <Route path="notices/:categoryName" element={<NoticesPage />} />
         <Route path="friends" element={<OurFriendsPage />} />
         <Route path="profile" element={<Profile />} />
         <Route path="register" element={<RegisterPage />} />
@@ -47,7 +41,6 @@ const App = () => {
     // <ModalAttention/>
     // <ModalCongrats/>
     // <ModalPetCardDetails/>
-    
   );
 };
 
