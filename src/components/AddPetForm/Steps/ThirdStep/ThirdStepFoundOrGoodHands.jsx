@@ -27,6 +27,15 @@ import sprite from '../../../../images/icons.svg';
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
   location: Yup.string()
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Location should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Title should start with a capital letter'
+    )
+
     .required('Please type a location')
     .matches(
       /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
@@ -155,14 +164,16 @@ const ThirdStepFoundOrGoogHands = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>

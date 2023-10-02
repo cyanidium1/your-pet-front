@@ -31,6 +31,10 @@ const validationSchema = Yup.object().shape({
   location: Yup.string()
     .required('Please type a location')
     .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Location should not contain special symbols'
+    )
+    .matches(
       /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
       'Location should start with a capital letter'
     ),
@@ -167,14 +171,16 @@ const ThirdStepSell = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>

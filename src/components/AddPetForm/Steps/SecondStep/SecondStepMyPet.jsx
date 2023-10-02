@@ -19,7 +19,16 @@ import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
 import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name pet is required'),
+  name: Yup.string()
+    .required('Name pet is required')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Name should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Name should start with a capital letter'
+    ),
   birthDate: Yup.date()
     .default(() => new Date())
     .required('Birth date is required'),
@@ -28,7 +37,6 @@ const validationSchema = Yup.object().shape({
 
 const SecondStepMy = () => {
   const dispatch = useDispatch();
-  const title = useSelector(selectMyPetTitle);
   const name = useSelector(selectMyPetName);
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
@@ -96,9 +104,10 @@ const SecondStepMy = () => {
               </label>
               <Field
                 type="date"
-                id="Date"
+                id="birthDate"
                 name="birthDate"
                 className={css.Input}
+                required
               />
               <ErrorMessage
                 name="birthDate"
