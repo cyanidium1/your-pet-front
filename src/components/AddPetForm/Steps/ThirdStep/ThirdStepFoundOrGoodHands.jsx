@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -51,20 +52,20 @@ const ThirdStepFoundOrGoogHands = () => {
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
+  const location = useSelector(selectMyPetLocation);
+
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
-  useEffect(() => {
-    setIsSexIgnored(true);
-  }, []);
 
   const handleSubmit = values => {
     const { name, date, category, type, title } = petBody;
 
     if (!sex) {
       setIsSexIgnored(true);
-      // return;
+      console.log('isSexIgnored:', isSexIgnored);
+      return;
     }
     const pet = {
       name,
@@ -133,7 +134,7 @@ const ThirdStepFoundOrGoogHands = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -186,7 +187,7 @@ const ThirdStepFoundOrGoogHands = () => {
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />

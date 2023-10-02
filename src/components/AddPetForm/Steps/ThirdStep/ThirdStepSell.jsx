@@ -192,7 +192,7 @@ const ThirdStepSell = () => {
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />
