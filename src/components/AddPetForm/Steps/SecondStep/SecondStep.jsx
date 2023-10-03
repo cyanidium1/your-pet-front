@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './SecondStep.module.css';
 import sprite from '../../../../images/icons.svg';
 
@@ -32,10 +32,9 @@ const validationSchema = Yup.object().shape({
       'Title should not contain special symbols'
     )
     .matches(
-      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      /^[A-ZА-Яa-zA-Zа-яА-Я\s][a-zA-Zа-яА-Я\s]*$/,
       'Title should start with a capital letter'
     )
-
     .min(6, 'Title must be at least 6 characters')
     .max(64, 'Title must be at most 64 characters'),
   name: Yup.string()
@@ -50,7 +49,9 @@ const validationSchema = Yup.object().shape({
     ),
   birthDate: Yup.date()
     .default(() => new Date())
-    .required('Birth date is required'),
+    .typeError('Invalid date format')
+    .required('Date is required')
+    .max(new Date(), 'Please set a correct date in the past'),
   type: Yup.string().required('Type is required'),
 });
 
@@ -112,6 +113,9 @@ const SecondStepSell = () => {
                 id="title"
                 name="title"
                 placeholder="Type add title"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="title"
@@ -129,6 +133,9 @@ const SecondStepSell = () => {
                 id="name"
                 name="name"
                 placeholder="Type pet name"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="name"
@@ -145,12 +152,15 @@ const SecondStepSell = () => {
                 id="birthDate"
                 name="birthDate"
                 className={css.Input}
+                required
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="birthDate"
                 component="p"
                 className={css.ErrorText}
-                required
               />
             </div>
             <div className={css.WrapperLabelInput}>
@@ -163,6 +173,9 @@ const SecondStepSell = () => {
                 id="type"
                 name="type"
                 placeholder="Type of pet"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="type"

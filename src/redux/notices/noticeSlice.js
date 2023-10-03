@@ -5,10 +5,12 @@ import {
   getMyFavoriteAdsThunk,
   addNoticeToFavoriteThunk,
   removeNoticeToFavoriteThunk,
+  getSelectedNoticeThunk,
 } from './noticeOperations.js';
 
 const initialState = {
   allNotices: [],
+  selectedNotice: null,
   isLoading: false,
 };
 
@@ -17,10 +19,14 @@ const handleAllNotices = (state, { payload }) => {
   state.isLoading = false;
 };
 
+const handleNoticeById = (state, action) => {
+  state.selectedNotice = action.payload;
+  state.isLoading = false;
+};
+
 const handlePending = state => {
   state.isLoading = true;
 };
-
 
 export const noticesSlice = createSlice({
   name: 'notices',
@@ -28,6 +34,7 @@ export const noticesSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllNoticesThunk.pending, handlePending)
+      .addCase(getSelectedNoticeThunk.fulfilled, handleNoticeById)
       .addMatcher(
         isAnyOf(
           getAllNoticesThunk.fulfilled,

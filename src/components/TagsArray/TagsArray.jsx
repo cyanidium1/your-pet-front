@@ -4,7 +4,7 @@ import styles from './TagsArray.module.css';
 import { useSelector } from 'react-redux';
 import { selectIsAuth } from 'redux/auth/authSelectors';
 import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
-import AddButton from 'UI/Button/AddButton/AddButton';
+
 import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
 import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
