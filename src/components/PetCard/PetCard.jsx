@@ -154,16 +154,8 @@ import {
   openModalDeleteAdverstiment,
   openModalPetCardDetails,
 } from 'redux/global/globalSlice';
-import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
-import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
-import { Modal } from 'components/Modal/Modal';
+
 import { selectUser } from 'redux/auth/authSelectors';
-import {
-  addNoticeToFavoriteThunk,
-  deleteNoticeThunk,
-  getSelectedNoticeThunk,
-  removeNoticeToFavoriteThunk,
-} from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
 import { routerThunk } from 'Utils/constant';
 import {
@@ -186,9 +178,6 @@ const PetCard = ({ info, refetch }) => {
     setisFavoriteCard(favorites.includes(user._id));
   }, [favorites]);
   const dispatch = useDispatch();
-  // const isModalPetCardDetailsOpen = useSelector(
-  //   selectIsModalPetCardDetailsOpen
-  // );
 
   const isUserOwnerAd = owner?._id === user?._id;
 
@@ -201,7 +190,7 @@ const PetCard = ({ info, refetch }) => {
   };
 
   const handleOpenModal = id => {
-    dispatch(getSelectedNoticeThunk({ id }));
+    dispatch(addSelectedId({ _id }));
     dispatch(openModalPetCardDetails());
   };
 
@@ -209,9 +198,10 @@ const PetCard = ({ info, refetch }) => {
   const [removeToFavorite] = useRemoveFavoriteMutation();
 
   const handleToggleFavoriteAds = () => {
-    if (user) {
+    if (Object.keys(user).length === 0) {
       dispatch(openModalAttention());
       document.body.style.overflow = 'hidden';
+      return;
     }
     !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
   };
