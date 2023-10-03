@@ -2,26 +2,25 @@ import sprite from '../../../images/icons.svg';
 import { useMedia } from 'react-use';
 import { screen } from 'Utils/screen';
 import styles from './AddButton.module.css';
-import { Link } from 'react-router-dom';
 
-const AddButton = () => {
+const AddButton = ({ clickFunc }) => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
   return (
     <>
       {isMobile ? (
-        <Link to={'/add-pet'} className={styles.addBtn}>
+        <button onClick={clickFunc} className={styles.addBtn}>
           <svg className={styles.icon}>
             <use href={sprite + '#icon-plus'} />
           </svg>
           Add pet
-        </Link>
+        </button>
       ) : (
-        <Link to={'/add-pet'} className={styles.addBtnBig}>
+        <button onClick={clickFunc} className={styles.addBtnBig}>
           Add pet
           <svg className={styles.icon}>
             <use href={sprite + '#icon-plus-small'} />
           </svg>
-        </Link>
+        </button>
       )}
     </>
   );
