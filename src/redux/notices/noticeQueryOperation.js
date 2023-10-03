@@ -136,6 +136,19 @@ export const noticeApi = createApi({
         { type: 'AllNotice', id },
       ],
     }),
+    deletePet: builder.mutation({
+      query(id) {
+        return {
+          url: `/api/pets/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: (result, error, id) => [
+        { type: 'myNotice', id },
+        { type: 'favoriteNotice', id },
+        { type: 'AllNotice', id },
+      ],
+    }),
   }),
 });
 
@@ -147,4 +160,5 @@ export const {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
   useGetNoticeByIdQuery,
+  useDeletePetMutation,
 } = noticeApi;
