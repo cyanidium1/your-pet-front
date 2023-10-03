@@ -9,7 +9,9 @@
   position: fixed;
   z-index: 100;
 }
-
+.block {
+  height: 68px;
+}
 .headerNav {
   display: flex;
   align-items: center;

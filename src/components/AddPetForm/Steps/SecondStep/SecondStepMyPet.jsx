@@ -1,40 +1,66 @@
-import React from "react";
-import css from "./SecondStep.module.css";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import css from './SecondStep.module.css';
+import sprite from '../../../../images/icons.svg';
+
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextStep,
   prevStep,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
   selectMyPetBirthDate,
-  selectMyPetID,
-  selectMyPetName,
   selectMyPetType,
-} from "../../../../redux/myPets/addPetSelectors";
-import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
-import sprite from "../../../../images/icons.svg";
-import { addPetPersonalInfo } from "redux/myPets/addPetSlice";
+  selectMyPetName,
+  selectMyPetTitle,
+} from '../../../../redux/myPets/addPetSelectors';
+import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
+import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Name pet is required"),
-  birthday: Yup.date().required("Birthday is required"),
-  type: Yup.string().required("Type is required"),
+  name: Yup.string()
+    .required('Name pet is required')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Name should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Name should start with a capital letter'
+    ),
+  birthDate: Yup.date()
+    .default(() => new Date())
+    .typeError('Invalid date format')
+    .required('Birth date is required'),
+  type: Yup.string().required('Type is required'),
 });
 
-const SecondStepSell = () => {
+const SecondStepMy = () => {
   const dispatch = useDispatch();
   const name = useSelector(selectMyPetName);
-  const birthday = useSelector(selectMyPetBirthDate);
+  const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
 
-  const handleNext = (values) => {
+  const formattedDate = dateFromBackend => {
+    const date = new Date(dateFromBackend);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month
+      .toString()
+      .padStart(2, '0')}-${year}`;
+    return formattedDate;
+  };
+
+  const handleNext = values => {
     const pet = {
       ...values,
+      date: formattedDate(values.birthDate),
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
+    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {
@@ -42,15 +68,15 @@ const SecondStepSell = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <Formik
         initialValues={{
           name,
-          birthDate: Date(birthday),
+          birthDate,
           type,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           handleNext(values);
         }}
       >
@@ -66,6 +92,9 @@ const SecondStepSell = () => {
                 id="name"
                 name="name"
                 placeholder="Type pet name"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="name"
@@ -74,17 +103,21 @@ const SecondStepSell = () => {
               />
             </div>
             <div className={css.WrapperLabelInput}>
-              <label className={css.LabelStep} htmlFor="birthday">
+              <label className={css.LabelStep} htmlFor="birthDate">
                 Date of birth
               </label>
               <Field
                 type="date"
-                name="birthday"
+                id="birthDate"
+                name="birthDate"
                 className={css.Input}
-                birthday={new Date()}
+                required
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
-                name="birthday"
+                name="birthDate"
                 component="p"
                 className={css.ErrorText}
               />
@@ -98,10 +131,13 @@ const SecondStepSell = () => {
                 type="text"
                 id="type"
                 name="type"
-                placeholder="Type of animal"
+                placeholder="Type of pet"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
-                name="breed"
+                name="type"
                 component="p"
                 className={css.ErrorTextLow}
               />
@@ -134,8 +170,8 @@ const SecondStepSell = () => {
           </div>
         </Form>
       </Formik>
-    </>
+    </div>
   );
 };
 
-export default SecondStepSell;
+export default SecondStepMy;

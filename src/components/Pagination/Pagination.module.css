@@ -1,0 +1,34 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+}
+
+.paginationItem{
+    display: flex;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #54ADFF;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.paginationWrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+
+.btnRight[disabled],.btnLeft[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.activePage{
+    background-color: #54ADFF ;
+}

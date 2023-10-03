@@ -1,34 +1,58 @@
-import React from "react";
-import css from "./SecondStep.module.css";
-import sprite from "../../../../images/icons.svg";
+import React, { useEffect } from 'react';
+import css from './SecondStep.module.css';
+import sprite from '../../../../images/icons.svg';
 
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   nextStep,
   prevStep,
-} from "../../../../redux/adddPetForm/addPetFormSlice";
+} from '../../../../redux/adddPetForm/addPetFormSlice';
 import {
   selectMyPetBirthDate,
   selectMyPetType,
-  selectMyPetID,
   selectMyPetName,
   selectMyPetTitle,
-} from "../../../../redux/myPets/addPetSelectors";
-import { updatePetInfo } from "../../../../redux/myPets/addPetOperations";
-import { addPetPersonalInfo } from "redux/myPets/addPetSlice";
+} from '../../../../redux/myPets/addPetSelectors';
+import { updatePetInfo } from '../../../../redux/myPets/addPetOperations';
+import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
+
+// const noSpecialSymbols = (message = 'Special symbols are not allowed') => {
+//   return Yup.test('no-special-symbols', message, value => {
+//     return /^[a-zA-Z0-9\s]*$/.test(value);
+//   });
+// };
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
-    .required("Title of add is required")
-    .min(6, "Title must be at least 6 characters")
-    .max(64, "Title must be at most 64 characters"),
-  name: Yup.string().required("Name pet is required"),
+    .required('Title of add is required')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Title should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Яa-zA-Zа-яА-Я\s][a-zA-Zа-яА-Я\s]*$/,
+      'Title should start with a capital letter'
+    )
+    .min(6, 'Title must be at least 6 characters')
+    .max(64, 'Title must be at most 64 characters'),
+  name: Yup.string()
+    .required('Name pet is required')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Name should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Name should start with a capital letter'
+    ),
   birthDate: Yup.date()
     .default(() => new Date())
-    .required("Birth date is required"),
-  type: Yup.string().required("Type is required"),
+    .typeError('Invalid date format')
+    .required('Date is required')
+    .max(new Date(), 'Please set a correct date in the past'),
+  type: Yup.string().required('Type is required'),
 });
 
 const SecondStepSell = () => {
@@ -38,12 +62,25 @@ const SecondStepSell = () => {
   const birthDate = useSelector(selectMyPetBirthDate);
   const type = useSelector(selectMyPetType);
 
-  const handleNext = (values) => {
+  const formattedDate = dateFromBackend => {
+    const date = new Date(dateFromBackend);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month
+      .toString()
+      .padStart(2, '0')}-${year}`;
+    return formattedDate;
+  };
+
+  const handleNext = values => {
     const pet = {
       ...values,
+      date: formattedDate(values.birthDate),
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
+    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {
@@ -60,7 +97,7 @@ const SecondStepSell = () => {
           type,
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={values => {
           handleNext(values);
         }}
       >
@@ -76,6 +113,9 @@ const SecondStepSell = () => {
                 id="title"
                 name="title"
                 placeholder="Type add title"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="title"
@@ -93,6 +133,9 @@ const SecondStepSell = () => {
                 id="name"
                 name="name"
                 placeholder="Type pet name"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="name"
@@ -106,9 +149,13 @@ const SecondStepSell = () => {
               </label>
               <Field
                 type="date"
-                id="Date"
+                id="birthDate"
                 name="birthDate"
                 className={css.Input}
+                required
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="birthDate"
@@ -126,6 +173,9 @@ const SecondStepSell = () => {
                 id="type"
                 name="type"
                 placeholder="Type of pet"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="type"

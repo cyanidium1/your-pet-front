@@ -1,0 +1,79 @@
+.currentDay {
+  font-weight: bold;
+  color: blueviolet;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  color: #111;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+
+  @media screen and (min-width:768px) {
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  @media screen and (min-width:1280px) {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+
+}
+
+.time:hover,
+.time:focus {
+  color: #54adff;
+}
+
+/* timepicker.module.css #54adff */
+
+.timePicker {
+  position: relative;
+}
+
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  width: 135px;
+  height: 160px;
+  background: #FFFFFF;
+  border: 1px solid #54ADFF;
+  box-shadow: 3px 8px 14px rgba(136, 198, 253, 0.19);
+  border-radius: 8px;
+}
+
+.menu li {
+  /* padding: 8px; */
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #111111;
+}
+
+.menu li:not(:last-child) {
+  padding-bottom: 4px;
+}
+
+.menu li.currentDay {
+  color: #54ADFF;
+}
+
+.dayOfWeek {
+  margin-right: 17px;
+  width: 15px;
+}

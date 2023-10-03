@@ -1,13 +1,26 @@
-import { createSlice, isAnyOf, createAction } from '@reduxjs/toolkit';
-import { getAllNoticesThunk } from './noticeOperations.js';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import {
+  getAllNoticesThunk,
+  getMyAdsThunk,
+  getMyFavoriteAdsThunk,
+  addNoticeToFavoriteThunk,
+  removeNoticeToFavoriteThunk,
+  getSelectedNoticeThunk,
+} from './noticeOperations.js';
 
 const initialState = {
   allNotices: [],
+  selectedNotice: null,
   isLoading: false,
 };
 
 const handleAllNotices = (state, { payload }) => {
   state.allNotices = payload;
+  state.isLoading = false;
+};
+
+const handleNoticeById = (state, action) => {
+  state.selectedNotice = action.payload;
   state.isLoading = false;
 };
 
@@ -19,8 +32,17 @@ export const noticesSlice = createSlice({
   name: 'notices',
   initialState,
   extraReducers: builder => {
-    builder.addCase(getAllNoticesThunk.fulfilled, handleAllNotices);
-    builder.addCase(getAllNoticesThunk.pending, handlePending);
+    builder
+      .addCase(getAllNoticesThunk.pending, handlePending)
+      .addCase(getSelectedNoticeThunk.fulfilled, handleNoticeById)
+      .addMatcher(
+        isAnyOf(
+          getAllNoticesThunk.fulfilled,
+          getMyAdsThunk.fulfilled,
+          getMyFavoriteAdsThunk.fulfilled
+        ),
+        handleAllNotices
+      );
   },
 });
 

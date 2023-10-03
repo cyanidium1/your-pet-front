@@ -2,7 +2,7 @@ import Navigation from 'components/Navigation/Navigation';
 import s from './BurgerMenu.module.css';
 import Logo from 'components/Logo/Logo';
 import sprite from '../../images/icons.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function BurgerMenu({
@@ -11,6 +11,17 @@ export default function BurgerMenu({
   closeModalMenu,
   isLoggedIn,
 }) {
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [showMenu]);
+
   return (
     <div className={s.container}>
       <div className={s.box}>

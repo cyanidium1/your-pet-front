@@ -87,6 +87,10 @@
   }
 }
 
+.input:invalid {
+  border-color: red;
+}
+
 .logout {
   width: 24px;
   height: 24px;
@@ -107,8 +111,22 @@
 
 .editPhotoBlock {
   display: flex;
+  flex-direction: column;
   align-items: center;
   font-size: 12px;
   cursor: pointer;
   margin-bottom: 26px;
+  width: 182px;
+  height: 182px;
+  border-radius: 40px;
+}
+
+.fileField {
+  display: none;
+}
+
+.editPhotoLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
 }

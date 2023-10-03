@@ -14,7 +14,7 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         {/* <Container> */}
-        <ToastContainer autoClose="2000" theme="light" />
+        <ToastContainer autoClose="1000" theme="light" />
         <App />
         {/* </Container> */}
       </PersistGate>
