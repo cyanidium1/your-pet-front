@@ -54,9 +54,8 @@ const PetCard = ({ info, refetch }) => {
   };
 
   const isAuth = useSelector(selectIsAuth);
-  const handleToggleFavoriteAds = () => {
-    console.log('Button clicked!');
-
+  const handleToggleFavoriteAds = (_id) => {
+    
     if (isAuth) {
       if (isFavoriteCard) {
         dispatch(
@@ -71,7 +70,6 @@ const PetCard = ({ info, refetch }) => {
       }
     } else {
       dispatch(openModalAttention());
-      document.body.style.overflow = 'hidden';
     }
   };
 

@@ -5,7 +5,7 @@ import modal from './ModalPetCardDetails.module.css';
 import Button from 'UI/Button/Button';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 
-const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavoriteCard }) => {
+const ModalPetCardDetails = ({ isAuth, handleToggleFavoriteAds, isFavoriteCard }) => {
   const selectedNotice = useSelector(selectSelectedNotice);
   const {
     title,
@@ -107,9 +107,9 @@ const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavoriteCard }) => {
           onClick={() => (window.location.href = telURI)}
         />
         <Button
-          text={isFavoriteCard ? 'Remove ' : 'Add to '}
+          text={isAuth && isFavoriteCard ? 'Remove ' : 'Add to '}
           isFilled={true}
-          color={isFavoriteCard ? '' : 'blue'}
+          color={isAuth && isFavoriteCard ? '' : 'blue'}
           svg={'#icon-heart'}
           onClick={handleToggleFavoriteAds}
         />
