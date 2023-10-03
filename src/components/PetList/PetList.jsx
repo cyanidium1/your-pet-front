@@ -5,7 +5,6 @@ import {
   useGetAllNoticeQuery,
   useGetMyAdsQuery,
   useGetMyFavoriteQuery,
-  useGetNoticeByIdQuery,
 } from 'redux/notices/noticeQueryOperation';
 import { tagsLinkNotAuth } from 'Utils/constant';
 import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
