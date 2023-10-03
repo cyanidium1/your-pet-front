@@ -52,33 +52,33 @@ const PetCard = ({ info, refetch }) => {
     backgroundImage: `url(${file})`,
   };
 
-  // const [addToFavorite] = useAddFavoriteMutation();
-  // const [removeToFavorite] = useRemoveFavoriteMutation();
+  const handleOpenModal = id => {
+    dispatch(getSelectedNoticeThunk({ id })).then(() => {
+      dispatch(openModalPetCardDetails());
+    });
+  };
+
+  const [addToFavorite] = useAddFavoriteMutation();
+  const [removeToFavorite] = useRemoveFavoriteMutation();
 
   // const handleToggleFavoriteAds = () => {
   //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
   // };
+
   // const [deleteNotices] = useDeleteNoticeMutation();
   // const handleDeleteCard = () => {
   //   deleteNotices(_id);
   // };
 
-  const handleOpenModal = id => {
-    dispatch(getSelectedNoticeThunk({ id })).then(() => {
-      dispatch(openModalPetCardDetails());
-      document.body.style.overflow = 'hidden';
-    });
-  };
-
-  const handleOpenModalDeleteAdverstiment = id => {
+const handleOpenModalDeleteAdverstiment = id => {
     dispatch(getSelectedNoticeThunk({ id })).then(() => {
       dispatch(openModalDeleteAdverstiment());
-      document.body.style.overflow = 'hidden';
     });
   };
 
-  const isAuth = useSelector(selectIsAuth);
 
+  
+  const isAuth = useSelector(selectIsAuth);
   const handleToggleFavoriteAds = () => {
     if (isAuth) {
       if (isFavoriteCard) {
