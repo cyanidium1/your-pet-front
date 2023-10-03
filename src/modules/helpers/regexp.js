@@ -6,4 +6,4 @@ export const birthdayRegexp =
 export const PhoneReg = /^\+380\d{9}$/;
 export const cityRegexp = /^[A-Z][A-Za-z\-]+$/;
 export const defaultAvatar =
-  'https://res.cloudinary.com/dkmmhjqew/image/upload/v1695371865/default-avatar/default-avatar_ipj3sf.png';
+  'https://res.cloudinary.com/dkmmhjqew/image/upload/v1696086608/default-avatar/Photo_default_ndssoh.png';

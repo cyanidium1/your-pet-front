@@ -1,7 +1,6 @@
 import { Formik, Field, Form } from 'formik';
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
-import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
@@ -9,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { userUpdate } from 'redux/user/userOperations';
 import { refreshUser } from 'redux/auth/authOperations';
 import TextField from '@mui/material/TextField';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import * as reg from 'modules/helpers/regexp';
 
 const CssTextField = styled(TextField)(() => ({
@@ -77,9 +76,15 @@ export const PersonalForm = ({ mode, handleEdit }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, handleChange, setFieldValue, formikProps, handleReset }) => (
+      {({
+        values,
+        handleChange,
+        setFieldValue,
+        formikProps,
+        handleReset,
+        setFieldTouched,
+      }) => (
         <Form className={scss.form}>
-          {console.log(values)}
           <div id="photo">
             <button
               type="reset"
@@ -128,23 +133,37 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                     <span>Edit photo</span>
                   </div>
                 ) : (
-                  <div className={scss.editPhotoLabel}>
-                    <button onClick={() => setFieldValue('confirm', true)}>
-                      <svg className={scss.editPhoto}>
-                        <use href={`${defualtPhoto}#icon-check`}></use>
-                      </svg>
-                    </button>
-
-                    <span>Confirm</span>
-                    <button onClick={() => setFieldValue('confirm', false)}>
-                      <svg className={scss.editPhoto}>
-                        <use href={`${defualtPhoto}#icon-cross-small`}></use>
-                      </svg>
-                    </button>
-                  </div>
+                  ''
                 ))}
             </div>
           </label>
+          {mode && typeof values.photo !== 'string' && !values.confirm && (
+            <div className={`${scss.editPhotoLabel} ${scss.confirmPhoto}`}>
+              <button
+                type="button"
+                onClick={() => setFieldValue('confirm', true)}
+              >
+                <svg className={scss.editPhoto}>
+                  <use href={`${defualtPhoto}#icon-check`}></use>
+                </svg>
+              </button>
+
+              <span>Confirm</span>
+              <button
+                id="cansel"
+                type="button"
+                onClick={() => {
+                  // setFieldValue('confirm', false);
+                  // setFieldTouched('photo', false);
+                  setFieldValue('photo', user.user.avatarURL);
+                }}
+              >
+                <svg className={scss.editPhoto}>
+                  <use href={`${defualtPhoto}#icon-cross-small`}></use>
+                </svg>
+              </button>
+            </div>
+          )}
           <div className={scss.userFields}>
             <label htmlFor="firstName" className={scss.label}>
               Name:
