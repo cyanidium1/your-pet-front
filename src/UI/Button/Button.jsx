@@ -22,7 +22,7 @@ const Button = ({ text, svg, isFilled, color, to, onClick }) => {
       <div className={styles.buttonContent}>
         {to ? <Link to={to}>{text}</Link> : <span>{text}</span>}
         {svg && (
-          <svg>
+          <svg className={styles.icon}>
             <use href={sprite + svg}></use>
           </svg>
         )}

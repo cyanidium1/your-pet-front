@@ -31,6 +31,11 @@ const handlePending = state => {
 export const noticesSlice = createSlice({
   name: 'notices',
   initialState,
+  reducers: {
+    addSelectedId: (state, { payload }) => {
+      state.selectedNotice = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getAllNoticesThunk.pending, handlePending)
@@ -47,3 +52,4 @@ export const noticesSlice = createSlice({
 });
 
 export const noticesReducer = noticesSlice.reducer;
+export const { addSelectedId } = noticesSlice.actions;

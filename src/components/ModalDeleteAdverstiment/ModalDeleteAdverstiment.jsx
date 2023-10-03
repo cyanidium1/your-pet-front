@@ -7,17 +7,18 @@ import { useLocation } from 'react-use';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { deleteNoticeThunk } from 'redux/notices/noticeOperations';
 import { routerThunk } from 'Utils/constant';
-
+import { useDeleteNoticeMutation } from 'redux/notices/noticeQueryOperation';
 
 const ModalDeleteAdverstiment = () => {
   const selectedNotice = useSelector(selectSelectedNotice);
-  const { title, _id } = selectedNotice?.notice || {};
+  const { title, _id } = selectedNotice || {};
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
+  const [deleteNotices] = useDeleteNoticeMutation();
   const handleDeleteCard = () => {
-    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+    deleteNotices(_id);
     dispatch(closeModalDeleteAdverstiment());
     document.body.style.overflow = 'hidden';
   };
