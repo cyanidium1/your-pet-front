@@ -1,12 +1,6 @@
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-
 import PetCard from '../PetCard/PetCard';
 import styles from './PetList.module.css';
-import { Modal } from 'components/Modal/Modal';
-import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
-import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
-import { closeModalPetCardDetails } from 'redux/global/globalSlice';
 import {
   useGetAllNoticeQuery,
   useGetMyAdsQuery,
@@ -15,10 +9,7 @@ import {
 import { tagsLinkNotAuth } from 'Utils/constant';
 
 const PetList = ({ searchQuery }) => {
-  const isModalPetCardDetailsOpen = useSelector(
-    selectIsModalPetCardDetailsOpen
-  );
-
+ 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
@@ -66,12 +57,6 @@ const PetList = ({ searchQuery }) => {
             <PetCard key={el._id} info={el} />
           ))}
         </ul>
-
-        {isModalPetCardDetailsOpen && (
-          <Modal closeReducer={closeModalPetCardDetails}>
-            <ModalPetCardDetails />
-          </Modal>
-        )}
       </>
     );
   }

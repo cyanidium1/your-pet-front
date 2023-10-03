@@ -5,12 +5,14 @@ import Button from '../../UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   closeModalPetCardDetails,
+  openModalAttention,
+  openModalDeleteAdverstiment,
   openModalPetCardDetails,
 } from 'redux/global/globalSlice';
 import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
-import { selectUser } from 'redux/auth/authSelectors';
+import { selectIsAuth, selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
   deleteNoticeThunk,
@@ -39,9 +41,6 @@ const PetCard = ({ info, refetch }) => {
     setisFavoriteCard(favorites.includes(user._id));
   }, [favorites]);
   const dispatch = useDispatch();
-  // const isModalPetCardDetailsOpen = useSelector(
-  //   selectIsModalPetCardDetailsOpen
-  // );
 
   const isUserOwnerAd = owner?._id === user?._id;
 
@@ -69,6 +68,39 @@ const PetCard = ({ info, refetch }) => {
     deleteNotices(_id);
   };
 
+
+//   const handleOpenModal = id => {
+//     dispatch(getSelectedNoticeThunk({ id }));
+//     dispatch(openModalPetCardDetails());
+// <<<<<<< HEAD
+//     document.body.style.overflow = 'hidden';
+//   };
+
+//   const isAuth = useSelector(selectIsAuth);
+
+//   const handleToggleFavoriteAds = () => {
+//     if (isAuth) {
+//       if (isFavoriteCard) {
+//         dispatch(removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })).then(() => {
+//           setisFavoriteCard(false);
+//         });
+//       } else {
+//         dispatch(addNoticeToFavoriteThunk( _id)).then(() => {
+//           setisFavoriteCard(true);
+//         });
+//       }
+//     } else {
+//       dispatch(openModalAttention());
+//       document.body.style.overflow = 'hidden';
+//     }
+//   };
+
+//   const handleOpenModalDeleteAdverstiment = id => {
+//     dispatch(getSelectedNoticeThunk({ id }));
+//     dispatch(openModalDeleteAdverstiment());
+//     document.body.style.overflow = 'hidden';
+//   };
+
   return (
     <li className={styles.item}>
       <div className={styles.card} style={dynamicStyle}>
@@ -89,7 +121,7 @@ const PetCard = ({ info, refetch }) => {
             </div>
             {isUserOwnerAd && (
               <div
-                onClick={handleDeleteCard}
+                onClick={handleOpenModalDeleteAdverstiment}
                 className={`${styles.trashIcon} ${styles.iconWrap}`}
               >
                 <svg className={styles.icon}>

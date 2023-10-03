@@ -2,7 +2,7 @@ import React from 'react';
 import modal from './ModalCongrats.module.css';
 import Button from 'UI/Button/Button';
 
-const ModalCongrats = ({ setIsModalCongratsOpen }) => {
+const ModalCongrats = () => {
   return (
     <div className={modal.modalCongratsWrapper}>
       <h1 className={modal.modalTitle}>Congrats!</h1>

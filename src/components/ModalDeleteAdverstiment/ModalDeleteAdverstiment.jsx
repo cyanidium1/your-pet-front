@@ -5,6 +5,9 @@ import styles from './ModalDeleteAdverstiment.module.css';
 import Button from 'UI/Button/Button';
 import { useLocation } from 'react-use';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
+import { deleteNoticeThunk } from 'redux/notices/noticeOperations';
+import { routerThunk } from 'Utils/constant';
+
 
 const ModalDeleteAdverstiment = () => {
   const selectedNotice = useSelector(selectSelectedNotice);
@@ -16,6 +19,7 @@ const ModalDeleteAdverstiment = () => {
   const handleDeleteCard = () => {
     dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
     dispatch(closeModalDeleteAdverstiment());
+    document.body.style.overflow = 'hidden';
   };
 
   const handleCloseModal = () => {
