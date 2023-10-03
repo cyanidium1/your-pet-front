@@ -16,7 +16,7 @@ import {
 } from 'redux/auth/authOperations';
 import { openModalCongrats } from 'redux/global/globalSlice';
 import { selectUser } from 'redux/auth/authSelectors';
-import Cookies from 'js-cookie';
+import cookie from 'cookiejs';
 import { addToken } from 'redux/auth/authSlice';
 
 const AuthForm = () => {
@@ -88,7 +88,7 @@ const AuthForm = () => {
     dispatch(openModalCongrats());
     dispatch(refreshUser());
   };
-  const productName = Cookies.get('token') || null;
+  const productName = cookie.get('token');
   console.log(productName);
   useEffect(() => {
     if (productName) {
