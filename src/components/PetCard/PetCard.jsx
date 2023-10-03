@@ -32,7 +32,8 @@ const PetCard = ({ info, refetch }) => {
     setisFavoriteCard(favorites.includes(user._id));
   }, [favorites]);
   const dispatch = useDispatch();
-  const isUserOwnerAd = owner?._id === user?._id;
+
+  const isUserOwnerAd = owner?._id === user?._id && user._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
   const normalAge =

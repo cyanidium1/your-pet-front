@@ -9,6 +9,7 @@ const initialState = {
   isRefresher: false,
   isLoading: false,
   isError: false,
+  refreshToken: '',
 };
 
 const extractTokenAction = createAction('auth/extractToken');
