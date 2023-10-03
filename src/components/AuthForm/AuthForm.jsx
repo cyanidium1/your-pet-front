@@ -96,11 +96,14 @@ const AuthForm = () => {
   };
   const productName = searchParams.get('token') || null;
   useEffect(() => {
-    if (productName) {
-      dispatch(addToken({ token: productName })).then(() =>
-        dispatch(refreshUser()).then(() => setSearchParams(''))
-      );
-    }
+    const handleAddToken = async () => {
+      if (productName) {
+        await dispatch(addToken({ token: productName }));
+        await dispatch(refreshUser());
+      }
+    };
+
+    handleAddToken();
   }, [productName, dispatch, setSearchParams]);
 
   useEffect(() => {
