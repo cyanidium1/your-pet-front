@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { FcGoogle } from 'react-icons/fc';
+
 import icons from '../../images/icons.svg';
 import css from './AuthForm.module.css';
 import { useDispatch } from 'react-redux';
@@ -327,6 +329,7 @@ const AuthForm = () => {
                   className={css.auth_submit_button}
                   href="https://your-pet-backend-nci6.onrender.com/api/users/google"
                 >
+                  <FcGoogle />
                   {!isLoginPageOpen ? 'Register ' : 'Login '}
                   with Google
                 </a>
