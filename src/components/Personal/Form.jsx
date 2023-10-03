@@ -10,6 +10,7 @@ import { refreshUser } from 'redux/auth/authOperations';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import * as reg from 'modules/helpers/regexp';
+import clsx from 'clsx';
 
 const CssTextField = styled(TextField)(() => ({
   '& .MuiOutlinedInput-notchedOutline': {
@@ -101,44 +102,49 @@ export const PersonalForm = ({ mode, handleEdit }) => {
               </svg>
             </button>
           </div>
-          <label className={scss.editPhotoBlock}>
-            <div>
-              <img
-                src={
-                  typeof values.photo === 'object'
-                    ? URL.createObjectURL(values.photo)
-                    : values.photo
-                }
-                alt="Selected img"
-                className={scss.editPhotoBlock}
+          <div
+            className={clsx(
+              typeof values.photo === 'string' ? scss.costil : ''
+            )}
+          >
+            <label className={scss.editPhotoBlock}>
+              <div>
+                <img
+                  src={
+                    typeof values.photo === 'object'
+                      ? URL.createObjectURL(values.photo)
+                      : values.photo
+                  }
+                  alt="Selected img"
+                  className={scss.editPhotoBlock}
+                />
+              </div>
+              <input
+                onChange={e => {
+                  setFieldValue('photo', e.target.files[0]);
+                }}
+                className={scss.fileField}
+                type="file"
+                name="photo"
+                disabled={!mode}
               />
-            </div>
-
-            <input
-              onChange={e => {
-                setFieldValue('photo', e.target.files[0]);
-              }}
-              className={scss.fileField}
-              type="file"
-              name="photo"
-              disabled={!mode}
-            />
-            <div className={scss.confirmPhoto}>
-              {mode &&
-                (typeof values.photo === 'string' ? (
-                  <div className={scss.editPhotoLabel}>
-                    <svg className={scss.editPhoto}>
-                      <use href={`${defualtPhoto}#icon-camera`}></use>
-                    </svg>
-                    <span>Edit photo</span>
-                  </div>
-                ) : (
-                  ''
-                ))}
-            </div>
-          </label>
+              <div className={scss.confirmPhoto}>
+                {mode &&
+                  (typeof values.photo === 'string' ? (
+                    <div className={scss.editPhotoLabel}>
+                      <svg className={scss.editPhoto}>
+                        <use href={`${defualtPhoto}#icon-camera`}></use>
+                      </svg>
+                      <span>Edit photo</span>
+                    </div>
+                  ) : (
+                    ''
+                  ))}
+              </div>
+            </label>
+          </div>
           {mode && typeof values.photo !== 'string' && !values.confirm && (
-            <div className={`${scss.editPhotoLabel} ${scss.confirmPhoto}`}>
+            <div className={`${scss.editPhotoLabel} ${scss.confirmPhoto2}`}>
               <button
                 type="button"
                 onClick={() => setFieldValue('confirm', true)}
@@ -273,11 +279,7 @@ export const PersonalForm = ({ mode, handleEdit }) => {
           </div>
 
           {mode && (
-            <button
-              className={`${scss.button}
-              `}
-              type="submit"
-            >
+            <button className={`${scss.button}`} type="submit">
               Save
             </button>
           )}

@@ -108,7 +108,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/user');
+      navigate('/profile');
     }
   }, [user, navigate]);
 
