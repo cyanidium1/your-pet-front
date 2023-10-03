@@ -25,15 +25,14 @@ const Logout = ({ text, classes, closeMenu }) => {
     dispatch(closeModalApproveAction());
   };
   return (
-    <>
-      <Link to="login" onClick={closeMenu}>
+    <Link to="login" onClick={closeMenu}>
       <button className={s[classes]} onClick={handleLogOut}>
         {text}
         <svg width={24} height={24}>
           <use href={sprite + '#icon-logout'} />
         </svg>
       </button>
-    </>
+    </Link>
   );
 };
 
