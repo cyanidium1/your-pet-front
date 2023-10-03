@@ -97,8 +97,9 @@ const AuthForm = () => {
   const productName = searchParams.get('token') || null;
   useEffect(() => {
     if (productName) {
-      dispatch(addToken({ token: productName }));
-      setSearchParams('');
+      dispatch(addToken({ token: productName })).then(() =>
+        setSearchParams('')
+      );
     }
   }, [productName, dispatch, setSearchParams]);
 
