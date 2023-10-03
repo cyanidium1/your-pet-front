@@ -38,7 +38,7 @@ const Header = () => {
   return (
     <>
       <header className={s.header}>
-        <Logo />
+        <Logo closeModalMenu={closeModalMenu} />
         <BurgerMenu
           showMenu={showMenu}
           setShowMenu={setShowMenu}

@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { logOut } from 'redux/auth/authOperations';
 import { useDispatch } from 'react-redux';
 
-const Logout = ({ text, classes }) => {
+const Logout = ({ text, classes, closeMenu }) => {
   const dispatch = useDispatch(logOut);
   const handleLogOut = () => {
     dispatch(logOut());
   };
   return (
-    <Link to="/">
+    <Link to="login" onClick={closeMenu}>
       <button className={s[classes]} onClick={handleLogOut}>
         {text}
         <svg width={24} height={24}>
