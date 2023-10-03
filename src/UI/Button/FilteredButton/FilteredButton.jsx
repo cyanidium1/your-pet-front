@@ -7,8 +7,9 @@ import { useEffect, useState } from 'react';
 
 const FilteredButton = () => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
-
   const [isFilterModalOpen, setFilterModal] = useState(false);
+
+  const [state, setstate] = useState(initialState);
 
   const handleEscapeKey = e => {
     if (e.key === 'Escape') {
