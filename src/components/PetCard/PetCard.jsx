@@ -1,14 +1,16 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from 'react';
 import styles from './PetCard.module.css';
 import sprite from '../../images/icons.svg';
 import Button from '../../UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  closeModalDeleteAdverstiment,
   openModalAttention,
   openModalDeleteAdverstiment,
   openModalPetCardDetails,
 } from 'redux/global/globalSlice';
-import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
+import { selectIsModalDeleteAdverstimentOpen, selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
 import { selectIsAuth, selectUser } from 'redux/auth/authSelectors';
@@ -23,6 +25,7 @@ import {
   useRemoveFavoriteMutation,
 } from 'redux/notices/noticeQueryOperation';
 import { routerThunk } from 'Utils/constant';
+import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
 
 const PetCard = ({ info, refetch }) => {
   const { pathname } = useLocation();
@@ -51,29 +54,18 @@ const PetCard = ({ info, refetch }) => {
   const handleOpenModal = id => {
     dispatch(getSelectedNoticeThunk({ id })).then(() => {
       dispatch(openModalPetCardDetails());
+   
     });
   };
-
-  const [addToFavorite] = useAddFavoriteMutation();
-  const [removeToFavorite] = useRemoveFavoriteMutation();
-
-  // const handleToggleFavoriteAds = () => {
-  //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
-  // };
-
-  // const [deleteNotices] = useDeleteNoticeMutation();
-  // const handleDeleteCard = () => {
-  //   deleteNotices(_id);
-  // };
 
 const handleOpenModalDeleteAdverstiment = id => {
     dispatch(getSelectedNoticeThunk({ id })).then(() => {
       dispatch(openModalDeleteAdverstiment());
+
     });
   };
 
-
-  
+ 
   const isAuth = useSelector(selectIsAuth);
   const handleToggleFavoriteAds = () => {
     if (isAuth) {
@@ -94,7 +86,9 @@ const handleOpenModalDeleteAdverstiment = id => {
     }
   };
 
+
   return (
+    <>
     <li className={styles.item}>
       <div className={styles.card} style={dynamicStyle}>
         <div className={styles.topParams}>
@@ -112,7 +106,7 @@ const handleOpenModalDeleteAdverstiment = id => {
                 <use href={sprite + '#icon-heart'} />
               </svg>
             </div>
-            {isAuth && isUserOwnerAd && (
+            {isUserOwnerAd && (
               <div
                 onClick={handleOpenModalDeleteAdverstiment}
                 className={`${styles.trashIcon} ${styles.iconWrap}`}
@@ -152,6 +146,14 @@ const handleOpenModalDeleteAdverstiment = id => {
         <Button text={'Learn more'} onClick={() => handleOpenModal(_id)} />
       </div>
     </li>
+
+    </>
+    
   );
 };
 export default PetCard;
+
+ModalPetCardDetails.propTypes = {
+  handleToggleFavoriteAds: PropTypes.func,
+  isFavorite: PropTypes.bool, 
+};

@@ -10,6 +10,9 @@
   display: block;
   position: relative;
   margin-bottom: 12px;
+  @media screen and (min-width: 768px) {
+   margin-right: 24px;
+  }
 }
 
 .petImage {

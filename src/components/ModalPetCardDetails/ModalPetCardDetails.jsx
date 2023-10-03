@@ -9,9 +9,9 @@ import { useLocation } from "react-use";
 import { selectIsAuth, selectUser } from "redux/auth/authSelectors";
 import { useAddFavoriteMutation, useRemoveFavoriteMutation } from "redux/notices/noticeQueryOperation";
 
-const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
+const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavorite }) => {
   const selectedNotice = useSelector(selectSelectedNotice);
-
+ 
   const {
     title,
     name,
@@ -38,42 +38,7 @@ const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
     return dateObject.toLocaleDateString('en-US', options);
   }
 
-  // const { pathname } = useLocation();
-  // const categoryPath = pathname.split('/').slice(-1).join('');
-  // const [isFavorite, setIsFavorite] = useState(false);
-
-  // const handleToggleFavoriteAds = () => {
-  //   isFavoriteCard
-  //     ? dispatch(
-  //         removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
-  //       ).then(setIsFavoriteCard(false))
-  //     : dispatch(addNoticeToFavoriteThunk(_id)).then(setIsFavoriteCard(true));
-  // };
-
-  // const isLoggedIn = useSelector(selectIsAuth);
-  // const user = useSelector(selectUser);
-  
-  // const [isFavoriteCard, setisFavoriteCard] = useState(
-  //   favorites.includes(user._id)
-  // );
-
-  // const [addToFavorite] = useAddFavoriteMutation();
-  // const [removeToFavorite] = useRemoveFavoriteMutation();
-  // const [isFavoriteCard, setisFavoriteCard] = useState(
-  //   favorites.includes(user._id)
-  // );
-  // useEffect(() => {
-  //   setisFavoriteCard(favorites.includes(user._id));
-  // }, [favorites]);
-  // const dispatch = useDispatch();
-
-  // const isUserOwnerAd = owner?._id === user?._id;
-  //   const handleToggleFavoriteAds = () => {
-  //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
-  // };
-  
   return (
-   
       <>
       <div className={modal.modalPetCardDetailsWrapper} key={_id}>
         <div className={modal.imageWrapper}>
@@ -158,22 +123,22 @@ const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
           onClick={() => (window.location.href = telURI)}
         />
         <Button
-          text={'Add to '}
+          text={isFavorite ? 'Remove from ' : 'Add to '}
           isFilled={true}
-          color={'blue'}
+          color={isFavorite ? 'white' : 'blue'}
           svg={'#icon-heart'}
           onClick={handleToggleFavoriteAds}
         />
       </div>
       </>
-   
   );
 };
 
 export default ModalPetCardDetails;
 
 ModalPetCardDetails.propTypes = {
-  handleToggleFavoriteAds: PropTypes.func, 
+  handleToggleFavoriteAds: PropTypes.func,
+  isFavorite: PropTypes.bool, 
 };
 
 
