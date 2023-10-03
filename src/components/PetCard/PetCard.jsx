@@ -21,20 +21,27 @@ import {
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
 import { routerThunk } from 'Utils/constant';
+import {
+  useAddFavoriteMutation,
+  useDeleteNoticeMutation,
+  useRemoveFavoriteMutation,
+} from 'redux/notices/noticeQueryOperation';
 
-const PetCard = ({ info }) => {
+const PetCard = ({ info, refetch }) => {
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
   const { title, location, category, age, sex, favorites, file, owner, _id } =
     info;
-
-  const dispatch = useDispatch();
-
   const { user = {} } = useSelector(selectUser) || {};
   const [isFavoriteCard, setisFavoriteCard] = useState(
     favorites.includes(user._id)
   );
+  useEffect(() => {
+    setisFavoriteCard(favorites.includes(user._id));
+  }, [favorites]);
+  const dispatch = useDispatch();
+
   const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
@@ -48,33 +55,51 @@ const PetCard = ({ info }) => {
   const handleOpenModal = id => {
     dispatch(getSelectedNoticeThunk({ id }));
     dispatch(openModalPetCardDetails());
-    document.body.style.overflow = 'hidden';
   };
 
-  const isAuth = useSelector(selectIsAuth);
+  const [addToFavorite] = useAddFavoriteMutation();
+  const [removeToFavorite] = useRemoveFavoriteMutation();
 
   const handleToggleFavoriteAds = () => {
-    if (isAuth) {
-      if (isFavoriteCard) {
-        dispatch(removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })).then(() => {
-          setisFavoriteCard(false);
-        });
-      } else {
-        dispatch(addNoticeToFavoriteThunk( _id)).then(() => {
-          setisFavoriteCard(true);
-        });
-      }
-    } else {
-      dispatch(openModalAttention());
-      document.body.style.overflow = 'hidden';
-    }
+    !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+  };
+  const [deleteNotices] = useDeleteNoticeMutation();
+  const handleDeleteCard = () => {
+    deleteNotices(_id);
   };
 
-  const handleOpenModalDeleteAdverstiment = id => {
-    dispatch(getSelectedNoticeThunk({ id }));
-    dispatch(openModalDeleteAdverstiment());
-    document.body.style.overflow = 'hidden';
-  };
+
+//   const handleOpenModal = id => {
+//     dispatch(getSelectedNoticeThunk({ id }));
+//     dispatch(openModalPetCardDetails());
+// <<<<<<< HEAD
+//     document.body.style.overflow = 'hidden';
+//   };
+
+//   const isAuth = useSelector(selectIsAuth);
+
+//   const handleToggleFavoriteAds = () => {
+//     if (isAuth) {
+//       if (isFavoriteCard) {
+//         dispatch(removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })).then(() => {
+//           setisFavoriteCard(false);
+//         });
+//       } else {
+//         dispatch(addNoticeToFavoriteThunk( _id)).then(() => {
+//           setisFavoriteCard(true);
+//         });
+//       }
+//     } else {
+//       dispatch(openModalAttention());
+//       document.body.style.overflow = 'hidden';
+//     }
+//   };
+
+//   const handleOpenModalDeleteAdverstiment = id => {
+//     dispatch(getSelectedNoticeThunk({ id }));
+//     dispatch(openModalDeleteAdverstiment());
+//     document.body.style.overflow = 'hidden';
+//   };
 
   return (
     <li className={styles.item}>

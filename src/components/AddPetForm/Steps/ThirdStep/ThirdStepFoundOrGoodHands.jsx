@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -51,6 +52,8 @@ const ThirdStepFoundOrGoogHands = () => {
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
+  const location = useSelector(selectMyPetLocation);
+
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
@@ -61,6 +64,7 @@ const ThirdStepFoundOrGoogHands = () => {
 
     if (!sex) {
       setIsSexIgnored(true);
+
       return;
     }
     const pet = {
@@ -130,7 +134,7 @@ const ThirdStepFoundOrGoogHands = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -150,6 +154,9 @@ const ThirdStepFoundOrGoogHands = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -180,7 +187,7 @@ const ThirdStepFoundOrGoogHands = () => {
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />
@@ -195,6 +202,9 @@ const ThirdStepFoundOrGoogHands = () => {
                   id="location"
                   name="location"
                   placeholder="Type of location"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="location"

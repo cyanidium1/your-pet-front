@@ -52,7 +52,6 @@ export const addNewPetNotice = createAsyncThunk(
       if (pet.price) {
         formData.append('price', pet.price);
       }
-      console.log(formData);
 
       const response = await addPetInstance.post('api/notices', formData, {
         headers: {

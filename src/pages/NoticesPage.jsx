@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
@@ -25,13 +24,8 @@ import ModalAttention from 'components/ModalAttention/ModalAttention';
 import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
 
 const NoticesPage = () => {
-  // const isModalPetCardDetailsOpen = useSelector(
-  //   selectIsModalPetCardDetailsOpen
-  // );
-  const dispatch = useDispatch();
-
   const [searchParams, setSearchParams] = useSearchParams();
-  const productName = searchParams.get('searchQuery') ?? null;
+  const productName = searchParams.get('searchQuery') ?? undefined;
 
   const isNoticesLoading = useSelector(selectIsNoticesLoading);
 
@@ -91,7 +85,11 @@ const NoticesPage = () => {
 
   return (
     <>
-      <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
+      <Search
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        titleSearch={'Find your favorite pets'}
+      />
       <TagsArray />
       {!isNoticesLoading && <PetList />}
       isAddedNotify

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -23,8 +24,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
-import { ToastContainer, toast } from 'react-toastify';
-import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -53,11 +53,13 @@ const ThirdStepSell = () => {
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
+  const location = useSelector(selectMyPetLocation);
+
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
-  const notifyPetAdded = () => toast('Pet added successfully');
+  // const notifyPetAdded = () => toast('Pet added successfully');
 
   const handleSubmit = values => {
     if (!sex) {
@@ -74,12 +76,10 @@ const ThirdStepSell = () => {
     dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
-    dispatch(showNotify());
-    dispatch(showNotify());
-
+    toast.success('Pet added successfully');
+    // dispatch(showNotify());
     navigate(-1);
-
-    notifyPetAdded();
+    // notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -137,7 +137,7 @@ const ThirdStepSell = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -157,6 +157,9 @@ const ThirdStepSell = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -187,7 +190,7 @@ const ThirdStepSell = () => {
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />
@@ -202,6 +205,9 @@ const ThirdStepSell = () => {
                   id="location"
                   name="location"
                   placeholder="Type of location"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="location"
@@ -220,6 +226,9 @@ const ThirdStepSell = () => {
                   name="price"
                   inputMode="numeric"
                   placeholder="Type of price"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="price"

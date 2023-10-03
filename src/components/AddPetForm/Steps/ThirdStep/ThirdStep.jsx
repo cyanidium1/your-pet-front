@@ -23,7 +23,6 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
-import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -91,6 +90,9 @@ const ThirdStep = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
