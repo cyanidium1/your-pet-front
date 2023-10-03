@@ -77,9 +77,25 @@ export const PersonalForm = ({ mode, handleEdit }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, handleChange, setFieldValue, formikProps }) => (
+      {({ values, handleChange, setFieldValue, formikProps, handleReset }) => (
         <Form className={scss.form}>
           {console.log(values)}
+          <div id="photo">
+            <button
+              type="reset"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <svg className={scss.personalPhotoEdit}>
+                <use
+                  href={`${defualtPhoto}#icon-${
+                    !mode ? 'edit' : 'cross-small'
+                  }`}
+                ></use>
+              </svg>
+            </button>
+          </div>
           <label className={scss.editPhotoBlock}>
             <div>
               <img

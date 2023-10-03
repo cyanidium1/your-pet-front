@@ -13,22 +13,12 @@ export const Card = () => {
   };
 
   const edit = () => SetEditMode(!editMode);
+  const handleCloseBTN = () => {};
 
   return (
     <div>
       <h2>My information:</h2>
       <div className={scss.card}>
-        <div id="photo">
-          <button onClick={edit}>
-            <svg className={scss.personalPhotoEdit}>
-              <use
-                href={`${defualtPhoto}#icon-${
-                  !editMode ? 'edit' : 'cross-small'
-                }`}
-              ></use>
-            </svg>
-          </button>
-        </div>
         <PersonalForm mode={editMode} handleEdit={edit} />
         {!editMode && (
           <div>
