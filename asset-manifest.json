@@ -1,21 +1,27 @@
 {
   "files": {
-    "main.css": "/your-pet-front/static/css/main.2e8e06ea.css",
-    "main.js": "/your-pet-front/static/js/main.76fed87f.js",
+    "main.css": "/your-pet-front/static/css/main.d92f350e.css",
+    "main.js": "/your-pet-front/static/js/main.b974454a.js",
     "static/media/icons.svg": "/your-pet-front/static/media/icons.80f28a66587dd4b3a8f7baf5d0fbeada.svg",
+    "static/media/404-desktop-2x.webp": "/your-pet-front/static/media/404-desktop-2x.da72fb7d910c3aff368f.webp",
     "static/media/Frame 16722.webp": "/your-pet-front/static/media/Frame 16722.1ac6ed48d993ad2032f0.webp",
+    "static/media/404-tablet-2x.webp": "/your-pet-front/static/media/404-tablet-2x.864755b3adc3fd200192.webp",
     "static/media/bg-desctop-2x.webp": "/your-pet-front/static/media/bg-desctop-2x.3574e22d1464b4203930.webp",
     "static/media/bg-tablet-2x.webp": "/your-pet-front/static/media/bg-tablet-2x.03edbbd3a5221a77b017.webp",
+    "static/media/404-desktop-1x.webp": "/your-pet-front/static/media/404-desktop-1x.c6cc3e7a59aaec9ae205.webp",
+    "static/media/404-tablet-1x.webp": "/your-pet-front/static/media/404-tablet-1x.5dc93eed4e7c5970ec22.webp",
     "static/media/bg-desctop-1x.webp": "/your-pet-front/static/media/bg-desctop-1x.7bcab469c2f3b2fd0634.webp",
     "static/media/bg-tablet-1x.webp": "/your-pet-front/static/media/bg-tablet-1x.0644f02a0a6c2e76284d.webp",
     "static/media/bg-mob-2x.webp": "/your-pet-front/static/media/bg-mob-2x.fd6016de1a44dfa014c8.webp",
+    "static/media/404-mobile-2x.webp": "/your-pet-front/static/media/404-mobile-2x.c8de35b83acbbe059c85.webp",
     "static/media/bg-mob-1x.webp": "/your-pet-front/static/media/bg-mob-1x.51692f45fc311ac26705.webp",
+    "static/media/404-mobile-1x.webp": "/your-pet-front/static/media/404-mobile-1x.eb51610c1c86aeff4a62.webp",
     "index.html": "/your-pet-front/index.html",
-    "main.2e8e06ea.css.map": "/your-pet-front/static/css/main.2e8e06ea.css.map",
-    "main.76fed87f.js.map": "/your-pet-front/static/js/main.76fed87f.js.map"
+    "main.d92f350e.css.map": "/your-pet-front/static/css/main.d92f350e.css.map",
+    "main.b974454a.js.map": "/your-pet-front/static/js/main.b974454a.js.map"
   },
   "entrypoints": [
-    "static/css/main.2e8e06ea.css",
-    "static/js/main.76fed87f.js"
+    "static/css/main.d92f350e.css",
+    "static/js/main.b974454a.js"
   ]
 }
