@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -16,13 +22,13 @@ import {
 } from 'redux/auth/authOperations';
 import { openModalCongrats } from 'redux/global/globalSlice';
 import { selectUser } from 'redux/auth/authSelectors';
-import cookie from 'cookiejs';
 import { addToken } from 'redux/auth/authSlice';
 
 const AuthForm = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const user = useSelector(selectUser);
   const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -88,13 +94,13 @@ const AuthForm = () => {
     dispatch(openModalCongrats());
     dispatch(refreshUser());
   };
-  const productName = cookie.get('token');
-  console.log(productName);
+  const productName = searchParams.get('token') || null;
   useEffect(() => {
     if (productName) {
       dispatch(addToken({ token: productName }));
+      setSearchParams('');
     }
-  }, [productName, dispatch]);
+  }, [productName, dispatch, setSearchParams]);
 
   useEffect(() => {
     if (user) {
