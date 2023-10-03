@@ -111,12 +111,3 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-/**! 
- * cookiejs v2.1.2 
- * A simple, lightweight JavaScript API for handling browser cookies. 
- * 
- * Copyright (c) 2022 kenny wong 
- * https://jaywcjlove.github.io/cookie.js/ 
- * Licensed under the MIT license 
- */
