@@ -11,7 +11,10 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/authSlice';
-import { formStepReducer } from './adddPetForm/addPetFormSlice';
+import {
+  formStepReducer,
+  addPetSliceReducer,
+} from './adddPetForm/addPetFormSlice';
 import { userReducer } from './user/userSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
