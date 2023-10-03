@@ -78,7 +78,6 @@ const AuthForm = () => {
     ).then(() => {
       dispatch(openModalCongrats());
       navigate('/profile');
-      document.body.style.overflow = 'hidden';
     });
   };
 
