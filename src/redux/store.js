@@ -11,11 +11,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './auth/authSlice';
-import {
-  formStepReducer,
-  addPetSliceReducer,
-} from './adddPetForm/addPetFormSlice';
-import { userReducer } from './user/userSlice';
+import { formStepReducer } from './adddPetForm/addPetFormSlice';
+import { addPetSlice, addPetSliceReducer } from './myPets/addPetSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
 import { newsReducer } from './news/newsSlice';
@@ -38,7 +35,6 @@ export const store = configureStore({
     global: globalReducer,
     notices: noticesReducer,
     news: newsReducer,
-    user: userReducer,
     friend: friendReducer,
     [noticeApi.reducerPath]: noticeApi.reducer,
   },

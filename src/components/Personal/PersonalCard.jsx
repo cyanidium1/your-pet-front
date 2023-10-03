@@ -7,12 +7,14 @@ import {
   closeModalApproveAction,
   openModalApproveAction,
 } from 'redux/global/globalSlice';
+// import { isModalApproveActionOpen } from 'redux/global/globalSelectors';
 import { selectIsModalApproveActionOpen } from 'redux/global/globalSelectors';
 import ModalApproveAction from 'components/ModalApproveAction/ModalApproveAction';
 import { Modal } from 'components/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 export const Card = () => {
   const [editMode, SetEditMode] = useState(false);
+
   const dispatch = useDispatch(logOut);
   const handleLogOut = () => {
     dispatch(logOut());
@@ -26,19 +28,23 @@ export const Card = () => {
       <div className={scss.card}>
         <PersonalForm mode={editMode} handleEdit={edit} />
         {!editMode && (
-          <div className={scss.logoutblock}>
+          <button
+            type="button"
+            onClick={handleLogOut}
+            className={scss.logoutblock}
+          >
             <svg className={scss.logout}>
               <use href={`${defualtPhoto}#icon-logout`}></use>
             </svg>
             <span>Log Out</span>
-          </div>
+          </button>
         )}
       </div>
-      {isModalApproveActionOpen && (
-        <Modal closeReducer={handleCloseModalApproveAction}>
+      {/* {selectIsModalApproveActionOpen && (
+        <Modal closeReducer={closeModalApproveAction}>
           <ModalApproveAction />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };
