@@ -42,6 +42,28 @@ export const noticeApi = createApi({
             ];
       },
     }),
+    getNoticeById: builder.query({
+      query: id => ({
+        url: `/api/notices/${id}`,
+        method: 'GET',
+      }),
+      // providesTags: ({ notices } = {}) => {
+      //   return notices
+      //     ? [
+      //         ...notices.map(({ _id }) => ({ type: 'AllNotice', id: _id })),
+      //         [
+      //           { type: 'myNotice', id: 'List' },
+      //           { type: 'favoriteNotice', id: 'List' },
+      //           { type: 'AllNotice', id: 'List' },
+      //         ],
+      //       ]
+      //     : [
+      //         { type: 'myNotice', id: 'List' },
+      //         { type: 'favoriteNotice', id: 'List' },
+      //         { type: 'AllNotice', id: 'List' },
+      //       ];
+      // },
+    }),
     getMyAds: builder.query({
       query: queryParams => ({
         url: '/api/notices/user-notices',
@@ -140,4 +162,5 @@ export const {
   useDeleteNoticeMutation,
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
+  useGetNoticeByIdQuery,
 } = noticeApi;
