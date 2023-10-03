@@ -31,6 +31,7 @@ const validationSchema = Yup.object().shape({
     ),
   birthDate: Yup.date()
     .default(() => new Date())
+    .typeError('Invalid date format')
     .required('Birth date is required'),
   type: Yup.string().required('Type is required'),
 });
@@ -91,6 +92,9 @@ const SecondStepMy = () => {
                 id="name"
                 name="name"
                 placeholder="Type pet name"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="name"
@@ -108,6 +112,9 @@ const SecondStepMy = () => {
                 name="birthDate"
                 className={css.Input}
                 required
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="birthDate"
@@ -125,6 +132,9 @@ const SecondStepMy = () => {
                 id="type"
                 name="type"
                 placeholder="Type of pet"
+                onKeyPress={e => {
+                  e.which === 13 && e.preventDefault();
+                }}
               />
               <ErrorMessage
                 name="type"
