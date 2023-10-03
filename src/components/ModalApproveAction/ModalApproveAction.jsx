@@ -9,14 +9,8 @@ const ModalApproveAction = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    dispatch(logOut())
-      .unwrap()
-      .then(data => {
-        toast.success(
-          `You have successfully logged out. We hope to see you back soon!`
-        );
-      });
-    dispatch(closeModalLogout());
+    dispatch(logOut()).unwrap();
+    dispatch(closeModalApproveAction());
   };
 
   const handleCloseModal = () => {
@@ -34,6 +28,7 @@ const ModalApproveAction = () => {
           color={'blue'}
           svg={'#icon-logout'}
           onClick={handleLogOut}
+          to="/"
         />
       </div>
     </div>

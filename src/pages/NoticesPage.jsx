@@ -17,6 +17,12 @@ import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
 import { toast } from 'react-toastify';
 import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
 import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
+import { closeModalAttention, closeModalDeleteAdverstiment, closeModalPetCardDetails } from 'redux/global/globalSlice';
+import { selectIsModalAttentionOpen, selectIsModalDeleteAdverstimentOpen, selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
+import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
+import { Modal } from 'components/Modal/Modal';
+import ModalAttention from 'components/ModalAttention/ModalAttention';
+import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
 
 const NoticesPage = () => {
   // const isModalPetCardDetailsOpen = useSelector(
@@ -54,6 +60,35 @@ const NoticesPage = () => {
       }
     }
   }, [categoryPath, searchParams]);
+
+
+
+
+  const isModalPetCardDetailsOpen = useSelector(
+    selectIsModalPetCardDetailsOpen
+  );
+
+
+  const handleCloseModalPetCardDetails = () => {
+    dispatch(closeModalPetCardDetails());
+  };
+
+  const isModalAttentionOpen = useSelector(
+    selectIsModalAttentionOpen
+  );
+
+  const handleCloseModalAttention = () => {
+    dispatch(closeModalAttention());
+  };
+
+  const isModalDeleteAdverstimentIsOpen = useSelector(
+    selectIsModalDeleteAdverstimentOpen
+  );
+
+  const handleCloseModalDeleteAdverstiment = () => {
+    dispatch(closeModalDeleteAdverstiment());
+  };
+
   return (
     <>
       <Search searchParams={searchParams} setSearchParams={setSearchParams} titleSearch={'Find your favorite pets'} />
@@ -61,6 +96,21 @@ const NoticesPage = () => {
       {!isNoticesLoading && <PetList />}
       isAddedNotify
       {isAddedNotify && notifyAdded()}
+      {isModalPetCardDetailsOpen && (
+        <Modal closeReducer={handleCloseModalPetCardDetails}>
+          <ModalPetCardDetails />
+        </Modal>
+      )}
+      {isModalAttentionOpen && (
+        <Modal closeReducer={handleCloseModalAttention}>
+          <ModalAttention  />
+        </Modal>
+      )}
+      {isModalDeleteAdverstimentIsOpen && (
+        <Modal closeReducer={handleCloseModalDeleteAdverstiment}>
+          <ModalDeleteAdverstiment  />
+        </Modal>
+      )}
     </>
   );
 };

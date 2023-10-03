@@ -16,7 +16,7 @@ const Profile = () => {
         <Card />
         <Pets />
       </section>
-      {isAddedNotify && notifyAdded()}
+      {/* {isAddedNotify && notifyAdded()} */}
     </>
   );
 };

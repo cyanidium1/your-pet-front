@@ -5,12 +5,14 @@ import Button from '../../UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   closeModalPetCardDetails,
+  openModalAttention,
+  openModalDeleteAdverstiment,
   openModalPetCardDetails,
 } from 'redux/global/globalSlice';
 import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
-import { selectUser } from 'redux/auth/authSelectors';
+import { selectIsAuth, selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
   deleteNoticeThunk,
@@ -28,9 +30,6 @@ const PetCard = ({ info }) => {
     info;
 
   const dispatch = useDispatch();
-  // const isModalPetCardDetailsOpen = useSelector(
-  //   selectIsModalPetCardDetailsOpen
-  // );
 
   const { user = {} } = useSelector(selectUser) || {};
   const [isFavoriteCard, setisFavoriteCard] = useState(
@@ -49,18 +48,32 @@ const PetCard = ({ info }) => {
   const handleOpenModal = id => {
     dispatch(getSelectedNoticeThunk({ id }));
     dispatch(openModalPetCardDetails());
-    // handleToggleFavoriteAds(_id);
+    document.body.style.overflow = 'hidden';
   };
 
+  const isAuth = useSelector(selectIsAuth);
+
   const handleToggleFavoriteAds = () => {
-    isFavoriteCard
-      ? dispatch(
-          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
-        ).then(setisFavoriteCard(false))
-      : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
+    if (isAuth) {
+      if (isFavoriteCard) {
+        dispatch(removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })).then(() => {
+          setisFavoriteCard(false);
+        });
+      } else {
+        dispatch(addNoticeToFavoriteThunk( _id)).then(() => {
+          setisFavoriteCard(true);
+        });
+      }
+    } else {
+      dispatch(openModalAttention());
+      document.body.style.overflow = 'hidden';
+    }
   };
-  const handleDeleteCard = () => {
-    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+
+  const handleOpenModalDeleteAdverstiment = id => {
+    dispatch(getSelectedNoticeThunk({ id }));
+    dispatch(openModalDeleteAdverstiment());
+    document.body.style.overflow = 'hidden';
   };
 
   return (
@@ -76,7 +89,6 @@ const PetCard = ({ info }) => {
                   : `${styles.heartIcon} ${styles.iconWrap}`
               }
               onClick={handleToggleFavoriteAds}
-           
             >
               <svg className={`${styles.heart} ${styles.icon}`}>
                 <use href={sprite + '#icon-heart'} />
@@ -84,7 +96,7 @@ const PetCard = ({ info }) => {
             </div>
             {isUserOwnerAd && (
               <div
-                onClick={handleDeleteCard}
+                onClick={handleOpenModalDeleteAdverstiment}
                 className={`${styles.trashIcon} ${styles.iconWrap}`}
               >
                 <svg className={styles.icon}>

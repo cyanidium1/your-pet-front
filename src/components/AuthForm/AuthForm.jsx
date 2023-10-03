@@ -7,6 +7,7 @@ import icons from '../../images/icons.svg';
 import css from './AuthForm.module.css';
 import { useDispatch } from 'react-redux';
 import { login, loginWithGoogle, register } from 'redux/auth/authOperations';
+import { openModalCongrats } from 'redux/global/globalSlice';
 
 const AuthForm = () => {
   const location = useLocation();
@@ -72,8 +73,11 @@ const AuthForm = () => {
         password: values.password,
         name: values.name,
       })
-    );
-    navigate('/user');
+    ).then(() => {
+      dispatch(openModalCongrats());
+      navigate('/user');
+      document.body.style.overflow = 'hidden';
+    });
   };
 
   return (

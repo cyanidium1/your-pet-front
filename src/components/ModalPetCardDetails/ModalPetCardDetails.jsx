@@ -6,11 +6,10 @@ import Button from 'UI/Button/Button';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { Modal } from 'components/Modal/Modal';
 import { useLocation } from "react-use";
+import { selectIsAuth, selectUser } from "redux/auth/authSelectors";
 
-const ModalPetCardDetails = () => {
+const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
   const selectedNotice = useSelector(selectSelectedNotice);
-
-  // console.log(selectedNotice);
 
   const {
     title,
@@ -23,6 +22,7 @@ const ModalPetCardDetails = () => {
     location,
     sex,
     comments,
+    favorites,
   } = selectedNotice?.notice || {};
  
   const { email, phone } = selectedNotice?.notice.owner || {};
@@ -49,6 +49,12 @@ const ModalPetCardDetails = () => {
   //     : dispatch(addNoticeToFavoriteThunk(_id)).then(setIsFavoriteCard(true));
   // };
 
+  // const isLoggedIn = useSelector(selectIsAuth);
+  // const user = useSelector(selectUser);
+  
+  // const [isFavoriteCard, setisFavoriteCard] = useState(
+  //   favorites.includes(user._id)
+  // );
   
   return (
     // <Modal closeReducer={() => setIsModalOpen(false)} >
@@ -137,11 +143,15 @@ const ModalPetCardDetails = () => {
         />
         <Button
           // text={isFavorite ? 'Remove from ' : 'Add to '}
+          // text={
+          //   isLoggedIn && user?.favorites.some((ad) => ad._id === _id)
+          //     ? "Remove"
+          //     : "Add to"
+          // }
           isFilled={true}
-          // color={isFavorite ? '' : 'blue'}
+          // color={isFavoriteCard ? '' : 'blue'}
           svg={'#icon-heart'}
-          // onClick={handleToggleFavoriteAds}
-          onClick={() => handleToggleFavoriteAds(_id)}
+          onClick={handleToggleFavoriteAds}
         />
       </div>
       </>
