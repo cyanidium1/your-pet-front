@@ -62,7 +62,7 @@ const AuthForm = () => {
 
   const handleLogin = values => {
     dispatch(login({ email: values.email, password: values.password }));
-    navigate('/user');
+    navigate('/profile');
   };
 
   const handleRegister = values => {
@@ -72,8 +72,11 @@ const AuthForm = () => {
         password: values.password,
         name: values.name,
       })
-    );
-    navigate('/user');
+    ).then(() => {
+      dispatch(openModalCongrats());
+      navigate('/profile');
+      document.body.style.overflow = 'hidden';
+    });
   };
 
   return (
