@@ -11,7 +11,8 @@ import { selectIsModalApproveActionOpen } from 'redux/global/globalSelectors';
 import ModalApproveAction from 'components/ModalApproveAction/ModalApproveAction';
 import { Modal } from 'components/Modal/Modal';
 
-const Logout = ({ text, classes }) => {
+
+const Logout = ({ text, classes, closeMenu }) => {
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(openModalApproveAction());
@@ -24,20 +25,14 @@ const Logout = ({ text, classes }) => {
     dispatch(closeModalApproveAction());
   };
   return (
-    <>
-      {isModalApproveActionOpen && (
-        <Modal closeReducer={handleCloseModalApproveAction}>
-          <ModalApproveAction />
-        </Modal>
-      )}
-
+    <Link to="login" onClick={closeMenu}>
       <button className={s[classes]} onClick={handleLogOut}>
         {text}
         <svg width={24} height={24}>
           <use href={sprite + '#icon-logout'} />
         </svg>
       </button>
-    </>
+    </Link>
   );
 };
 

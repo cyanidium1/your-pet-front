@@ -7,9 +7,10 @@ import {
   useGetMyFavoriteQuery,
 } from 'redux/notices/noticeQueryOperation';
 import { tagsLinkNotAuth } from 'Utils/constant';
+import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
+import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
 
 const PetList = ({ searchQuery }) => {
- 
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
@@ -44,10 +45,10 @@ const PetList = ({ searchQuery }) => {
     combinedArray = allNotice.notices || [];
 
   if (allNoticeLoading || myNoticeLoading || favoriteNoticeLoading) {
-    return <div>Loading....</div>;
+    return <LoaderSpinner />;
   }
   if (allNoticeError || myNoticeError || favoriteNoticeError) {
-    return <div>Error....</div>;
+    return <NoticeNotFound />;
   }
   if (combinedArray.length > 0) {
     return (
