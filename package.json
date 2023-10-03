@@ -9,7 +9,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.0",
-    "cookiejs": "^2.1.2",
     "formik": "^2.4.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.8.1",
