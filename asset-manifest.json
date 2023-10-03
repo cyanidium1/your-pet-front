@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/your-pet-front/static/css/main.e3f0f262.css",
-    "main.js": "/your-pet-front/static/js/main.8f70bdaa.js",
-    "static/media/icons.svg": "/your-pet-front/static/media/icons.72a48cf486342ae8884fbe0f5c7c3c0e.svg",
+    "main.css": "/your-pet-front/static/css/main.8701ae5e.css",
+    "main.js": "/your-pet-front/static/js/main.7eaa386b.js",
+    "static/media/icons.svg": "/your-pet-front/static/media/icons.4b96ddbc83f446dfb3f379dce4212afb.svg",
     "static/media/404-desktop-2x.webp": "/your-pet-front/static/media/404-desktop-2x.da72fb7d910c3aff368f.webp",
     "static/media/Frame 16722.webp": "/your-pet-front/static/media/Frame 16722.1ac6ed48d993ad2032f0.webp",
     "static/media/404-tablet-2x.webp": "/your-pet-front/static/media/404-tablet-2x.864755b3adc3fd200192.webp",
@@ -18,11 +18,11 @@
     "static/media/bg-mob-1x.webp": "/your-pet-front/static/media/bg-mob-1x.51692f45fc311ac26705.webp",
     "static/media/404-mobile-1x.webp": "/your-pet-front/static/media/404-mobile-1x.eb51610c1c86aeff4a62.webp",
     "index.html": "/your-pet-front/index.html",
-    "main.e3f0f262.css.map": "/your-pet-front/static/css/main.e3f0f262.css.map",
-    "main.8f70bdaa.js.map": "/your-pet-front/static/js/main.8f70bdaa.js.map"
+    "main.8701ae5e.css.map": "/your-pet-front/static/css/main.8701ae5e.css.map",
+    "main.7eaa386b.js.map": "/your-pet-front/static/js/main.7eaa386b.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3f0f262.css",
-    "static/js/main.8f70bdaa.js"
+    "static/css/main.8701ae5e.css",
+    "static/js/main.7eaa386b.js"
   ]
 }
