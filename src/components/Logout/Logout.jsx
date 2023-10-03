@@ -13,7 +13,7 @@ import { Modal } from 'components/Modal/Modal';
 
 
 const Logout = ({ text, classes, closeMenu }) => {
-  const dispatch = useDispatch(logOut);
+  const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(openModalApproveAction());
     document.body.style.overflow = 'hidden';
