@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import AddPetPage from './pages/AddPetPage';
 import PageNotFound from './pages/PageNotFound/PaqgeNotFound';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 
 import './App.css';
 
@@ -23,12 +24,20 @@ const App = () => {
         <Route path="news" element={<NewsPage />} />
         <Route path="notices/:categoryName" element={<NoticesPage />} />
         <Route path="friends" element={<OurFriendsPage />} />
-        <Route path="profile" element={<Profile />} />
+
+        <Route
+          path="/profile"
+          element={<PrivateRoute component={Profile} redirectTo="/" />}
+        />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
 
         <Route path="user" element={<UserPage />} />
-        <Route path="add-pet" element={<AddPetPage />} />
+
+        <Route
+          path="add-pet"
+          element={<PrivateRoute component={AddPetPage} redirectTo="/" />}
+        />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

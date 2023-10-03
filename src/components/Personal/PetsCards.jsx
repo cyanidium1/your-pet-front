@@ -16,7 +16,8 @@ export const Pets = () => {
 
   useEffect(() => {
     dispatch(refreshUser());
-  }, [user, dispatch]);
+    console.log(123);
+  }, [dispatch]);
   return (
     <div className={scss.petsContainer}>
       <div className={scss.myPets}>
@@ -60,13 +61,15 @@ export const Pets = () => {
               </li>
             );
           })}
-          <div className={scss.spyIMG}>
-            <img src={spyNoPets}></img>
-            <p>
-              You have not added your pets, if you want to add them, click on
-              the button "Add pet"
-            </p>
-          </div>
+          {user && (
+            <div className={scss.spyIMG}>
+              <img src={spyNoPets}></img>
+              <p>
+                You have not added your pets, if you want to add them, click on
+                the button "Add pet"
+              </p>
+            </div>
+          )}
         </ul>
       </div>
     </div>
