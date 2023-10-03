@@ -3,8 +3,6 @@ import defualtPhoto from '../../images/icons.svg';
 import { PersonalForm } from './Form';
 import { useState } from 'react';
 import { logOut } from 'redux/auth/authOperations';
-import { useDispatch } from 'react-redux';
-
 import {
   closeModalApproveAction,
   openModalApproveAction,
