@@ -115,3 +115,20 @@
   color: #fef9f9;
   border: transparent;
 } 
+
+.buttonCross{
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: -12px;
+  top: 0;
+  @media screen and (min-width: 768px) {
+    top: 0;
+    right: -12px;
+  }
+}
+.buttonCross svg {
+  stroke: #54adff;
+  width: 24px;
+  height: 24px;
+}

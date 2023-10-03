@@ -4,7 +4,6 @@ import sprite from '../../images/icons.svg';
 import Button from '../../UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  closeModalPetCardDetails,
   openModalAttention,
   openModalDeleteAdverstiment,
   openModalPetCardDetails,
@@ -15,17 +14,15 @@ import { Modal } from 'components/Modal/Modal';
 import { selectIsAuth, selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
-  deleteNoticeThunk,
   getSelectedNoticeThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
-import { routerThunk } from 'Utils/constant';
 import {
   useAddFavoriteMutation,
-  useDeleteNoticeMutation,
   useRemoveFavoriteMutation,
 } from 'redux/notices/noticeQueryOperation';
+import { routerThunk } from 'Utils/constant';
 
 const PetCard = ({ info, refetch }) => {
   const { pathname } = useLocation();
@@ -33,6 +30,7 @@ const PetCard = ({ info, refetch }) => {
 
   const { title, location, category, age, sex, favorites, file, owner, _id } =
     info;
+
   const { user = {} } = useSelector(selectUser) || {};
   const [isFavoriteCard, setisFavoriteCard] = useState(
     favorites.includes(user._id)
@@ -41,13 +39,11 @@ const PetCard = ({ info, refetch }) => {
     setisFavoriteCard(favorites.includes(user._id));
   }, [favorites]);
   const dispatch = useDispatch();
-
   const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
   const normalAge =
     age < 1 ? `${Math.ceil(age / (1 / 12))} mont` : `${Math.round(age)} years`;
-
   const dynamicStyle = {
     backgroundImage: `url(${file})`,
   };
@@ -116,7 +112,7 @@ const handleOpenModalDeleteAdverstiment = id => {
                 <use href={sprite + '#icon-heart'} />
               </svg>
             </div>
-            {isUserOwnerAd && (
+            {isAuth && isUserOwnerAd && (
               <div
                 onClick={handleOpenModalDeleteAdverstiment}
                 className={`${styles.trashIcon} ${styles.iconWrap}`}
@@ -158,5 +154,4 @@ const handleOpenModalDeleteAdverstiment = id => {
     </li>
   );
 };
-
 export default PetCard;

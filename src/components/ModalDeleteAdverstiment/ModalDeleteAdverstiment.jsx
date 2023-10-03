@@ -7,20 +7,31 @@ import { useLocation } from 'react-use';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { deleteNoticeThunk } from 'redux/notices/noticeOperations';
 import { routerThunk } from 'Utils/constant';
+import { useDeleteNoticeMutation } from 'redux/notices/noticeQueryOperation';
 
 
-const ModalDeleteAdverstiment = () => {
+const ModalDeleteAdverstiment = ({_id}) => {
   const selectedNotice = useSelector(selectSelectedNotice);
-  const { title, _id } = selectedNotice?.notice || {};
-  const dispatch = useDispatch();
-  const { pathname } = useLocation();
-  const categoryPath = pathname.split('/').slice(-1).join('');
+  const { title } = selectedNotice?.notice || {};
 
+  // const selectedNotice = useSelector(selectSelectedNotice);
+  // const { title, _id } = selectedNotice?.notice || {};
+  // const dispatch = useDispatch();
+  // const { pathname } = useLocation();
+  // const categoryPath = pathname.split('/').slice(-1).join('');
+
+  // const handleDeleteCard = () => {
+  //   dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+  //   dispatch(closeModalDeleteAdverstiment());
+  //   document.body.style.overflow = 'hidden';
+  // };
+  const dispatch = useDispatch();
+  const [deleteNotices] = useDeleteNoticeMutation();
   const handleDeleteCard = () => {
-    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
-    dispatch(closeModalDeleteAdverstiment());
-    document.body.style.overflow = 'hidden';
+    deleteNotices(_id);
   };
+
+
 
   const handleCloseModal = () => {
     dispatch(closeModalDeleteAdverstiment());
@@ -41,7 +52,7 @@ const ModalDeleteAdverstiment = () => {
           text={'Yes'}
           isFilled={true}
           color={'blue'}
-          svg={'#icon-trash-2'}
+          svg={'#icon-trash'}
           onClick={handleDeleteCard}
         />
       </div>

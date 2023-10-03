@@ -14,19 +14,34 @@ const Button = ({ text, svg, isFilled, color, to, onClick }) => {
       buttonClassName = styles.buttonFilledBlue;
     } else if (color === 'white') {
       buttonClassName = styles.buttonNotFilledYellow;
+    } else if (color === 'cross') {
+      buttonClassName = styles.buttonCross;
     }
   }
 
   return (
     <button className={buttonClassName} onClick={onClick}>
-      <div className={styles.buttonContent}>
-        {to ? <Link to={to}>{text}</Link> : <span>{text}</span>}
-        {svg && (
+      {text && svg ? (
+        <div className={styles.buttonContent}>
+          {to ? <Link to={to}>{text}</Link> : <span>{text}</span>}
           <svg>
             <use href={sprite + svg}></use>
           </svg>
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          {text && (
+            <div className={styles.buttonContent}>
+              {to ? <Link to={to}>{text}</Link> : <span>{text}</span>}
+            </div>
+          )}
+          {svg && (
+            <svg>
+              <use href={sprite + svg}></use>
+            </svg>
+          )}
+        </>
+      )}
     </button>
   );
 };

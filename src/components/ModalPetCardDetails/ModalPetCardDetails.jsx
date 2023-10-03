@@ -7,6 +7,7 @@ import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { Modal } from 'components/Modal/Modal';
 import { useLocation } from "react-use";
 import { selectIsAuth, selectUser } from "redux/auth/authSelectors";
+import { useAddFavoriteMutation, useRemoveFavoriteMutation } from "redux/notices/noticeQueryOperation";
 
 const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
   const selectedNotice = useSelector(selectSelectedNotice);
@@ -55,9 +56,24 @@ const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
   // const [isFavoriteCard, setisFavoriteCard] = useState(
   //   favorites.includes(user._id)
   // );
+
+  // const [addToFavorite] = useAddFavoriteMutation();
+  // const [removeToFavorite] = useRemoveFavoriteMutation();
+  // const [isFavoriteCard, setisFavoriteCard] = useState(
+  //   favorites.includes(user._id)
+  // );
+  // useEffect(() => {
+  //   setisFavoriteCard(favorites.includes(user._id));
+  // }, [favorites]);
+  // const dispatch = useDispatch();
+
+  // const isUserOwnerAd = owner?._id === user?._id;
+  //   const handleToggleFavoriteAds = () => {
+  //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+  // };
   
   return (
-    // <Modal closeReducer={() => setIsModalOpen(false)} >
+   
       <>
       <div className={modal.modalPetCardDetailsWrapper} key={_id}>
         <div className={modal.imageWrapper}>
@@ -142,28 +158,23 @@ const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
           onClick={() => (window.location.href = telURI)}
         />
         <Button
-          // text={isFavorite ? 'Remove from ' : 'Add to '}
-          // text={
-          //   isLoggedIn && user?.favorites.some((ad) => ad._id === _id)
-          //     ? "Remove"
-          //     : "Add to"
-          // }
+          text={'Add to '}
           isFilled={true}
-          // color={isFavoriteCard ? '' : 'blue'}
+          color={'blue'}
           svg={'#icon-heart'}
           onClick={handleToggleFavoriteAds}
         />
       </div>
       </>
-    // </Modal>
+   
   );
 };
 
 export default ModalPetCardDetails;
 
-// ModalPetCardDetails.propTypes = {
-//   setIsModalPetCardDetailsOpen: PropTypes.func,
-// };
+ModalPetCardDetails.propTypes = {
+  handleToggleFavoriteAds: PropTypes.func, 
+};
 
 
 

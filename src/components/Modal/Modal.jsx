@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 const modalContainer = document.getElementById('modal');
 
 export const Modal = ({ children, closeReducer }) => {
-
   useEffect(() => {
     const onCloseModalESC = e => {
       if (e.code === 'Escape') {
@@ -40,7 +39,12 @@ export const Modal = ({ children, closeReducer }) => {
     <div className={styles.backdrop} onClick={onCloseModal}>
       <div className={styles.modalStyled}>
         <div className={styles.closeModalButton}>
-          <Button svg={'#icon-cross'} onClick={handleCloseModal} />
+          <Button
+            svg={'#icon-cross'}
+            onClick={handleCloseModal}
+            color={'cross'}
+            isFilled={true}
+          />
         </div>
         {children}
       </div>

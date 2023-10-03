@@ -53,7 +53,6 @@
 
 .modalStyled h3 {
   font-size: 24px;
-  /* font-weight: 500; */
   font-weight: 700;
   letter-spacing: 0.96px;
   text-align: center;
@@ -105,6 +104,4 @@
     right: 38px;
   }
 }
-.closeModalButton button {
-  border: none;
-}
+
