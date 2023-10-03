@@ -6,7 +6,6 @@
 }
 
 .auth_section {
-    margin-top: 40px;
     padding: 40px 12px;
     display: flex;
     align-items: center;
@@ -163,7 +162,6 @@
         padding: 75px 60px;
         max-width: 100%;
         width: 608px;
-        margin-top: 80px;
     }
 
     .auth_form {

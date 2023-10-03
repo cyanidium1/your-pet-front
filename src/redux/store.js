@@ -22,7 +22,7 @@ import { noticeApi } from './notices/noticeQueryOperation';
 const authConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'user'],
 };
 
 const authPersistedReducer = persistReducer(authConfig, authReducer);
