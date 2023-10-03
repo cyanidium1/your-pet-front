@@ -52,54 +52,51 @@ const PetCard = ({ info, refetch }) => {
     backgroundImage: `url(${file})`,
   };
 
+  // const [addToFavorite] = useAddFavoriteMutation();
+  // const [removeToFavorite] = useRemoveFavoriteMutation();
+
+  // const handleToggleFavoriteAds = () => {
+  //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+  // };
+  // const [deleteNotices] = useDeleteNoticeMutation();
+  // const handleDeleteCard = () => {
+  //   deleteNotices(_id);
+  // };
+
   const handleOpenModal = id => {
-    dispatch(getSelectedNoticeThunk({ id }));
-    dispatch(openModalPetCardDetails());
+    dispatch(getSelectedNoticeThunk({ id })).then(() => {
+      dispatch(openModalPetCardDetails());
+      document.body.style.overflow = 'hidden';
+    });
   };
 
-  const [addToFavorite] = useAddFavoriteMutation();
-  const [removeToFavorite] = useRemoveFavoriteMutation();
+  const handleOpenModalDeleteAdverstiment = id => {
+    dispatch(getSelectedNoticeThunk({ id })).then(() => {
+      dispatch(openModalDeleteAdverstiment());
+      document.body.style.overflow = 'hidden';
+    });
+  };
+
+  const isAuth = useSelector(selectIsAuth);
 
   const handleToggleFavoriteAds = () => {
-    !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+    if (isAuth) {
+      if (isFavoriteCard) {
+        dispatch(
+          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+        ).then(() => {
+          setisFavoriteCard(false);
+        });
+      } else {
+        dispatch(addNoticeToFavoriteThunk(_id)).then(() => {
+          setisFavoriteCard(true);
+        });
+      }
+    } else {
+      dispatch(openModalAttention());
+      document.body.style.overflow = 'hidden';
+    }
   };
-  const [deleteNotices] = useDeleteNoticeMutation();
-  const handleDeleteCard = () => {
-    deleteNotices(_id);
-  };
-
-
-//   const handleOpenModal = id => {
-//     dispatch(getSelectedNoticeThunk({ id }));
-//     dispatch(openModalPetCardDetails());
-// <<<<<<< HEAD
-//     document.body.style.overflow = 'hidden';
-//   };
-
-//   const isAuth = useSelector(selectIsAuth);
-
-//   const handleToggleFavoriteAds = () => {
-//     if (isAuth) {
-//       if (isFavoriteCard) {
-//         dispatch(removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })).then(() => {
-//           setisFavoriteCard(false);
-//         });
-//       } else {
-//         dispatch(addNoticeToFavoriteThunk( _id)).then(() => {
-//           setisFavoriteCard(true);
-//         });
-//       }
-//     } else {
-//       dispatch(openModalAttention());
-//       document.body.style.overflow = 'hidden';
-//     }
-//   };
-
-//   const handleOpenModalDeleteAdverstiment = id => {
-//     dispatch(getSelectedNoticeThunk({ id }));
-//     dispatch(openModalDeleteAdverstiment());
-//     document.body.style.overflow = 'hidden';
-//   };
 
   return (
     <li className={styles.item}>

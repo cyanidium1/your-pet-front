@@ -2,22 +2,17 @@ import Search from '../components/Search/Search';
 import TagsArray from '../components/TagsArray/TagsArray';
 import PetList from '../components/PetList/PetList';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import {
-  getAllNoticesThunk,
-  getMyAdsThunk,
-  getMyFavoriteAdsThunk,
-} from 'redux/notices/noticeOperations';
+  closeModalAttention,
+  closeModalDeleteAdverstiment,
+  closeModalPetCardDetails,
+} from 'redux/global/globalSlice';
 import {
-  selectAllNotices,
-  selectIsNoticesLoading,
-} from 'redux/notices/noticeSelectors';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { tagsLinkAuth, tagsLinkNotAuth } from 'Utils/constant';
-import { toast } from 'react-toastify';
-import { hideNotify } from 'redux/addPetNotify/appPetNotifySlice';
-import { selectIsNotifyAddPet } from 'redux/addPetNotify/addPetNotifySelectors';
-import { closeModalAttention, closeModalDeleteAdverstiment, closeModalPetCardDetails } from 'redux/global/globalSlice';
-import { selectIsModalAttentionOpen, selectIsModalDeleteAdverstimentOpen, selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
+  selectIsModalAttentionOpen,
+  selectIsModalDeleteAdverstimentOpen,
+  selectIsModalPetCardDetailsOpen,
+} from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
 import ModalAttention from 'components/ModalAttention/ModalAttention';
@@ -26,50 +21,45 @@ import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDel
 const NoticesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const productName = searchParams.get('searchQuery') ?? undefined;
+  const dispatch = useDispatch();
 
-  const isNoticesLoading = useSelector(selectIsNoticesLoading);
+  // const isNoticesLoading = useSelector(selectIsNoticesLoading);
 
-  const { notices } = useSelector(selectAllNotices);
-  const isAddedNotify = useSelector(selectIsNotifyAddPet);
+  // const { notices } = useSelector(selectAllNotices);
+  // const isAddedNotify = useSelector(selectIsNotifyAddPet);
 
-  const { pathname } = useLocation();
-  const categoryPath = pathname.split('/').slice(-1).join('');
-  const notifyAdded = () => {
-    toast('Pet added successfully!');
-    dispatch(hideNotify());
-  };
+  // const { pathname } = useLocation();
+  // const categoryPath = pathname.split('/').slice(-1).join('');
+  // const notifyAdded = () => {
+  //   toast('Pet added successfully!');
+  //   dispatch(hideNotify());
+  // };
 
-  useEffect(() => {
-    if (tagsLinkNotAuth.includes(categoryPath)) {
-      dispatch(
-        getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
-      );
-    }
-    if (tagsLinkAuth.includes(categoryPath)) {
-      if (categoryPath === tagsLinkAuth[0]) {
-        dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
-      }
-      if (categoryPath === tagsLinkAuth[1]) {
-        dispatch(getMyAdsThunk({ searchQuery: productName }));
-      }
-    }
-  }, [categoryPath, searchParams]);
-
-
-
+  // useEffect(() => {
+  //   if (tagsLinkNotAuth.includes(categoryPath)) {
+  //     dispatch(
+  //       getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
+  //     );
+  //   }
+  //   if (tagsLinkAuth.includes(categoryPath)) {
+  //     if (categoryPath === tagsLinkAuth[0]) {
+  //       dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
+  //     }
+  //     if (categoryPath === tagsLinkAuth[1]) {
+  //       dispatch(getMyAdsThunk({ searchQuery: productName }));
+  //     }
+  //   }
+  // }, [categoryPath, searchParams]);
 
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
   );
 
-
   const handleCloseModalPetCardDetails = () => {
     dispatch(closeModalPetCardDetails());
   };
 
-  const isModalAttentionOpen = useSelector(
-    selectIsModalAttentionOpen
-  );
+  const isModalAttentionOpen = useSelector(selectIsModalAttentionOpen);
 
   const handleCloseModalAttention = () => {
     dispatch(closeModalAttention());
@@ -91,9 +81,7 @@ const NoticesPage = () => {
         titleSearch={'Find your favorite pets'}
       />
       <TagsArray />
-      {!isNoticesLoading && <PetList />}
-      isAddedNotify
-      {isAddedNotify && notifyAdded()}
+      <PetList searchQuery={productName} />
       {isModalPetCardDetailsOpen && (
         <Modal closeReducer={handleCloseModalPetCardDetails}>
           <ModalPetCardDetails />
@@ -101,12 +89,12 @@ const NoticesPage = () => {
       )}
       {isModalAttentionOpen && (
         <Modal closeReducer={handleCloseModalAttention}>
-          <ModalAttention  />
+          <ModalAttention />
         </Modal>
       )}
       {isModalDeleteAdverstimentIsOpen && (
         <Modal closeReducer={handleCloseModalDeleteAdverstiment}>
-          <ModalDeleteAdverstiment  />
+          <ModalDeleteAdverstiment />
         </Modal>
       )}
     </>
