@@ -26,7 +26,7 @@ const Logout = ({ text, classes, closeMenu }) => {
   };
   return (
 
-    <Link to="login" onClick={closeMenu}>
+    <Link to="login" onClick={closeMenu}/>
 
       <button className={s[classes]} onClick={handleLogOut}>
         {text}
