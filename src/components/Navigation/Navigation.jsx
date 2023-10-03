@@ -15,7 +15,6 @@ const Navigation = ({ showMenu, closeMenu }) => {
   return (
     <nav className={s.navList}>
       <ul className={showMenu ? [s.menu, s.activeMenu].join(' ') : [s.menu]}>
-        {/* {showMenu && isMobile && isLoggedIn && <UserNav showMenu={showMenu} />} */}
         {isMobile && !isLoggedIn && <AuthNav closeMenu={closeMenu} />}
 
         <li onClick={closeMenu}>
@@ -34,7 +33,7 @@ const Navigation = ({ showMenu, closeMenu }) => {
           </NavLink>
         </li>
         {isMobile && isLoggedIn && (
-          <Logout text={'Log Out'} classes={'logOut'} />
+          <Logout text={'Log Out'} classes={'logOut'} closeMenu={closeMenu} />
         )}
       </ul>
     </nav>
