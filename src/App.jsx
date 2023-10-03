@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import AddPetPage from './pages/AddPetPage';
+import PageNotFound from './pages/PageNotFound/PaqgeNotFound';
+
 import './App.css';
 
 const App = () => {
@@ -27,7 +29,7 @@ const App = () => {
 
         <Route path="user" element={<UserPage />} />
         <Route path="add-pet" element={<AddPetPage />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
     // <ModalApproveAction/>
