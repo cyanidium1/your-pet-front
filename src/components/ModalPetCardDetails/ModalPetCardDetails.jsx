@@ -20,7 +20,7 @@ const ModalPetCardDetails = () => {
   const { data, isError, isLoading } = useGetNoticeByIdQuery(
     selectedNotice._id
   );
-  console.log(data);
+
   const {
     title,
     name,
@@ -65,6 +65,7 @@ const ModalPetCardDetails = () => {
       return;
     }
     !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+    setisFavoriteCard(favorite => !favorite);
   };
 
   if (isLoading) {
@@ -126,8 +127,8 @@ const ModalPetCardDetails = () => {
                   <strong>Email:</strong>
                 </td>
                 <td className={modal.normalCell}>
-                  <a href="mailto:user@mail.com" className={modal.link}>
-                    {email}
+                  <a href={email} className={modal.link}>
+                    {email.length > 21 ? email.slice(0, 20) + '...' : email}
                   </a>
                 </td>
               </tr>
@@ -157,7 +158,7 @@ const ModalPetCardDetails = () => {
         <Button
           text={isFavoriteCard ? 'Remove from ' : 'Add to '}
           isFilled={true}
-          // color={isFavoriteCard ? '' : 'blue'}
+          color={'blue'}
           svg={'#icon-heart'}
           onClick={handleToggleFavoriteAds}
         />
