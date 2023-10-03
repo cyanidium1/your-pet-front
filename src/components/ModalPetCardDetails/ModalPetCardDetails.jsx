@@ -1,25 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import modal from './ModalPetCardDetails.module.css';
 import Button from 'UI/Button/Button';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
-import { selectUser } from 'redux/auth/authSelectors';
-import { openModalAttention } from 'redux/global/globalSlice';
-import {
-  useAddFavoriteMutation,
-  useGetNoticeByIdQuery,
-  useRemoveFavoriteMutation,
-} from 'redux/notices/noticeQueryOperation';
-import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
-import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
+import { Modal } from 'components/Modal/Modal';
+import { useLocation } from "react-use";
+import { selectIsAuth, selectUser } from "redux/auth/authSelectors";
 
-const ModalPetCardDetails = () => {
+const ModalPetCardDetails = ({handleToggleFavoriteAds}) => {
   const selectedNotice = useSelector(selectSelectedNotice);
-  const dispatch = useDispatch();
-
-  const { data, isError, isLoading } = useGetNoticeByIdQuery(
-    selectedNotice._id
-  );
 
   const {
     title,
@@ -31,20 +21,11 @@ const ModalPetCardDetails = () => {
     type,
     location,
     sex,
-    owner,
     comments,
     favorites,
-  } = data?.notice || {};
-
-  const { user = {} } = useSelector(selectUser) || {};
-  const [isFavoriteCard, setisFavoriteCard] = useState(
-    favorites?.includes(user._id)
-  );
-  useEffect(() => {
-    setisFavoriteCard(favorites?.includes(user._id));
-  }, [favorites]);
-
-  const { email, phone } = data?.notice.owner || {};
+  } = selectedNotice?.notice || {};
+ 
+  const { email, phone } = selectedNotice?.notice.owner || {};
 
   const telURI = `tel:${phone}`;
   const birthday = formatDate(date);
@@ -56,27 +37,28 @@ const ModalPetCardDetails = () => {
     return dateObject.toLocaleDateString('en-US', options);
   }
 
-  const [addToFavorite] = useAddFavoriteMutation();
-  const [removeToFavorite] = useRemoveFavoriteMutation();
-  const handleToggleFavoriteAds = () => {
-    if (Object.keys(user).length === 0) {
-      dispatch(openModalAttention());
-      document.body.style.overflow = 'hidden';
-      return;
-    }
-    !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
-    setisFavoriteCard(favorite => !favorite);
-  };
+  // const { pathname } = useLocation();
+  // const categoryPath = pathname.split('/').slice(-1).join('');
+  // const [isFavorite, setIsFavorite] = useState(false);
 
-  if (isLoading) {
-    return <LoaderSpinner />;
-  }
-  if (isError) {
-    return <NoticeNotFound />;
-  }
+  // const handleToggleFavoriteAds = () => {
+  //   isFavoriteCard
+  //     ? dispatch(
+  //         removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+  //       ).then(setIsFavoriteCard(false))
+  //     : dispatch(addNoticeToFavoriteThunk(_id)).then(setIsFavoriteCard(true));
+  // };
 
+  // const isLoggedIn = useSelector(selectIsAuth);
+  // const user = useSelector(selectUser);
+  
+  // const [isFavoriteCard, setisFavoriteCard] = useState(
+  //   favorites.includes(user._id)
+  // );
+  
   return (
-    <>
+    // <Modal closeReducer={() => setIsModalOpen(false)} >
+      <>
       <div className={modal.modalPetCardDetailsWrapper} key={_id}>
         <div className={modal.imageWrapper}>
           <h6 className={modal.category}>{category}</h6>
@@ -127,8 +109,8 @@ const ModalPetCardDetails = () => {
                   <strong>Email:</strong>
                 </td>
                 <td className={modal.normalCell}>
-                  <a href={email} className={modal.link}>
-                    {email.length > 21 ? email.slice(0, 20) + '...' : email}
+                  <a href="mailto:user@mail.com" className={modal.link}>
+                    {email}
                   </a>
                 </td>
               </tr>
@@ -156,19 +138,33 @@ const ModalPetCardDetails = () => {
 
       <div className={modal.modalButtonsWrapper}>
         <Button
-          text={isFavoriteCard ? 'Remove from ' : 'Add to '}
-          isFilled={true}
-          color={'blue'}
-          svg={'#icon-heart'}
-          onClick={handleToggleFavoriteAds}
-        />
-        <Button
           text={'Contact'}
           onClick={() => (window.location.href = telURI)}
         />
+        <Button
+          // text={isFavorite ? 'Remove from ' : 'Add to '}
+          // text={
+          //   isLoggedIn && user?.favorites.some((ad) => ad._id === _id)
+          //     ? "Remove"
+          //     : "Add to"
+          // }
+          isFilled={true}
+          // color={isFavoriteCard ? '' : 'blue'}
+          svg={'#icon-heart'}
+          onClick={handleToggleFavoriteAds}
+        />
       </div>
-    </>
+      </>
+    // </Modal>
   );
 };
 
 export default ModalPetCardDetails;
+
+// ModalPetCardDetails.propTypes = {
+//   setIsModalPetCardDetailsOpen: PropTypes.func,
+// };
+
+
+
+
