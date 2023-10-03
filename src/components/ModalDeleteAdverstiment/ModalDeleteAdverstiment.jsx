@@ -8,7 +8,6 @@ import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
 import { deleteNoticeThunk } from 'redux/notices/noticeOperations';
 import { routerThunk } from 'Utils/constant';
 
-
 const ModalDeleteAdverstiment = () => {
   const selectedNotice = useSelector(selectSelectedNotice);
   const { title, _id } = selectedNotice?.notice || {};
