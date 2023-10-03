@@ -16,6 +16,8 @@ import {
 } from 'redux/auth/authOperations';
 import { openModalCongrats } from 'redux/global/globalSlice';
 import { selectUser } from 'redux/auth/authSelectors';
+import Cookies from 'js-cookie';
+import { addToken } from 'redux/auth/authSlice';
 
 const AuthForm = () => {
   const location = useLocation();
@@ -86,6 +88,14 @@ const AuthForm = () => {
     dispatch(openModalCongrats());
     dispatch(refreshUser());
   };
+  const productName = Cookies.get('token') || null;
+  console.log(productName);
+  useEffect(() => {
+    if (productName) {
+      dispatch(addToken({ token: productName }));
+    }
+  }, [productName, dispatch]);
+
   useEffect(() => {
     if (user) {
       navigate('/profile');
