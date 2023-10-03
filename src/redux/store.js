@@ -17,7 +17,6 @@ import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
 import { newsReducer } from './news/newsSlice';
 import { friendReducer } from './friends/friendSlice';
-import { toggleNotifyReducer } from './addPetNotify/appPetNotifySlice';
 import { noticeApi } from './notices/noticeQueryOperation';
 
 const authConfig = {
@@ -37,7 +36,6 @@ export const store = configureStore({
     notices: noticesReducer,
     news: newsReducer,
     friend: friendReducer,
-    showNotifyAddPet: toggleNotifyReducer,
     [noticeApi.reducerPath]: noticeApi.reducer,
   },
 

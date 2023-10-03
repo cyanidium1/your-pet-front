@@ -23,8 +23,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
-import { ToastContainer, toast } from 'react-toastify';
-import { showNotify } from 'redux/addPetNotify/appPetNotifySlice';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -57,7 +56,7 @@ const ThirdStepSell = () => {
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
-  const notifyPetAdded = () => toast('Pet added successfully');
+  // const notifyPetAdded = () => toast('Pet added successfully');
 
   const handleSubmit = values => {
     if (!sex) {
@@ -74,12 +73,10 @@ const ThirdStepSell = () => {
     dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
-    dispatch(showNotify());
-    dispatch(showNotify());
-
+    toast.success('Pet added successfully');
+    // dispatch(showNotify());
     navigate(-1);
-
-    notifyPetAdded();
+    // notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
