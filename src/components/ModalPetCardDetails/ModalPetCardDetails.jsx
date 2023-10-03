@@ -1,45 +1,29 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import modal from './ModalPetCardDetails.module.css';
 import Button from 'UI/Button/Button';
 import { selectSelectedNotice } from 'redux/notices/noticeSelectors';
-import { Modal } from 'components/Modal/Modal';
-import { useLocation } from "react-use";
-import { selectIsAuth, selectUser } from "redux/auth/authSelectors";
-import { useAddFavoriteMutation, useRemoveFavoriteMutation } from "redux/notices/noticeQueryOperation";
 
-const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavorite }) => {
+const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavoriteCard }) => {
   const selectedNotice = useSelector(selectSelectedNotice);
- 
   const {
     title,
     name,
     _id,
     file,
     category,
-    date,
     type,
     location,
     sex,
     comments,
-    favorites,
   } = selectedNotice?.notice || {};
- 
   const { email, phone } = selectedNotice?.notice.owner || {};
-
   const telURI = `tel:${phone}`;
-  const birthday = formatDate(date);
-  // const birthday = selectedNotice?.formatDate || {};
-
-  function formatDate(dateString) {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const dateObject = new Date(dateString);
-    return dateObject.toLocaleDateString('en-US', options);
-  }
+  const birthday = selectedNotice?.formatDate || {};
 
   return (
-      <>
+    <>
       <div className={modal.modalPetCardDetailsWrapper} key={_id}>
         <div className={modal.imageWrapper}>
           <h6 className={modal.category}>{category}</h6>
@@ -123,14 +107,14 @@ const ModalPetCardDetails = ({ handleToggleFavoriteAds, isFavorite }) => {
           onClick={() => (window.location.href = telURI)}
         />
         <Button
-          text={isFavorite ? 'Remove from ' : 'Add to '}
+          text={isFavoriteCard ? 'Remove ' : 'Add to '}
           isFilled={true}
-          color={isFavorite ? 'white' : 'blue'}
+          color={isFavoriteCard ? '' : 'blue'}
           svg={'#icon-heart'}
           onClick={handleToggleFavoriteAds}
         />
       </div>
-      </>
+    </>
   );
 };
 
@@ -138,9 +122,5 @@ export default ModalPetCardDetails;
 
 ModalPetCardDetails.propTypes = {
   handleToggleFavoriteAds: PropTypes.func,
-  isFavorite: PropTypes.bool, 
+  isFavoriteCard: PropTypes.bool,
 };
-
-
-
-
