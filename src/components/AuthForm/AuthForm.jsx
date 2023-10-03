@@ -7,14 +7,21 @@ import { FcGoogle } from 'react-icons/fc';
 
 import icons from '../../images/icons.svg';
 import css from './AuthForm.module.css';
-import { useDispatch } from 'react-redux';
-import { login, loginWithGoogle, register } from 'redux/auth/authOperations';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  login,
+  loginWithGoogle,
+  refreshUser,
+  register,
+} from 'redux/auth/authOperations';
 import { openModalCongrats } from 'redux/global/globalSlice';
+import { selectUser } from 'redux/auth/authSelectors';
 
 const AuthForm = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
   const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
@@ -65,7 +72,7 @@ const AuthForm = () => {
 
   const handleLogin = values => {
     dispatch(login({ email: values.email, password: values.password }));
-    navigate('/profile');
+    dispatch(refreshUser());
   };
 
   const handleRegister = values => {
@@ -75,11 +82,15 @@ const AuthForm = () => {
         password: values.password,
         name: values.name,
       })
-    ).then(() => {
-      dispatch(openModalCongrats());
-      navigate('/profile');
-    });
+    );
+    dispatch(openModalCongrats());
+    dispatch(refreshUser());
   };
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
+    }
+  }, [user, navigate]);
 
   return (
     <section className={`${css.auth_page}`}>
