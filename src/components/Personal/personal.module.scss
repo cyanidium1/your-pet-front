@@ -8,7 +8,7 @@
   position: relative;
 
   margin-top: 24px;
-  padding-top: 20px;
+  // padding-top: 20px;
   padding-bottom: 21px;
   padding-left: 16px;
   padding-right: 24px;
@@ -37,17 +37,19 @@
   top: 18px;
 }
 
-.petCard {
+.petsCard {
+  // position: relative;
   width: 821px;
   //   width: 100%;
   height: 520px;
   flex-shrink: 0;
 
   margin-top: 24px;
-
-  border-radius: 40px;
-  background: var(--, #fff);
-  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+  display: flex;
+  flex-direction: column;
+  // border-radius: 40px;
+  // background: var(--, #fff);
+  // box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
 }
 
 .button {
@@ -65,7 +67,9 @@
 .label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  margin-right: auto;
 
   font-size: 18px;
 }
@@ -76,15 +80,16 @@
 }
 .input {
   border-radius: 20px;
-  border: 1px solid var(--unnamed, #54adff);
+  border: 1px solid #54adff;
   margin-bottom: 8px;
   font-size: 16px;
   padding: 4px 12px;
   width: 255px;
-  &::placeholder {
-    color: grey;
-    opacity: 0.5;
-  }
+  margin-left: auto;
+  // &::placeholder {
+  //   color: grey;
+  //   opacity: 0.5;
+  // }
 }
 
 .input:invalid {
@@ -92,14 +97,26 @@
 }
 
 .logout {
+  display: flex;
   width: 24px;
   height: 24px;
-  display: inline-block;
+
+  // padding-left: 16px;
+  // margin-left: auto;
+}
+.logoutImg {
+  width: 24px;
+  height: 24px;
+
   margin-right: 12px;
+  // padding-left: 16px;
+  // margin-left: auto;
 }
 
 .logoutblock {
   display: flex;
+  align-items: center;
+  color: #888;
 }
 
 .editPhoto {
@@ -115,10 +132,26 @@
   align-items: center;
   font-size: 12px;
   cursor: pointer;
-  margin-bottom: 26px;
+  // margin-bottom: 63px;
   width: 182px;
   height: 182px;
   border-radius: 40px;
+}
+.confirmPhoto {
+  display: flex;
+  // height: 63px;
+  padding-top: 15px;
+  padding-bottom: 26px;
+}
+.costil {
+  margin-bottom: 63px;
+}
+
+.confirmPhoto2 {
+  display: flex;
+  // height: 63px;
+  padding-top: 15px;
+  padding-bottom: 26px;
 }
 
 .fileField {
@@ -128,5 +161,115 @@
 .editPhotoLabel {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  & span {
+    font-size: 12px;
+    text-align: center;
+    // display: table-cell;
+    // vertical-align: middle;
+    line-height: 10px;
+  }
+}
+
+.inputLabelRoot {
+  // transform: translate(0px, 0px) scale(1);
+  // top: 14px;
+  border-radius: 20px;
+}
+
+.userFields {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+  // margin-top: 63px;
+}
+
+.notActiveBtn {
+  cursor: not-allowed;
+  background-color: gray;
+}
+
+.myPets {
+  display: flex;
+  justify-content: space-between;
+  max-width: 821px;
+}
+
+.petsDelBtn {
+  position: absolute;
+  // width: 24px;
+  // height: 24px;
+  right: 20px;
+  top: 20px;
+}
+.petsDelBtnSVG {
+  width: 24px;
+  height: 24px;
+  // position: absolute;
+}
+
+.petsCardList {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.petsListItem {
+  display: flex;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+
+  border-radius: 40px;
+  background: var(--, #fff);
+
+  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+}
+
+.petsContainer {
+  max-width: 821px;
+  margin-left: 32px;
+}
+.petsInfoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 32px;
+}
+
+.petsInfo {
+  display: flex;
+  align-items: baseline;
+  color: var(--, #111);
+  font-family: Manrope;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.64px;
+  & div {
+    margin-left: 4px;
+    color: var(--, #111);
+    font-family: Manrope;
+    font-size: 16px;
+    // font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.64px;
+  }
+}
+
+.petsImg {
+  border-radius: 40px;
+}
+
+.spyIMG {
+  margin: 50px 150px 20px;
+  & p {
+    width: 300px;
+    margin: 0px auto 130px;
+    text-align: center;
+  }
 }

@@ -1,156 +1,285 @@
 import { Formik, Field, Form } from 'formik';
 import scss from './personal.module.scss';
 import defualtPhoto from '../../images/icons.svg';
-import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
+import { userUpdate } from 'redux/user/userOperations';
 import { refreshUser } from 'redux/auth/authOperations';
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material/styles';
+import * as reg from 'modules/helpers/regexp';
+import clsx from 'clsx';
+
+const CssTextField = styled(TextField)(() => ({
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderRadius: '20px',
+    borderColor: '#54adff',
+  },
+  '& .MuiInputBase-input': {
+    padding: '4px 12px',
+    fontSize: 16,
+  },
+  '& .MuiInputLabel-root': {
+    top: '-15px',
+  },
+  '& .MuiInputLabel-root.Mui-focused': {
+    top: '0px',
+  },
+}));
 
 const validationSchema = Yup.object().shape({
   photo: Yup.mixed().required('Please upload a photo'),
   firstName: Yup.string()
-    .required()
-    .max(120, 'Title must be at most 120 characters'),
-  email: Yup.string().required,
-  birthday: Yup.date().optional(),
-  phone: Yup.string().optional(),
-  city: Yup.string().optional(),
+    .min(2, 'Requered min one letter')
+    .required('Requered'),
+  email: Yup.string()
+    .required('Requered')
+    .matches(reg.emailRegexp, 'Not valid'),
+  birthday: Yup.string()
+    .required('Requered')
+    .matches(reg.birthdayRegexp, 'Not valid'),
+  phone: Yup.string().optional().matches(reg.PhoneReg, 'Not valid'),
+  city: Yup.string().optional().matches(reg.cityRegexp, 'Not valid'),
 });
 
-export const PersonalForm = ({ mode }) => {
-  const [file, setFile] = useState();
-  const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+export const PersonalForm = ({ mode, handleEdit }) => {
+  const user = useSelector(selectUser);
 
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      // Simulate an API call to update the user's data
+      await dispatch(userUpdate(values));
+      await dispatch(refreshUser());
+      handleEdit();
+    } catch (error) {
+      // Handle error here
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <Formik
-      enctype="multipart/form-data"
-      method="patch"
+      // enctype="multipart/form-data"
+      // method="patch"
       initialValues={{
-        firstName: user.name,
-        email: user.email,
-        birthday: user.birthday,
-        toggledEditPhoto: '',
-        phone: user.phone,
-        city: user.city,
+        photo: user?.user.avatarURL || '123',
+        firstName: user?.user.name || '',
+        email: user?.user.email || '',
+        birthday: user?.user.birthday || '',
+        phone: user?.user.phone || '',
+        city: user?.user.city || '',
+        confirm: false,
       }}
       validationSchema={validationSchema}
-      onSubmit={async values => {
-        await new Promise(r => setTimeout(r, 500));
-        alert(JSON.stringify(values.name, null, 2));
-      }}
+      onSubmit={handleSubmit}
     >
-      {({ values, handleChange, isValid }) => (
+      {({
+        values,
+        handleChange,
+        setFieldValue,
+        formikProps,
+        handleReset,
+        setFieldTouched,
+      }) => (
         <Form className={scss.form}>
-          <label className={scss.editPhotoBlock}>
-            <div>
-              {file ? (
+          <div id="photo">
+            <button
+              type="reset"
+              onClick={() => {
+                handleEdit();
+              }}
+            >
+              <svg className={scss.personalPhotoEdit}>
+                <use
+                  href={`${defualtPhoto}#icon-${
+                    !mode ? 'edit' : 'cross-small'
+                  }`}
+                ></use>
+              </svg>
+            </button>
+          </div>
+          <div
+            className={clsx(
+              typeof values.photo === 'string' ? scss.costil : ''
+            )}
+          >
+            <label className={scss.editPhotoBlock}>
+              <div>
                 <img
-                  src={file}
+                  src={
+                    typeof values.photo === 'object'
+                      ? URL.createObjectURL(values.photo)
+                      : values.photo
+                  }
                   alt="Selected img"
                   className={scss.editPhotoBlock}
                 />
-              ) : (
-                <svg className={scss.personalPhoto}>
-                  <use href={`${defualtPhoto}#icon-Photo-default`}></use>
-                </svg>
-              )}
-            </div>
-            <Field
-              onChange={e => {
-                setFile(URL.createObjectURL(e.target.files[0]));
-                handleChange(e);
-              }}
-              accept="image/*,image/jpeg"
-              className={scss.fileField}
-              type="file"
-              name="toggledEditPhoto"
-              disabled={!mode}
-            ></Field>
-            {mode && !file ? (
-              <div className={scss.editPhotoLabel}>
-                <svg className={scss.editPhoto}>
-                  <use href={`${defualtPhoto}#icon-camera`}></use>
-                </svg>
-                <span>Edit photo</span>
               </div>
-            ) : (
-              <div className={scss.editPhotoLabel}>
+              <input
+                onChange={e => {
+                  setFieldValue('photo', e.target.files[0]);
+                }}
+                className={scss.fileField}
+                type="file"
+                name="photo"
+                disabled={!mode}
+              />
+              <div className={scss.confirmPhoto}>
+                {mode &&
+                  (typeof values.photo === 'string' ? (
+                    <div className={scss.editPhotoLabel}>
+                      <svg className={scss.editPhoto}>
+                        <use href={`${defualtPhoto}#icon-camera`}></use>
+                      </svg>
+                      <span>Edit photo</span>
+                    </div>
+                  ) : (
+                    ''
+                  ))}
+              </div>
+            </label>
+          </div>
+          {mode && typeof values.photo !== 'string' && !values.confirm && (
+            <div className={`${scss.editPhotoLabel} ${scss.confirmPhoto2}`}>
+              <button
+                type="button"
+                onClick={() => setFieldValue('confirm', true)}
+              >
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-check`}></use>
                 </svg>
-                <span>Confirm</span>
+              </button>
+
+              <span>Confirm</span>
+              <button
+                id="cansel"
+                type="button"
+                onClick={() => {
+                  // setFieldValue('confirm', false);
+                  // setFieldTouched('photo', false);
+                  setFieldValue('photo', user.user.avatarURL);
+                }}
+              >
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-cross-small`}></use>
                 </svg>
-              </div>
-            )}
-          </label>
+              </button>
+            </div>
+          )}
+          <div className={scss.userFields}>
+            <label htmlFor="firstName" className={scss.label}>
+              Name:
+              <Field name="firstName" type="email">
+                {({ meta, isValid, validate }) => (
+                  <>
+                    <CssTextField
+                      disabled={!mode}
+                      error={meta.error ? true : false}
+                      required
+                      className={scss.input}
+                      label={meta.error}
+                      value={values.firstName}
+                      onChange={e => {
+                        setFieldValue('firstName', e.target.value);
+                      }}
+                    />
+                  </>
+                )}
+              </Field>
+            </label>
+            <label htmlFor="email" className={scss.label}>
+              Email:
+              <Field name="email">
+                {({ meta, isValid }) => (
+                  <CssTextField
+                    error={meta.error ? true : false}
+                    disabled={!mode}
+                    required
+                    className={scss.input}
+                    label={meta.error}
+                    value={values.email}
+                    onChange={e => {
+                      setFieldValue('email', e.target.value);
+                    }}
+                  />
+                )}
+              </Field>
+            </label>
+            <label htmlFor="birthday" className={scss.label}>
+              Birthday:
+              <Field name="birthday">
+                {({ meta, isValid }) => (
+                  <CssTextField
+                    error={meta.error ? true : false}
+                    disabled={!mode}
+                    required
+                    className={scss.input}
+                    label={meta.error}
+                    value={values.birthday}
+                    sx={{
+                      '& .MuiInputLabel-root': {
+                        top: '-13px',
+                      },
+                    }}
+                    onChange={e => {
+                      setFieldValue('birthday', e.target.value);
+                    }}
+                  />
+                )}
+              </Field>
+            </label>
+            <label htmlFor="phone" className={scss.label}>
+              Phone:
+              <Field name="phone">
+                {({ meta, isValid }) => (
+                  <CssTextField
+                    error={meta.error ? true : false}
+                    disabled={!mode}
+                    className={scss.input}
+                    label={meta.error}
+                    value={values.phone}
+                    sx={{
+                      '& .MuiInputLabel-root': {
+                        top: '0px',
+                      },
+                    }}
+                    onChange={e => {
+                      setFieldValue('phone', e.target.value);
+                    }}
+                  />
+                )}
+              </Field>
+            </label>
+            <label htmlFor="city" className={scss.label}>
+              City:
+              <Field name="city">
+                {({ meta, isValid }) => (
+                  <CssTextField
+                    error={meta.error ? true : false}
+                    disabled={!mode}
+                    className={scss.input}
+                    label={meta.error}
+                    value={values.city}
+                    sx={{
+                      '& .MuiInputLabel-root': {
+                        top: '0px',
+                      },
+                    }}
+                    onChange={e => {
+                      setFieldValue('city', e.target.value);
+                    }}
+                  />
+                )}
+              </Field>
+            </label>
+          </div>
 
-          <label htmlFor="firstName" className={scss.label}>
-            Name:
-            <Field
-              className={scss.input}
-              id="firstName"
-              name="firstName"
-              placeholder="Anna"
-              disabled={!mode}
-              // value={values.name}
-            />
-          </label>
-
-          <label htmlFor="email" className={scss.label}>
-            Email:
-            <Field
-              id="email"
-              name="email"
-              placeholder="anna@gmail.com"
-              type="email"
-              className={scss.input}
-              disabled={!mode}
-            />
-          </label>
-          <label htmlFor="birthday" className={scss.label}>
-            Birthday:
-            <Field
-              id="birthday"
-              name="birthday"
-              placeholder="25.09.2023"
-              // type="date"
-              className={scss.input}
-              disabled={!mode}
-              onChange={e => {
-                console.log(e.currentTarget.value);
-                console.log(values.birthday);
-                handleChange(e);
-              }}
-            />
-          </label>
-          <label htmlFor="phone" className={scss.label}>
-            Phone:
-            <Field
-              id="phone"
-              name="phone"
-              placeholder="+38000000000"
-              // type="number"
-              className={scss.input}
-              disabled={!mode}
-            />
-          </label>
-          <label htmlFor="city" className={scss.label}>
-            City:
-            <Field
-              id="city"
-              name="city"
-              placeholder="Kiev"
-              className={scss.input}
-              disabled={!mode}
-            />
-          </label>
           {mode && (
-            <button className={scss.button} type="submit">
+            <button className={`${scss.button}`} type="submit">
               Save
             </button>
           )}
