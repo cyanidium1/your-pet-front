@@ -7,6 +7,7 @@ import { useDeletePetMutation } from 'redux/notices/noticeQueryOperation';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/auth/authOperations';
+import spyNoPets from 'images/spy/hellofromteam2.webp';
 
 export const Pets = () => {
   const user = useSelector(selectUser);
@@ -24,7 +25,7 @@ export const Pets = () => {
       </div>
       <div className={scss.petsCard}>
         <ul className={scss.petsCardList}>
-          {user.user.pets.map((pet, index) => {
+          {user?.user.pets.map((pet, index) => {
             return (
               <li key={index} className={scss.petsListItem}>
                 <button
@@ -59,6 +60,13 @@ export const Pets = () => {
               </li>
             );
           })}
+          <div className={scss.spyIMG}>
+            <img src={spyNoPets}></img>
+            <p>
+              You have not added your pets, if you want to add them, click on
+              the button "Add pet"
+            </p>
+          </div>
         </ul>
       </div>
     </div>

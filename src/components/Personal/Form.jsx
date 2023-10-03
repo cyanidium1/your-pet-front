@@ -259,7 +259,7 @@ export const PersonalForm = ({ mode, handleEdit }) => {
               <Field name="city">
                 {({ meta, isValid }) => (
                   <CssTextField
-                    error={isValid}
+                    error={meta.error ? true : false}
                     disabled={!mode}
                     className={scss.input}
                     label={meta.error}
