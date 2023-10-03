@@ -6,11 +6,13 @@
 } */
 
 .wrap {
-  padding: 16px;
+  padding: 0 16px;
   background: #fef9f9;
   position: relative;
   max-width: 1280px;
   margin: auto;
+  display: flex;
+  justify-content: right;
 }
 
 .img {
@@ -20,7 +22,6 @@
 }
 
 .petImg {
-  position: absolute;
   top: 0;
   right: 0;
 }
@@ -39,31 +40,28 @@
 
 @media (max-width: 1280px) {
   .content {
-    top: 20px; /* Adjust the top position as needed */
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    width: auto;
-    font-size: 36px; /* Adjust the font size for smaller screens */
-    line-height: 48px; /* Adjust the line height for smaller screens */
+    width: 100%;
   }
 
   .petImg {
-    top: 50px;
-    right: 50%;
-    transform: translateX(50%);
+    display: block;
+    margin-top: 130px;
   }
 }
 
 @media (max-width: 768px) {
   .content {
     padding: 0 20px;
-    text-align: left;
+    text-align: center;
     width: 100%;
-    font-size: 32px; /* Change font size to 32px for screens smaller than 768px */
-    line-height: 40px; /* Adjust the line height for smaller screens */
+    font-size: 32px;
+    line-height: 40px;
   }
   .petImg {
-    top: 70px;
+    margin-top: 70px;
   }
 }
