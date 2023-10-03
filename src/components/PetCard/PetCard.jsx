@@ -19,23 +19,30 @@ import {
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
 import { routerThunk } from 'Utils/constant';
+import {
+  useAddFavoriteMutation,
+  useDeleteNoticeMutation,
+  useRemoveFavoriteMutation,
+} from 'redux/notices/noticeQueryOperation';
 
-const PetCard = ({ info }) => {
+const PetCard = ({ info, refetch }) => {
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
   const { title, location, category, age, sex, favorites, file, owner, _id } =
     info;
-
+  const { user = {} } = useSelector(selectUser) || {};
+  const [isFavoriteCard, setisFavoriteCard] = useState(
+    favorites.includes(user._id)
+  );
+  useEffect(() => {
+    setisFavoriteCard(favorites.includes(user._id));
+  }, [favorites]);
   const dispatch = useDispatch();
   // const isModalPetCardDetailsOpen = useSelector(
   //   selectIsModalPetCardDetailsOpen
   // );
 
-  const { user = {} } = useSelector(selectUser) || {};
-  const [isFavoriteCard, setisFavoriteCard] = useState(
-    favorites.includes(user._id)
-  );
   const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
@@ -46,20 +53,20 @@ const PetCard = ({ info }) => {
     backgroundImage: `url(${file})`,
   };
 
-  const handleOpenModal = (id) => {
-    dispatch(getSelectedNoticeThunk({id}));
-    dispatch(openModalPetCardDetails())
+  const handleOpenModal = id => {
+    dispatch(getSelectedNoticeThunk({ id }));
+    dispatch(openModalPetCardDetails());
   };
 
+  const [addToFavorite] = useAddFavoriteMutation();
+  const [removeToFavorite] = useRemoveFavoriteMutation();
+
   const handleToggleFavoriteAds = () => {
-    isFavoriteCard
-      ? dispatch(
-          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
-        ).then(setisFavoriteCard(false))
-      : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
+    !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
   };
+  const [deleteNotices] = useDeleteNoticeMutation();
   const handleDeleteCard = () => {
-    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+    deleteNotices(_id);
   };
 
   return (
@@ -117,7 +124,7 @@ const PetCard = ({ info }) => {
       </div>
       <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
       <div className={styles.btn}>
-        <Button text={'Learn more'} onClick={()=>handleOpenModal(_id)} />
+        <Button text={'Learn more'} onClick={() => handleOpenModal(_id)} />
       </div>
     </li>
   );
