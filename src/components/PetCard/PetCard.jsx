@@ -5,36 +5,43 @@ import Button from '../../UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   closeModalPetCardDetails,
+  openModalAttention,
+  openModalDeleteAdverstiment,
   openModalPetCardDetails,
 } from 'redux/global/globalSlice';
 import { selectIsModalPetCardDetailsOpen } from 'redux/global/globalSelectors';
 import ModalPetCardDetails from 'components/ModalPetCardDetails/ModalPetCardDetails';
 import { Modal } from 'components/Modal/Modal';
-import { selectUser } from 'redux/auth/authSelectors';
+import { selectIsAuth, selectUser } from 'redux/auth/authSelectors';
 import {
   addNoticeToFavoriteThunk,
   deleteNoticeThunk,
+  getSelectedNoticeThunk,
   removeNoticeToFavoriteThunk,
 } from 'redux/notices/noticeOperations';
 import { useLocation } from 'react-router-dom';
 import { routerThunk } from 'Utils/constant';
+import {
+  useAddFavoriteMutation,
+  useDeleteNoticeMutation,
+  useRemoveFavoriteMutation,
+} from 'redux/notices/noticeQueryOperation';
 
-const PetCard = ({ info }) => {
+const PetCard = ({ info, refetch }) => {
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
   const { title, location, category, age, sex, favorites, file, owner, _id } =
     info;
-
-  const dispatch = useDispatch();
-  const isModalPetCardDetailsOpen = useSelector(
-    selectIsModalPetCardDetailsOpen
-  );
-
   const { user = {} } = useSelector(selectUser) || {};
   const [isFavoriteCard, setisFavoriteCard] = useState(
     favorites.includes(user._id)
   );
+  useEffect(() => {
+    setisFavoriteCard(favorites.includes(user._id));
+  }, [favorites]);
+  const dispatch = useDispatch();
+
   const isUserOwnerAd = owner?._id === user?._id;
 
   const genderIcon = sex === 'male' ? 'icon-male' : 'icon-female';
@@ -45,19 +52,50 @@ const PetCard = ({ info }) => {
     backgroundImage: `url(${file})`,
   };
 
-  const handleOpenModal = () => {
-    dispatch(openModalPetCardDetails());
+  // const [addToFavorite] = useAddFavoriteMutation();
+  // const [removeToFavorite] = useRemoveFavoriteMutation();
+
+  // const handleToggleFavoriteAds = () => {
+  //   !isFavoriteCard ? addToFavorite(_id) : removeToFavorite(_id);
+  // };
+  // const [deleteNotices] = useDeleteNoticeMutation();
+  // const handleDeleteCard = () => {
+  //   deleteNotices(_id);
+  // };
+
+  const handleOpenModal = id => {
+    dispatch(getSelectedNoticeThunk({ id })).then(() => {
+      dispatch(openModalPetCardDetails());
+      document.body.style.overflow = 'hidden';
+    });
   };
 
-  const handleToggleFavoriteAds = () => {
-    isFavoriteCard
-      ? dispatch(
-          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
-        ).then(setisFavoriteCard(false))
-      : dispatch(addNoticeToFavoriteThunk(_id)).then(setisFavoriteCard(true));
+  const handleOpenModalDeleteAdverstiment = id => {
+    dispatch(getSelectedNoticeThunk({ id })).then(() => {
+      dispatch(openModalDeleteAdverstiment());
+      document.body.style.overflow = 'hidden';
+    });
   };
-  const handleDeleteCard = () => {
-    dispatch(deleteNoticeThunk({ _id, thunk: routerThunk[categoryPath] }));
+
+  const isAuth = useSelector(selectIsAuth);
+
+  const handleToggleFavoriteAds = () => {
+    if (isAuth) {
+      if (isFavoriteCard) {
+        dispatch(
+          removeNoticeToFavoriteThunk({ _id, thunk: routerThunk[categoryPath] })
+        ).then(() => {
+          setisFavoriteCard(false);
+        });
+      } else {
+        dispatch(addNoticeToFavoriteThunk(_id)).then(() => {
+          setisFavoriteCard(true);
+        });
+      }
+    } else {
+      dispatch(openModalAttention());
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   return (
@@ -80,7 +118,7 @@ const PetCard = ({ info }) => {
             </div>
             {isUserOwnerAd && (
               <div
-                onClick={handleDeleteCard}
+                onClick={handleOpenModalDeleteAdverstiment}
                 className={`${styles.trashIcon} ${styles.iconWrap}`}
               >
                 <svg className={styles.icon}>
@@ -114,13 +152,8 @@ const PetCard = ({ info }) => {
         </div>
       </div>
       <p className={styles.info}>{title[0].toUpperCase() + title.slice(1)}</p>
-      {isModalPetCardDetailsOpen && (
-        <Modal closeReducer={closeModalPetCardDetails}>
-          <ModalPetCardDetails />
-        </Modal>
-      )}
       <div className={styles.btn}>
-        <Button text={'Learn more'} onClick={handleOpenModal} />
+        <Button text={'Learn more'} onClick={() => handleOpenModal(_id)} />
       </div>
     </li>
   );

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -23,11 +24,22 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
-  location: Yup.string().required('Please type a location'),
-  price: Yup.number()
+  location: Yup.string()
+    .required('Please type a location')
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Location should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Location should start with a capital letter'
+    ),
+  price: Yup.number('Price should be a number')
+    .typeError('Price must be a number')
     .required('Please set a price')
     .min(1, 'price should be bigger than 0'),
   comments: Yup.string()
@@ -41,9 +53,13 @@ const ThirdStepSell = () => {
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
+  const location = useSelector(selectMyPetLocation);
+
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
+
+  // const notifyPetAdded = () => toast('Pet added successfully');
 
   const handleSubmit = values => {
     if (!sex) {
@@ -53,13 +69,17 @@ const ThirdStepSell = () => {
     const pet = {
       sex,
       ...values,
+      price: Number(values.price),
     };
     dispatch(addPetMoreInfo(pet));
     const newPetBody = { ...petBody, ...pet };
     dispatch(addNewPetNotice(newPetBody));
     dispatch(resetSteps());
     dispatch(resetState());
-    // navigate(-1);
+    toast.success('Pet added successfully');
+    // dispatch(showNotify());
+    navigate(-1);
+    // notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -83,6 +103,9 @@ const ThirdStepSell = () => {
           <svg
             width="24px"
             height="24px"
+            fill={
+              sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
+            }
             stroke={
               sex === 'female' ? '#fff' : sex === 'male' ? '#888888' : '#F43F5E'
             }
@@ -100,6 +123,9 @@ const ThirdStepSell = () => {
           <svg
             width="24px"
             height="24px"
+            fill={
+              sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
+            }
             stroke={
               sex === 'male' ? '#fff' : sex === 'female' ? '#888888' : '#54ADFF'
             }
@@ -111,7 +137,7 @@ const ThirdStepSell = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -131,6 +157,9 @@ const ThirdStepSell = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -145,21 +174,23 @@ const ThirdStepSell = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />
@@ -174,6 +205,9 @@ const ThirdStepSell = () => {
                   id="location"
                   name="location"
                   placeholder="Type of location"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="location"
@@ -187,10 +221,14 @@ const ThirdStepSell = () => {
                 </label>
                 <Field
                   className={css.Input}
-                  type="number"
+                  type="text"
                   id="price"
                   name="price"
+                  inputMode="numeric"
                   placeholder="Type of price"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="price"
@@ -249,4 +287,3 @@ const ThirdStepSell = () => {
 };
 
 export default ThirdStepSell;
-

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyPetLocation,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -26,8 +27,21 @@ import sprite from '../../../../images/icons.svg';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
-  location: Yup.string().required('Please type a location'),
+  location: Yup.string()
+    .matches(
+      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
+      'Location should not contain special symbols'
+    )
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Title should start with a capital letter'
+    )
 
+    .required('Please type a location')
+    .matches(
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
+      'Location should start with a capital letter'
+    ),
   comments: Yup.string()
     .optional()
     .max(120, 'Title must be at most 120 characters'),
@@ -38,6 +52,8 @@ const ThirdStepFoundOrGoogHands = () => {
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
+  const location = useSelector(selectMyPetLocation);
+
   const comments = useSelector(selectMyPetComments);
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
@@ -48,6 +64,7 @@ const ThirdStepFoundOrGoogHands = () => {
 
     if (!sex) {
       setIsSexIgnored(true);
+
       return;
     }
     const pet = {
@@ -64,7 +81,8 @@ const ThirdStepFoundOrGoogHands = () => {
     dispatch(addNewPetNotice(pet));
     dispatch(resetSteps());
     dispatch(resetState());
-    // navigate(-1);
+    navigate(-1);
+    dispatch(showNotify());
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -116,7 +134,7 @@ const ThirdStepFoundOrGoogHands = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments }}
+        initialValues={{ file, comments, location }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
@@ -136,6 +154,9 @@ const ThirdStepFoundOrGoogHands = () => {
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -150,21 +171,23 @@ const ThirdStepFoundOrGoogHands = () => {
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>
                   </div>
                 </label>
                 <ErrorMessage
-                  name="photo"
+                  name="file"
                   component="p"
                   className={css.errorComent}
                 />
@@ -179,6 +202,9 @@ const ThirdStepFoundOrGoogHands = () => {
                   id="location"
                   name="location"
                   placeholder="Type of location"
+                  onKeyPress={e => {
+                    e.which === 13 && e.preventDefault();
+                  }}
                 />
                 <ErrorMessage
                   name="location"
@@ -238,6 +264,3 @@ const ThirdStepFoundOrGoogHands = () => {
 };
 
 export default ThirdStepFoundOrGoogHands;
-
-
-

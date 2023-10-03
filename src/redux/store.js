@@ -16,7 +16,8 @@ import { userReducer } from './user/userSlice';
 import { globalReducer } from './global/globalSlice';
 import { noticesReducer } from './notices/noticeSlice';
 import { newsReducer } from './news/newsSlice';
-import { addPetSliceReducer } from './myPets/addPetSlice';
+import { friendReducer } from './friends/friendSlice';
+import { noticeApi } from './notices/noticeQueryOperation';
 
 const authConfig = {
   key: 'auth',
@@ -35,6 +36,8 @@ export const store = configureStore({
     notices: noticesReducer,
     news: newsReducer,
     user: userReducer,
+    friend: friendReducer,
+    [noticeApi.reducerPath]: noticeApi.reducer,
   },
 
   middleware: getDefaultMiddleware =>
@@ -42,7 +45,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(noticeApi.middleware),
 });
 
 export const persistor = persistStore(store);

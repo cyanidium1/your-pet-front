@@ -6,6 +6,7 @@ import { selectIsAuth } from 'redux/auth/authSelectors';
 import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
 import AddButton from 'UI/Button/AddButton/AddButton';
 import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
 const TagsArray = () => {
   const isLoggedIn = useSelector(selectIsAuth);
@@ -20,7 +21,7 @@ const TagsArray = () => {
       </div>
       <div className={styles.rightSideFilter}>
         <FilteredButton />
-        <AddButton />
+        <AddPetBtn />
       </div>
     </div>
   );

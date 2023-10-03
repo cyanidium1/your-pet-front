@@ -35,7 +35,7 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-addpet-styles-debug-and-backend-change
+
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
@@ -55,7 +55,8 @@ addpet-styles-debug-and-backend-change
     dispatch(addNewPet(pet));
     dispatch(resetSteps());
     dispatch(resetState());
-    // navigate(-1);
+    dispatch(showNotify());
+    navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -89,6 +90,9 @@ addpet-styles-debug-and-backend-change
                       setFieldValue('file', e.currentTarget.files[0]);
                     }}
                     style={{ display: 'none' }}
+                    onKeyPress={e => {
+                      e.which === 13 && e.preventDefault();
+                    }}
                   />
                 </div>
                 <label htmlFor="file">
@@ -103,14 +107,16 @@ addpet-styles-debug-and-backend-change
                               alt="Selected img"
                             />
                           )}
-                          <svg
-                            width="30px"
-                            height="30px"
-                            stroke="#54adff"
-                            className={css.iconAdd}
-                          >
-                            <use href={`${sprite}#icon-plus`}></use>
-                          </svg>
+                          {!field.value && (
+                            <svg
+                              width="30px"
+                              height="30px"
+                              stroke="#54adff"
+                              className={css.iconAdd}
+                            >
+                              <use href={`${sprite}#icon-plus`}></use>
+                            </svg>
+                          )}
                         </>
                       )}
                     </Field>

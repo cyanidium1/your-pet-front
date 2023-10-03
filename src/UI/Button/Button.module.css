@@ -1,9 +1,117 @@
+
 .button {
   display: inline-block;
-  width: 248px;
-  height: 38px;
   text-align: center;
-  color: #54adff;
-  border: 1px solid #54adff;
   border-radius: 40px;
+  font-weight: 700;
+  color: #54adff;
+  border: 2px solid #54adff;
+  transition:
+    color 0.3s,
+    color 0.3s;
 }
+
+.button svg {
+  stroke: #54adff;
+  fill: #54adff;
+  width: 24px;
+  height: 24px;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+
+.buttonFilledBlue {
+  display: inline-block;
+  text-align: center;
+  border-radius: 40px;
+  font-weight: 700;
+
+  background-color: #54adff;
+  color: #fef9f9;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.buttonFilledBlue svg {
+  stroke: #fef9f9;
+  fill: #54adff;
+  width: 24px;
+  height: 24px;
+}
+
+.button:hover,
+.buttonFilledBlue:hover {
+  background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
+  color: #fef9f9;
+  border: transparent;
+}
+
+.button .svg:hover,
+.buttonFilledBlue .svg:hover {
+  fill: #fef9f9;
+  stroke: #fef9f9;
+}
+
+.buttonFilledYellow {
+  display: inline-block;
+  width: 240px;
+  height: 40px;
+  text-align: center;
+  border-radius: 40px;
+  font-weight: 700;
+  background-color: #ffc107;
+  color: #fef9f9;
+  border: 2px solid #ffc107;
+
+  @media screen and (min-width: 769px) {
+    width: 165px;
+  }
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.buttonFilledYellow svg {
+  stroke: #fef9f9;
+  fill: #fef9f9;
+  width: 24px;
+  height: 24px;
+}
+
+.buttonNotFilledYellow {
+  display: inline-block;
+  width: 240px;
+  height: 36px;
+  text-align: center;
+  border-radius: 40px;
+  font-weight: 700;
+  background-color: #fef9f9;
+  color: #ffc107;
+  border: 2px solid #ffc107;
+
+  @media screen and (min-width: 769px) {
+    width: 142px;
+    height: 38px;
+  }
+}
+
+.buttonNotFilledYellow svg {
+  stroke: #ffc107;
+  fill: #fef9f9;
+  width: 24px;
+  height: 24px;
+}
+
+.buttonFilledYellow:hover,
+.buttonNotFilledYellow:hover {
+  background: linear-gradient(290deg, #ffa000 0%, #ffd740 107.89%);
+  color: #fef9f9;
+  border: transparent;
+} 

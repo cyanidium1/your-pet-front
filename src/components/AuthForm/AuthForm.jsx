@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { FcGoogle } from 'react-icons/fc';
+
 import icons from '../../images/icons.svg';
 import css from './AuthForm.module.css';
-import { useDispatch } from 'react-redux';
-import { login, loginWithGoogle, register } from 'redux/auth/authOperations';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  login,
+  loginWithGoogle,
+  refreshUser,
+  register,
+} from 'redux/auth/authOperations';
+import { openModalCongrats } from 'redux/global/globalSlice';
+import { selectUser } from 'redux/auth/authSelectors';
+import { addToken } from 'redux/auth/authSlice';
 
 const AuthForm = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const user = useSelector(selectUser);
   const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
@@ -62,7 +80,7 @@ const AuthForm = () => {
 
   const handleLogin = values => {
     dispatch(login({ email: values.email, password: values.password }));
-    navigate('/user');
+    dispatch(refreshUser());
   };
 
   const handleRegister = values => {
@@ -73,8 +91,26 @@ const AuthForm = () => {
         name: values.name,
       })
     );
-    navigate('/user');
+    dispatch(openModalCongrats());
+    dispatch(refreshUser());
   };
+  const productName = searchParams.get('token') || null;
+  useEffect(() => {
+    const handleAddToken = async () => {
+      if (productName) {
+        await dispatch(addToken({ token: productName }));
+        await dispatch(refreshUser());
+      }
+    };
+
+    handleAddToken();
+  }, [productName, dispatch, setSearchParams]);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/profile');
+    }
+  }, [user, navigate]);
 
   return (
     <section className={`${css.auth_page}`}>
@@ -323,6 +359,7 @@ const AuthForm = () => {
                   className={css.auth_submit_button}
                   href="https://your-pet-backend-nci6.onrender.com/api/users/google"
                 >
+                  <FcGoogle />
                   {!isLoginPageOpen ? 'Register ' : 'Login '}
                   with Google
                 </a>

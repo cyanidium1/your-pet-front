@@ -6,7 +6,6 @@
 }
 
 .auth_section {
-    margin-top: 40px;
     padding: 40px 12px;
     display: flex;
     align-items: center;
@@ -112,11 +111,19 @@
     border-radius: 40px;
     margin: 0 auto;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     color: #fff;
     cursor: pointer;
     font-size: 20px;
     font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.auth_submit_button:hover {
+    transform: scale(1.05);
 }
 
 .end_auth_form {
@@ -155,7 +162,6 @@
         padding: 75px 60px;
         max-width: 100%;
         width: 608px;
-        margin-top: 80px;
     }
 
     .auth_form {

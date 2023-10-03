@@ -16,8 +16,9 @@ export const addNewPet = createAsyncThunk(
       formData.append('petImage', pet.file);
       formData.append('type', pet.type);
       formData.append('dateOfBirth', pet.date);
-      formData.append('comments', pet.comments);
-
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
       const response = await addPetInstance.post('api/pets', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -44,12 +45,13 @@ export const addNewPetNotice = createAsyncThunk(
       formData.append('date', pet.date);
       formData.append('sex', pet.sex);
       formData.append('title', pet.title);
-      formData.append('comments', pet.comments);
+      if (pet.comments) {
+        formData.append('comments', pet.comments);
+      }
       formData.append('category', pet.category);
       if (pet.price) {
         formData.append('price', pet.price);
       }
-      console.log(formData);
 
       const response = await addPetInstance.post('api/notices', formData, {
         headers: {

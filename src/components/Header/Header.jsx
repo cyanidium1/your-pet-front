@@ -36,22 +36,25 @@ const Header = () => {
   };
 
   return (
-    <header className={s.header}>
-      <Logo />
-      <BurgerMenu
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-        closeModalMenu={closeModalMenu}
-        isLoggedIn={isLoggedIn}
-      />
-      {isMobile ? (
-        isLoggedIn && <UserNav />
-      ) : isLoggedIn ? (
-        <UserNav showMenu={showMenu} />
-      ) : (
-        <AuthNav />
-      )}
-    </header>
+    <>
+      <header className={s.header}>
+        <Logo />
+        <BurgerMenu
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+          closeModalMenu={closeModalMenu}
+          isLoggedIn={isLoggedIn}
+        />
+        {isMobile ? (
+          isLoggedIn && <UserNav />
+        ) : isLoggedIn ? (
+          <UserNav showMenu={showMenu} />
+        ) : (
+          <AuthNav />
+        )}
+      </header>
+      <div className={s.block}></div>
+    </>
   );
 };
 
