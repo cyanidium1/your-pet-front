@@ -23,34 +23,6 @@ const NoticesPage = () => {
   const productName = searchParams.get('searchQuery') ?? undefined;
   const dispatch = useDispatch();
 
-  // const isNoticesLoading = useSelector(selectIsNoticesLoading);
-
-  // const { notices } = useSelector(selectAllNotices);
-  // const isAddedNotify = useSelector(selectIsNotifyAddPet);
-
-  // const { pathname } = useLocation();
-  // const categoryPath = pathname.split('/').slice(-1).join('');
-  // const notifyAdded = () => {
-  //   toast('Pet added successfully!');
-  //   dispatch(hideNotify());
-  // };
-
-  // useEffect(() => {
-  //   if (tagsLinkNotAuth.includes(categoryPath)) {
-  //     dispatch(
-  //       getAllNoticesThunk({ category: categoryPath, searchQuery: productName })
-  //     );
-  //   }
-  //   if (tagsLinkAuth.includes(categoryPath)) {
-  //     if (categoryPath === tagsLinkAuth[0]) {
-  //       dispatch(getMyFavoriteAdsThunk({ searchQuery: productName }));
-  //     }
-  //     if (categoryPath === tagsLinkAuth[1]) {
-  //       dispatch(getMyAdsThunk({ searchQuery: productName }));
-  //     }
-  //   }
-  // }, [categoryPath, searchParams]);
-
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
   );

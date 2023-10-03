@@ -11,6 +11,7 @@ import {
 import { selectIsModalAttentionOpen } from 'redux/global/globalSelectors';
 import ModalAttention from 'components/ModalAttention/ModalAttention';
 import { Modal } from 'components/Modal/Modal';
+import AddButton from 'UI/Button/AddButton/AddButton';
 
 const AddPetBtn = () => {
   const dispatch = useDispatch();
@@ -29,12 +30,8 @@ const AddPetBtn = () => {
 
   return (
     <>
-      <div className={css.addBtn} onClick={handleClick}>
-        Add pet
-        <svg width="24px" height="24px" stroke="#fff">
-          <use href={`${sprite}#icon-plus-small`}></use>
-        </svg>
-      </div>
+      <AddButton clickFunc={handleClick} />
+
       {isModalOpen && (
         <Modal closeReducer={handleCloseModalAttention}>
           <ModalAttention />
