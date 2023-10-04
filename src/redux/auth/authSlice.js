@@ -1,5 +1,11 @@
 import { createSlice, isAnyOf, createAction } from '@reduxjs/toolkit';
-import { register, login, logOut, refreshUser } from './authOperations';
+import {
+  register,
+  login,
+  logOut,
+  refreshUser,
+  userEdit,
+} from './authOperations';
 const resetStateAction = createAction('auth/resetState');
 
 const initialState = {
@@ -10,6 +16,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   refreshToken: '',
+  pets: [],
 };
 
 const extractTokenAction = createAction('auth/extractToken');
@@ -51,11 +58,15 @@ export const authSlice = createSlice({
         state.token = '';
         state.user = null;
       })
+      .addCase(userEdit.fulfilled, (state, { payload }) => {
+        state.user = payload;
+      })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.user = payload;
         state.isAuth = true;
         state.isLoading = false;
         state.isRefresher = false;
+        state.pets = payload.user.pets;
       })
       .addCase(resetStateAction, () => initialState)
       .addCase(extractTokenAction, (state, action) => {

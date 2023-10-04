@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import scss from './personal.module.scss';
 import AddPetBtn from 'components/AddPetBtn/addPetBtn';
-import { selectUser } from 'redux/auth/authSelectors';
+import { selectUserPets, selectUser } from 'redux/auth/authSelectors';
 import defualtPhoto from '../../images/icons.svg';
 import { useDeletePetMutation } from 'redux/notices/noticeQueryOperation';
 import { useEffect } from 'react';
@@ -10,9 +10,10 @@ import { refreshUser } from 'redux/auth/authOperations';
 import spyNoPets from 'images/spy/hellofromteam2.webp';
 
 export const Pets = () => {
-  const user = useSelector(selectUser);
+  const user = useSelector(selectUserPets);
   const [deletePets] = useDeletePetMutation();
   const dispatch = useDispatch();
+  console.log(user);
 
   return (
     <div className={scss.petsContainer}>
@@ -22,14 +23,14 @@ export const Pets = () => {
       </div>
       <div className={scss.petsCard}>
         <ul className={scss.petsCardList}>
-          {user?.user.pets.map((pet, index) => {
+          {user?.map((pet, index) => {
             return (
               <li key={index} className={scss.petsListItem}>
                 <button
                   type="button"
                   className={scss.petsDelBtn}
-                  onClick={() => {
-                    deletePets(pet._id);
+                  onClick={async () => {
+                    await deletePets(pet._id);
                     dispatch(refreshUser());
                   }}
                 >
@@ -60,7 +61,7 @@ export const Pets = () => {
               </li>
             );
           })}
-          {user?.user.pets.length === 0 && (
+          {user?.length === 0 && (
             <div className={scss.spyIMG}>
               <img src={spyNoPets}></img>
               <p>
