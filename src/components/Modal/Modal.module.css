@@ -27,6 +27,7 @@
     width: 681px;
     border-radius: 40px;
     flex-direction: column;
+    top: 200px;
   }
   @media screen and (min-width: 1280px) {
   }
