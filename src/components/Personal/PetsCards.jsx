@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import scss from './personal.module.scss';
-import AddButton from 'UI/Button/AddButton/AddButton';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 import { selectUser } from 'redux/auth/authSelectors';
 import defualtPhoto from '../../images/icons.svg';
 import { useDeletePetMutation } from 'redux/notices/noticeQueryOperation';
@@ -22,7 +22,7 @@ export const Pets = () => {
     <div className={scss.petsContainer}>
       <div className={scss.myPets}>
         <h2>My pets:</h2>
-        <AddButton />
+        <AddPetBtn />
       </div>
       <div className={scss.petsCard}>
         <ul className={scss.petsCardList}>
