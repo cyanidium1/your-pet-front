@@ -60,7 +60,7 @@ const ThirdStepSell = () => {
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
   // const notifyPetAdded = () => toast('Pet added successfully');
-  const [addNewPetNotice, result] = useAddNewPetNoticeMutation();
+  const [addNewPetNotice] = useAddNewPetNoticeMutation();
 
   const handleSubmit = values => {
     if (!sex) {
@@ -75,17 +75,12 @@ const ThirdStepSell = () => {
 
     dispatch(addPetMoreInfo(pet));
     const newPetBody = { ...petBody, ...pet };
-
-    // dispatch(addNewPetNotice(newPetBody));
-    console.log(result);
     addNewPetNotice(newPetBody);
 
     dispatch(resetSteps());
     dispatch(resetState());
     toast.success('Pet added successfully');
-    // dispatch(showNotify());
     navigate(-1);
-    // notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());

@@ -169,17 +169,15 @@ export const noticeApi = createApi({
         if (noticeData.price) {
           formData.append('price', noticeData.price);
         }
+
         return {
           url: `/api/notices`,
           method: 'POST',
           body: formData,
+          formData: true,
         };
       },
-      invalidatesTags: (result, error, id) => [
-        { type: 'myNotice', id },
-        { type: 'favoriteNotice', id },
-        { type: 'AllNotice', id },
-      ],
+      invalidatesTags: ['AllNotice', 'myNotice', 'favoriteNotice'],
     }),
   }),
 });

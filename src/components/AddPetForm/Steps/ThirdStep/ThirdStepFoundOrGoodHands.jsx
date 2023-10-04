@@ -24,6 +24,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
+import { useAddNewPetNoticeMutation } from 'redux/notices/noticeQueryOperation';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -50,6 +51,7 @@ const ThirdStepFoundOrGoogHands = () => {
   const [activeButton, setActiveButton] = useState(null);
   const [sex, setSex] = useState('');
   const [isSexIgnored, setIsSexIgnored] = useState(false);
+  const [addNewPetNotice] = useAddNewPetNoticeMutation();
 
   const handleSubmit = values => {
     const { name, date, category, type, title } = petBody;
@@ -69,8 +71,7 @@ const ThirdStepFoundOrGoogHands = () => {
       ...values,
     };
     dispatch(addPetMoreInfo(pet));
-    const newPetBody = { ...pet };
-    dispatch(addNewPetNotice(pet));
+    addNewPetNotice(pet);
     dispatch(resetSteps());
     dispatch(resetState());
     navigate(-1);

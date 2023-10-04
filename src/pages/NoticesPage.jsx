@@ -18,10 +18,10 @@ import { Modal } from 'components/Modal/Modal';
 import ModalAttention from 'components/ModalAttention/ModalAttention';
 import ModalDeleteAdverstiment from 'components/ModalDeleteAdverstiment/ModalDeleteAdverstiment';
 
+
 const NoticesPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const productName = searchParams.get('searchQuery') ?? undefined;
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const isModalPetCardDetailsOpen = useSelector(
     selectIsModalPetCardDetailsOpen
@@ -53,7 +53,7 @@ const NoticesPage = () => {
         titleSearch={'Find your favorite pets'}
       />
       <TagsArray />
-      <PetList searchQuery={productName} />
+      <PetList />
       {isModalPetCardDetailsOpen && (
         <Modal closeReducer={handleCloseModalPetCardDetails}>
           <ModalPetCardDetails />
