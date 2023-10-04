@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { selectUser } from 'redux/auth/authSelectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
-import { userUpdate } from 'redux/user/userOperations';
+import { userEdit } from 'redux/auth/authOperations';
 import { refreshUser } from 'redux/auth/authOperations';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
@@ -52,7 +52,7 @@ export const PersonalForm = ({ mode, handleEdit }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       // Simulate an API call to update the user's data
-      await dispatch(userUpdate(values));
+      await dispatch(userEdit(values));
       // await dispatch(refreshUser());
       handleEdit();
     } catch (error) {

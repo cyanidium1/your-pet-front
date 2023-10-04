@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
+import { refreshUser } from 'redux/auth/authOperations';
 import 'the-new-css-reset/css/reset.css';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -17,8 +18,13 @@ const OurFriendsPage = lazy(() =>
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 
 import './App.css';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
@@ -28,7 +34,7 @@ const App = () => {
         <Route path="friends" element={<OurFriendsPage />} />
 
         <Route
-          path="/profile"
+          path="profile"
           element={<PrivateRoute component={Profile} redirectTo="/" />}
         />
         <Route path="register" element={<RegisterPage />} />
