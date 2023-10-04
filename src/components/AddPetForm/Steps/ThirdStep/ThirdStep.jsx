@@ -17,7 +17,7 @@ import {
   prevStep,
   resetSteps,
 } from '../../../../redux/adddPetForm/addPetFormSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   addPetMoreInfo,
   resetState,
@@ -35,14 +35,13 @@ const validationSchema = Yup.object().shape({
 const ThirdStep = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
 
   const handleSubmit = values => {
     const { name, date, type } = petBody;
-
     const pet = {
       name,
       date,
@@ -50,13 +49,14 @@ const ThirdStep = () => {
       ...values,
     };
     console.log(pet);
+    console.log(location.state.from.pathname);
     dispatch(addPetMoreInfo(pet));
     // const newPetBody = { ...pet };
     dispatch(addNewPet(pet));
-    dispatch(resetSteps());
+    navigate(location.state.from.pathname);
+    dispatch(resetSteps())
     dispatch(resetState());
     dispatch(showNotify());
-    navigate(-1);
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());

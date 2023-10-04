@@ -27,7 +27,8 @@ const newsSlice = createSlice({
       .addCase(fetchAllNews.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
-      })
+        state.totalPages = 0;
+      });
   },
 });
 

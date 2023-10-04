@@ -27,16 +27,16 @@ import { addPetPersonalInfo } from 'redux/myPets/addPetSlice';
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .required('Title of add is required')
+    .min(6, 'Title must be at least 6 characters')
+    .max(64, 'Title must be at most 64 characters')
     .matches(
-      /^[^!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]+$/,
-      'Title should not contain special symbols'
-    )
-    .matches(
-      /^[A-ZА-Яa-zA-Zа-яА-Я\s][a-zA-Zа-яА-Я\s]*$/,
+      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
       'Title should start with a capital letter'
     )
-    .min(6, 'Title must be at least 6 characters')
-    .max(64, 'Title must be at most 64 characters'),
+    .matches(
+      /^[a-zA-Zа-яА-Я0-9\s]+$/,
+      'Title should only contain letters, numbers, and spaces'
+    ),
   name: Yup.string()
     .required('Name pet is required')
     .matches(
