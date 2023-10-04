@@ -8,7 +8,7 @@ import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
 import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
 import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 
-const TagsArray = () => {
+const TagsArray = ({ location }) => {
   const isLoggedIn = useSelector(selectIsAuth);
   const allButtonsArray = isLoggedIn ? tagsAuth : tags;
 
@@ -20,8 +20,8 @@ const TagsArray = () => {
         ))}
       </div>
       <div className={styles.rightSideFilter}>
-        <FilteredButton />
-        <AddPetBtn />
+        {/* <FilteredButton /> */}
+        <AddPetBtn location={location} />
       </div>
     </div>
   );

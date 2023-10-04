@@ -4,7 +4,7 @@ import sprite from '../../images/icons.svg';
 
 const CustomCheckbox = ({ data }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const customId = data.toLowerCase().split(' ').join('');
+  // const customId = data.toLowerCase().split(' ').join('');
 
   const handleChange = () => {
     setIsChecked(check => !check);

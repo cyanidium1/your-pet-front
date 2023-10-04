@@ -10,6 +10,7 @@ const Tag = ({ text, link }) => {
     <NavLink
       to={'/notices/' + link}
       className={styles.tag}
+      activeClassName={styles.active}
       onClick={() => setSearchParams({ searchQuery: link })}
     >
       {text}

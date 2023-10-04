@@ -42,7 +42,7 @@ const Pagination = ({ totalNewsPages, setSearchParams }) => {
       <ul className={css.pagination}>
         {pageNumber.map((number, index) => (
           <li
-            key={index}
+            key={index + 1}
             className={`${css.paginationItem} ${
               number === activePage ? css.activePage : ''
             }`}
