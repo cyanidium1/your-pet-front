@@ -4,6 +4,9 @@
   background-color: #fff;
   box-shadow: 3px 8px 14px 0px #88c6fd30;
   border-radius: 0 0 40px 40px;
+
+  display: flex;
+  flex-direction: column;
 }
 /* Styles for screens from 768px to 1279px */
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -112,6 +115,8 @@
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 24px;
+
+  margin-top: auto;
 }
 
 .btn button {
