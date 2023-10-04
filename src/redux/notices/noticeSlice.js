@@ -12,7 +12,7 @@ const initialState = {
   allNotices: [],
   selectedNotice: null,
   isLoading: false,
-  filterOption: { age: [], gender: [] },
+  filterOption: { age: [], sex: [] },
 };
 
 const handleAllNotices = (state, { payload }) => {
@@ -37,12 +37,12 @@ export const noticesSlice = createSlice({
       state.selectedNotice = payload;
     },
     addOptionToFilter: (state, { payload }) => {
-      state.filterOption[payload.log].push(payload.info);
+      state.filterOption[payload.selector].push(payload.info);
     },
     deleteFilterOption: (state, { payload }) => {
-      state.filterOption[payload.log] = state.filterOption[payload.log].filter(
-        item => item !== payload.info
-      );
+      state.filterOption[payload.selector] = state.filterOption[
+        payload.selector
+      ].filter(value => value !== payload.value);
     },
   },
   extraReducers: builder => {

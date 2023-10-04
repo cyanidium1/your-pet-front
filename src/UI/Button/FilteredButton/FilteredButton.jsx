@@ -41,7 +41,7 @@ const FilteredButton = () => {
             <p>Filters</p>
 
             <DropDownList text={'age'} />
-            <DropDownList text={'gender'} />
+            <DropDownList text={'sex'} />
           </div>
         </>
       ) : (

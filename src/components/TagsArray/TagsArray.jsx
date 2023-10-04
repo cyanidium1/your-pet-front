@@ -20,7 +20,7 @@ const TagsArray = ({ location }) => {
         ))}
       </div>
       <div className={styles.rightSideFilter}>
-        {/* <FilteredButton /> */}
+        <FilteredButton />
         <AddPetBtn location={location} />
       </div>
     </div>
