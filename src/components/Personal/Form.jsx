@@ -53,7 +53,7 @@ export const PersonalForm = ({ mode, handleEdit }) => {
     try {
       // Simulate an API call to update the user's data
       await dispatch(userUpdate(values));
-      await dispatch(refreshUser());
+      // await dispatch(refreshUser());
       handleEdit();
     } catch (error) {
       // Handle error here
@@ -103,11 +103,15 @@ export const PersonalForm = ({ mode, handleEdit }) => {
             </button>
           </div>
           <div
-            className={clsx(
-              typeof values.photo === 'string' ? scss.costil : ''
-            )}
+          // className={clsx(
+          //   typeof values.photo === 'string' ? scss.costil : ''
+          // )}
           >
-            <label className={scss.editPhotoBlock}>
+            <label
+              className={
+                (scss.editPhotoBlock, clsx(values.confirm ? scss.costil : ''))
+              }
+            >
               <div>
                 <img
                   src={
