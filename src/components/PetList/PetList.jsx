@@ -5,24 +5,18 @@ import {
   useGetAllNoticeQuery,
   useGetMyAdsQuery,
   useGetMyFavoriteQuery,
-  useGetNoticeByIdQuery,
 } from 'redux/notices/noticeQueryOperation';
-import { listForFilter, tagsLinkNotAuth } from 'Utils/constant';
+import { tagsLinkNotAuth } from 'Utils/constant';
 import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
 import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
-import PageNotFound from 'pages/PageNotFound/PageNotFound';
 import Pagination from 'components/Pagination/Pagination';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFilterOptions } from 'redux/notices/noticeSelectors';
 
 const PetList = () => {
   const filterOption = useSelector(selectFilterOptions);
   const [searchParams, setSearchParams] = useSearchParams();
-  const productName = searchParams.get('searchQuery') ?? undefined;
-  const numberOfPage = searchParams.get('page') ?? undefined;
-  const sex = searchParams.get('gender') ?? undefined;
-  const age = searchParams.get('age') ?? undefined;
 
   const location = useLocation();
   const arrDone = location.search.slice(1).split('&');
