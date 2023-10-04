@@ -30,12 +30,8 @@ const validationSchema = Yup.object().shape({
     .min(6, 'Title must be at least 6 characters')
     .max(64, 'Title must be at most 64 characters')
     .matches(
-      /^[A-ZА-Я][a-zA-Zа-яА-Я]*$/,
-      'Title should start with a capital letter'
-    )
-    .matches(
-      /^[a-zA-Zа-яА-Я0-9\s]+$/,
-      'Title should only contain letters, numbers, and spaces'
+      /^[A-ZА-Я][a-zA-Zа-яА-Я0-9\s]*$/,
+      'Title should start with a capital letter and not contain special symbols'
     ),
   name: Yup.string()
     .required('Name pet is required')
@@ -80,7 +76,6 @@ const SecondStepSell = () => {
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
-    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {

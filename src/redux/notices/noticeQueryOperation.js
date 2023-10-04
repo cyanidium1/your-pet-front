@@ -7,6 +7,7 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
+    // headers.set('Content-Type', 'multipart/form-data');
     return headers;
   },
 });
@@ -17,7 +18,7 @@ export const noticeApi = createApi({
   tagTypes: ['AllNotice', 'myNotice', 'favoriteNotice'],
   refetchOnFocus: true,
   refetchOnReconnect: true,
-  keepUnusedDataFor: 2,
+  keepUnusedDataFor: 0,
   endpoints: builder => ({
     getAllNotice: builder.query({
       query: queryParams => ({
@@ -42,6 +43,7 @@ export const noticeApi = createApi({
             ];
       },
     }),
+
     getNoticeById: builder.query({
       query: id => ({
         url: `/api/notices/${id}`,
@@ -149,6 +151,34 @@ export const noticeApi = createApi({
         { type: 'AllNotice', id },
       ],
     }),
+    addNewPetNotice: builder.mutation({
+      query(noticeData) {
+        const formData = new FormData();
+
+        formData.append('name', noticeData.name);
+        formData.append('location', noticeData.location);
+        formData.append('file', noticeData.file);
+        formData.append('type', noticeData.type);
+        formData.append('date', noticeData.date);
+        formData.append('sex', noticeData.sex);
+        formData.append('title', noticeData.title);
+        if (noticeData.comments) {
+          formData.append('comments', noticeData.comments);
+        }
+        formData.append('category', noticeData.category);
+        if (noticeData.price) {
+          formData.append('price', noticeData.price);
+        }
+
+        return {
+          url: `/api/notices`,
+          method: 'POST',
+          body: formData,
+          formData: true,
+        };
+      },
+      invalidatesTags: ['AllNotice', 'myNotice', 'favoriteNotice'],
+    }),
   }),
 });
 
@@ -161,4 +191,39 @@ export const {
   useRemoveFavoriteMutation,
   useGetNoticeByIdQuery,
   useDeletePetMutation,
+  useAddNewPetNoticeMutation,
 } = noticeApi;
+
+// export const addNewPetNotice = createAsyncThunk(
+//   'addPet/newPetNotice',
+//   async (pet, { rejectWithValue }) => {
+//     try {
+//       const formData = new FormData();
+
+//       formData.append('name', pet.name);
+//       formData.append('location', pet.location);
+//       formData.append('file', pet.file);
+//       formData.append('type', pet.type);
+//       formData.append('date', pet.date);
+//       formData.append('sex', pet.sex);
+//       formData.append('title', pet.title);
+//       if (pet.comments) {
+//         formData.append('comments', pet.comments);
+//       }
+//       formData.append('category', pet.category);
+//       if (pet.price) {
+//         formData.append('price', pet.price);
+//       }
+
+//       const response = await addPetInstance.post('api/notices', formData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );

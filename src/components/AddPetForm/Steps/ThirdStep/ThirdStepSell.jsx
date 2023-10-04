@@ -8,6 +8,7 @@ import {
   selectMyPetComments,
   selectMyPetImage,
   selectMyPetLocation,
+  selectMyPetPrice,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -25,6 +26,7 @@ import {
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
 import { toast } from 'react-toastify';
+import { useAddNewPetNoticeMutation } from 'redux/notices/noticeQueryOperation';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -49,6 +51,7 @@ const ThirdStepSell = () => {
   const navigate = useNavigate();
   const petBody = useSelector(selectMyPet);
   const file = useSelector(selectMyPetImage);
+  const price = useSelector(selectMyPetPrice);
   const comments = useSelector(selectMyPetComments);
   const location = useSelector(selectMyPetLocation);
 
@@ -57,6 +60,7 @@ const ThirdStepSell = () => {
   const [isSexIgnored, setIsSexIgnored] = useState(false);
 
   // const notifyPetAdded = () => toast('Pet added successfully');
+  const [addNewPetNotice] = useAddNewPetNoticeMutation();
 
   const handleSubmit = values => {
     if (!sex) {
@@ -68,15 +72,15 @@ const ThirdStepSell = () => {
       ...values,
       price: Number(values.price),
     };
+
     dispatch(addPetMoreInfo(pet));
     const newPetBody = { ...petBody, ...pet };
-    dispatch(addNewPetNotice(newPetBody));
+    addNewPetNotice(newPetBody);
+
     dispatch(resetSteps());
     dispatch(resetState());
     toast.success('Pet added successfully');
-    // dispatch(showNotify());
     navigate(-1);
-    // notifyPetAdded();
   };
   const handlePreviousStep = () => {
     dispatch(prevStep());
@@ -134,7 +138,7 @@ const ThirdStepSell = () => {
         {isSexIgnored && <p className={css.sexIgnored}>Sex is required</p>}
       </div>
       <Formik
-        initialValues={{ file, comments, location }}
+        initialValues={{ file, comments, location, price }}
         validationSchema={validationSchema}
         onSubmit={values => handleSubmit(values)}
       >
