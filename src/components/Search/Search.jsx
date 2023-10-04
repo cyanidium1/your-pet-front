@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import styles from './Search.module.css';
 import sprite from 'images/icons.svg';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
 
 function Search({ searchParams, setSearchParams, titleSearch }) {
+  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState(
     searchParams.get('searchQuery') || ''
   );
-
 
   const handleInputChange = e => {
     setSearchTerm(e.target.value);
@@ -14,15 +17,13 @@ function Search({ searchParams, setSearchParams, titleSearch }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearchTerm('');
 
-
-    const nextParams = searchTerm !== '' ? { searchQuery: searchTerm, page: 1 } : null;
-    setSearchParams(nextParams);
-
+    if (searchTerm) {
+      const nextParams =
+        searchTerm !== '' ? { searchQuery: searchTerm, page: 1 } : null;
+      setSearchParams(nextParams);
+    } else setSearchParams({ page: 1 });
   };
-
-
 
   const clearSearch = () => {
     setSearchTerm('');
