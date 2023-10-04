@@ -14,16 +14,16 @@ const DropDownList = ({ text }) => {
       setIsDropDownShow(toggle => !toggle);
     }
   };
-  console.log(Object.keys(filteredNotice[filteredConstanta]));
+  console.log(filteredNotice);
   return (
     <>
       {isDropDownShow ? (
         <div className={styles.downWrap} onClick={handleClickForm}>
           <p>{'By ' + text}</p>
           <form>
-            {/* {.map(item => (
+            {[1, 2, 3].map(item => (
               <CustomCheckbox data={item} key={item} />
-            ))} */}
+            ))}
           </form>
         </div>
       ) : (

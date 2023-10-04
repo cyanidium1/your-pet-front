@@ -20,7 +20,7 @@ const TagsArray = () => {
         ))}
       </div>
       <div className={styles.rightSideFilter}>
-        <FilteredButton />
+        {/* <FilteredButton /> */}
         <AddPetBtn />
       </div>
     </div>
