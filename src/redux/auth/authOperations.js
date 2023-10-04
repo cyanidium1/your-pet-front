@@ -71,9 +71,47 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const userEdit = createAsyncThunk(
+  'auth/userEdit',
+  async (user, { rejectWithValue, getState }) => {
+    try {
+      // const state = getState();
+      // state = user.firstName;
+      // const tokenValue = state.auth.token;
+      const formData = new FormData();
+      console.log('Thunk', user);
+      formData.append('name', user.firstName);
+      formData.append('avatar', user.photo);
+      formData.append('phone', user.phone);
+      // formData.append('birthday', user.birthday);
+      formData.append('birthday', '01-01-2022');
+      formData.append('email', user.email);
+      formData.append('city', user.city);
+      // if (!tokenValue) {
+      // return rejectWithValue();
+      // }
+      // setAuthHeader(tokenValue);
+      const response = await authInstance.patch(
+        'api/users/edit-profile',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const refreshUser = createAsyncThunk(
   'auth/getUser',
-  async (_, { rejectWithValue, getState }) => {
+  async (user, { rejectWithValue, getState }) => {
     try {
       const state = getState();
       const tokenValue = state.auth.token;

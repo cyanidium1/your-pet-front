@@ -20,9 +20,9 @@ const UserNav = ({ showMenu }) => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
   const isTablet = useMedia(screen.breakpoints.tablet.media);
   const displayName = user?.user.name;
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(refreshUser());
+  // }, [dispatch]);
 
   return (
     <div className={s.userNav}>
