@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import scss from './personal.module.scss';
-import AddButton from 'UI/Button/AddButton/AddButton';
+import AddPetBtn from 'components/AddPetBtn/addPetBtn';
 import { selectUser } from 'redux/auth/authSelectors';
 import defualtPhoto from '../../images/icons.svg';
 import { useDeletePetMutation } from 'redux/notices/noticeQueryOperation';
@@ -14,15 +14,11 @@ export const Pets = () => {
   const [deletePets] = useDeletePetMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(refreshUser());
-    console.log(123);
-  }, [dispatch]);
   return (
     <div className={scss.petsContainer}>
       <div className={scss.myPets}>
         <h2>My pets:</h2>
-        <AddButton />
+        <AddPetBtn />
       </div>
       <div className={scss.petsCard}>
         <ul className={scss.petsCardList}>
@@ -32,7 +28,10 @@ export const Pets = () => {
                 <button
                   type="button"
                   className={scss.petsDelBtn}
-                  onClick={() => deletePets(pet._id)}
+                  onClick={() => {
+                    deletePets(pet._id);
+                    dispatch(refreshUser());
+                  }}
                 >
                   <svg className={scss.petsDelBtnSVG}>
                     <use href={`${defualtPhoto}#icon-trash-2`}></use>
@@ -61,7 +60,7 @@ export const Pets = () => {
               </li>
             );
           })}
-          {user && (
+          {user?.user.pets.length === 0 && (
             <div className={scss.spyIMG}>
               <img src={spyNoPets}></img>
               <p>
