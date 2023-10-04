@@ -48,13 +48,12 @@ const ThirdStep = () => {
       type,
       ...values,
     };
-    console.log(pet);
-    console.log(location.state.from.pathname);
     dispatch(addPetMoreInfo(pet));
     // const newPetBody = { ...pet };
     dispatch(addNewPet(pet));
     navigate(location.state.from.pathname);
-    dispatch(resetSteps())
+
+    dispatch(resetSteps());
     dispatch(resetState());
     dispatch(showNotify());
   };
