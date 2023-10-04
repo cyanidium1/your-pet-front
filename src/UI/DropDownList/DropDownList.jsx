@@ -18,11 +18,11 @@ const DropDownList = ({ text }) => {
     <>
       {isDropDownShow ? (
         <div className={styles.downWrap} onClick={handleClickForm}>
-          <p>{text}</p>
+          <p>{'By ' + text}</p>
           <form>
-            {filteredNotice[filteredConstanta].map(item => (
+            {/* {.map(item => (
               <CustomCheckbox data={item} key={item} />
-            ))}
+            ))} */}
           </form>
         </div>
       ) : (

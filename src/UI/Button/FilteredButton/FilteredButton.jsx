@@ -9,8 +9,6 @@ const FilteredButton = () => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
   const [isFilterModalOpen, setFilterModal] = useState(false);
 
-  const [state, setstate] = useState(initialState);
-
   const handleEscapeKey = e => {
     if (e.key === 'Escape') {
       setFilterModal(false);
@@ -42,8 +40,8 @@ const FilteredButton = () => {
           <div className={styles.dropDownMenu}>
             <p>Filters</p>
 
-            <DropDownList text={'By age'} />
-            <DropDownList text={'By gender'} />
+            <DropDownList text={'age'} />
+            <DropDownList text={'gender'} />
           </div>
         </>
       ) : (

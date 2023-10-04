@@ -12,6 +12,7 @@ const initialState = {
   allNotices: [],
   selectedNotice: null,
   isLoading: false,
+  filterOption: { age: [], gender: [] },
 };
 
 const handleAllNotices = (state, { payload }) => {
@@ -35,6 +36,14 @@ export const noticesSlice = createSlice({
     addSelectedId: (state, { payload }) => {
       state.selectedNotice = payload;
     },
+    addOptionToFilter: (state, { payload }) => {
+      state.filterOption[payload.log].push(payload.info);
+    },
+    deleteFilterOption: (state, { payload }) => {
+      state.filterOption[payload.log] = state.filterOption[payload.log].filter(
+        item => item !== payload.info
+      );
+    },
   },
   extraReducers: builder => {
     builder
@@ -52,4 +61,5 @@ export const noticesSlice = createSlice({
 });
 
 export const noticesReducer = noticesSlice.reducer;
-export const { addSelectedId } = noticesSlice.actions;
+export const { addSelectedId, addOptionToFilter, deleteFilterOption } =
+  noticesSlice.actions;

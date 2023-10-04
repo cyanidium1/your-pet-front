@@ -21,7 +21,10 @@ const PetList = ({ searchQuery }) => {
     isError: allNoticeError,
     isLoading: allNoticeLoading,
   } = tagsLinkNotAuth.includes(categoryPath)
-    ? useGetAllNoticeQuery({ category: categoryPath, searchQuery })
+    ? useGetAllNoticeQuery({
+        category: categoryPath,
+        searchQuery,
+      })
     : {};
 
   const {
