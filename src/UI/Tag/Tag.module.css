@@ -6,3 +6,10 @@
   color: #54adff;
 }
 
+.tagActive {
+  padding: 8px 16px 8px 16px;
+  margin: 0 8px 8px 0;
+  border-radius: 40px;
+  background-color: #54adff;
+  color: white;
+}
