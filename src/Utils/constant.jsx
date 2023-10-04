@@ -6,8 +6,8 @@ import {
 } from 'redux/notices/noticeOperations';
 
 export const filteredNotice = {
-  byage: ['up to 1 year', 'up to 2 year', 'from 2 years'],
-  bygender: ['female', 'male'],
+  byage: { 'up to 1 year': 1, 'up to 2 year': 2, 'from 2 years': 3 },
+  bygender: { female: 'female', male: 'male' },
 };
 
 export const tags = ['sell', 'lost/found', 'in good hands'];

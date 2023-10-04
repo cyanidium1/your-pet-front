@@ -10,6 +10,7 @@ import {
 import { tagsLinkNotAuth } from 'Utils/constant';
 import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
 import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
+import PageNotFound from 'pages/PageNotFound/PaqgeNotFound';
 
 const PetList = ({ searchQuery }) => {
   const { pathname } = useLocation();
@@ -20,7 +21,10 @@ const PetList = ({ searchQuery }) => {
     isError: allNoticeError,
     isLoading: allNoticeLoading,
   } = tagsLinkNotAuth.includes(categoryPath)
-    ? useGetAllNoticeQuery({ category: categoryPath, searchQuery })
+    ? useGetAllNoticeQuery({
+        category: categoryPath,
+        searchQuery,
+      })
     : {};
 
   const {
@@ -51,7 +55,7 @@ const PetList = ({ searchQuery }) => {
   if (allNoticeError || myNoticeError || favoriteNoticeError) {
     return <NoticeNotFound />;
   }
-  if (combinedArray.length > 0) {
+  if (combinedArray?.length > 0) {
     return (
       <>
         <ul className={styles.list}>

@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 const FilteredButton = () => {
   const isMobile = useMedia(screen.breakpoints.mobile.media);
-
   const [isFilterModalOpen, setFilterModal] = useState(false);
 
   const handleEscapeKey = e => {
@@ -41,8 +40,8 @@ const FilteredButton = () => {
           <div className={styles.dropDownMenu}>
             <p>Filters</p>
 
-            <DropDownList text={'By age'} />
-            <DropDownList text={'By gender'} />
+            <DropDownList text={'age'} />
+            <DropDownList text={'gender'} />
           </div>
         </>
       ) : (

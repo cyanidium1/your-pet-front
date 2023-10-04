@@ -1,25 +1,58 @@
-.notFoundTitle {
-  text-align: center;
-  font-family: Manrope;
-  font-size: 24px;
-  font-weight: 700;
-}
 .notFound {
-  margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 10px;
-
-  border-radius: 40px;
-  background-color: white;
-  color: #3775ae;
-  max-width: 300px;
-  max-height: 450px;
 }
-.notFound svg {
-  width: 300px;
-  height: 300px;
+
+.imgWrapper {
+  width: 280px;
+  height: 123px;
+  background-image: url('images/404/mobile/404-mobile-1x.webp');
+  @media screen and (min-resolution: 2dppx) {
+    background-image: url('images/404/mobile/404-mobile-2x.webp');
+  }
+  @media screen and (min-width: 768px) {
+    background-image: url('images/404/tablet/404-tablet-1x.webp');
+    width: 704px;
+    height: 308px;
+  }
+
+  @media screen and (min-resolution: 2dppx), (min-width: 768px) {
+    background-image: url('images/404/tablet/404-tablet-2x.webp');
+  }
+
+  @media screen and (min-width: 1024px) {
+    background-image: url('images/404/desktop/404-desktop-1x.webp');
+    width: 822px;
+    height: 360px;
+  }
+
+  @media screen and (min-resolution: 2dppx), (min-width: 1024px) {
+    background-image: url('images/404/desktop/404-desktop-2x.webp');
+  }
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 280px;
+  height: 183px;
+}
+
+.backBtn {
+  width: 248px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.38;
+  letter-spacing: 0.04em;
+  border-radius: 40px;
+  color: #fef9f9;
+  background: linear-gradient(290.46deg, #54adff 0%, #54adff 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 51px;
+  margin: 18px 36px 100px;
+  transition: background-color 0.9s ease;
+  cursor: pointer;
 }
