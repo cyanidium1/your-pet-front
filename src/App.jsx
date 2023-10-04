@@ -1,17 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
-import NotFound from './pages/NotFound';
+import { lazy } from 'react';
 import 'the-new-css-reset/css/reset.css';
-import Profile from './pages/Profile';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
-import NewsPage from './pages/NewsPage';
-import OurFriendsPage from './pages/OurFriendsPage/OurFriendsPage';
-import NoticesPage from './pages/NoticesPage';
-import MainPage from './pages/MainPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import UserPage from './pages/UserPage';
-import AddPetPage from './pages/AddPetPage';
-import PageNotFound from './pages/PageNotFound/PaqgeNotFound';
+const MainPage = lazy(() => import('./pages/MainPage'));
+const NewsPage = lazy(() => import('./pages/NewsPage'));
+const Profile = lazy(() => import('./pages/Profile'));
+const NoticesPage = lazy(() => import('./pages/NoticesPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const UserPage = lazy(() => import('./pages/UserPage'));
+const AddPetPage = lazy(() => import('./pages/AddPetPage'));
+const PageNotFound = lazy(() => import('./pages/PageNotFound/PageNotFound'));
+const OurFriendsPage = lazy(() =>
+  import('./pages/OurFriendsPage/OurFriendsPage')
+);
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 
 import './App.css';

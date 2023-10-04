@@ -10,7 +10,6 @@ import {
 import { tagsLinkNotAuth } from 'Utils/constant';
 import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
 import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
-import PageNotFound from 'pages/PageNotFound/PaqgeNotFound';
 
 const PetList = ({ searchQuery }) => {
   const { pathname } = useLocation();
