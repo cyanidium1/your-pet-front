@@ -14,10 +14,6 @@ export const Pets = () => {
   const [deletePets] = useDeletePetMutation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(refreshUser());
-    console.log(123);
-  }, [dispatch]);
   return (
     <div className={scss.petsContainer}>
       <div className={scss.myPets}>
@@ -32,7 +28,10 @@ export const Pets = () => {
                 <button
                   type="button"
                   className={scss.petsDelBtn}
-                  onClick={() => deletePets(pet._id)}
+                  onClick={() => {
+                    deletePets(pet._id);
+                    dispatch(refreshUser());
+                  }}
                 >
                   <svg className={scss.petsDelBtnSVG}>
                     <use href={`${defualtPhoto}#icon-trash-2`}></use>
@@ -61,7 +60,7 @@ export const Pets = () => {
               </li>
             );
           })}
-          {user && (
+          {user?.user.pets.length === 0 && (
             <div className={scss.spyIMG}>
               <img src={spyNoPets}></img>
               <p>
