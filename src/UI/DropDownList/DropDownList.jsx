@@ -14,6 +14,7 @@ const DropDownList = ({ text }) => {
       setIsDropDownShow(toggle => !toggle);
     }
   };
+  console.log(Object.keys(filteredNotice[filteredConstanta]));
   return (
     <>
       {isDropDownShow ? (
