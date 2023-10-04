@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 import 'the-new-css-reset/css/reset.css';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 const MainPage = lazy(() => import('./pages/MainPage'));
 const NewsPage = lazy(() => import('./pages/NewsPage'));
 const Profile = lazy(() => import('./pages/Profile'));
