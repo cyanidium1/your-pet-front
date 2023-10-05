@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Tag from '../../UI/Tag/Tag';
 import styles from './TagsArray.module.css';
 import { useSelector } from 'react-redux';
 import { selectIsAuth } from 'redux/auth/authSelectors';
 import FilteredButton from 'UI/Button/FilteredButton/FilteredButton';
 
-import { tags, tagsAuth, tagsLinks } from 'Utils/constant';
+import { ageComponent, tags, tagsAuth, tagsLinks } from 'Utils/constant';
 import AddPetBtn from 'components/AddPetBtn/addPetBtn';
+import FilteredButtonsComponent from 'components/FilteredButtonsComponent/FilteredButtonsComponent';
+import { selectFilterOptions } from 'redux/notices/noticeSelectors';
 
 const TagsArray = ({ location }) => {
+  const filterOption = useSelector(selectFilterOptions);
+  const [allFilterComponent, setAllFilterComponent] = useState([]);
+
   const isLoggedIn = useSelector(selectIsAuth);
   const allButtonsArray = isLoggedIn ? tagsAuth : tags;
+
+  useEffect(() => {
+    setAllFilterComponent([
+      ...filterOption.sex,
+      ...filterOption.age.map(item => ageComponent[+item - 1]),
+    ]);
+  }, [filterOption]);
 
   return (
     <div className={styles.container}>
@@ -20,8 +32,19 @@ const TagsArray = ({ location }) => {
         ))}
       </div>
       <div className={styles.rightSideFilter}>
-        {/* <FilteredButton /> */}
-        <AddPetBtn location={location} />
+        <div className={styles.filterBtnWrapper}>
+          <div className={styles.filtenWrapperBox}>
+            <FilteredButton />
+          </div>
+          <AddPetBtn location={location} />
+        </div>
+        <div>
+          <ul className={styles.filterComponentList}>
+            {allFilterComponent.map(info => (
+              <FilteredButtonsComponent text={info} key={info} />
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

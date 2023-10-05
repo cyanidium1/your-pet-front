@@ -5,18 +5,31 @@ import {
   useGetAllNoticeQuery,
   useGetMyAdsQuery,
   useGetMyFavoriteQuery,
-  useGetNoticeByIdQuery,
 } from 'redux/notices/noticeQueryOperation';
 import { tagsLinkNotAuth } from 'Utils/constant';
 import NoticeNotFound from 'components/NoticeNotFound/NoticeNotFound';
 import LoaderSpinner from 'components/LoaderSpiner/LoaderSpinner';
-import PageNotFound from 'pages/PageNotFound/PageNotFound';
 import Pagination from 'components/Pagination/Pagination';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectFilterOptions } from 'redux/notices/noticeSelectors';
 
 const PetList = () => {
+  const filterOption = useSelector(selectFilterOptions);
   const [searchParams, setSearchParams] = useSearchParams();
-  const productName = searchParams.get('searchQuery') ?? undefined;
-  const numberOfPage = searchParams.get('page') ?? null;
+
+  const location = useLocation();
+  const arrDone = location.search.slice(1).split('&');
+  const isSexDouble =
+    arrDone.map(str => str.indexOf('sex')).filter(val => val === 0).length ===
+    2;
+  const queryFilterParams = isSexDouble
+    ? `?${arrDone.filter(str => str.indexOf('sex')).join('&')}`
+    : location.search;
+
+  useEffect(() => {
+    setSearchParams(filterOption);
+  }, [filterOption]);
   const { pathname } = useLocation();
   const categoryPath = pathname.split('/').slice(-1).join('');
 
@@ -27,8 +40,7 @@ const PetList = () => {
   } = tagsLinkNotAuth.includes(categoryPath)
     ? useGetAllNoticeQuery({
         category: categoryPath,
-        searchQuery: productName,
-        page: numberOfPage,
+        params: queryFilterParams,
       })
     : {};
 
@@ -37,7 +49,9 @@ const PetList = () => {
     isError: myNoticeError,
     isLoading: myNoticeLoading,
   } = categoryPath === 'my-ads'
-    ? useGetMyAdsQuery({ searchQuery: productName, page: numberOfPage })
+    ? useGetMyAdsQuery({
+        params: queryFilterParams,
+      })
     : {};
 
   const {
@@ -45,7 +59,9 @@ const PetList = () => {
     isError: favoriteNoticeError,
     isLoading: favoriteNoticeLoading,
   } = categoryPath === 'favorite-ads'
-    ? useGetMyFavoriteQuery({ searchQuery: productName, page: numberOfPage })
+    ? useGetMyFavoriteQuery({
+        params: queryFilterParams,
+      })
     : {};
 
   let combinedArray;

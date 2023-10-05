@@ -28,7 +28,7 @@ const FilteredButton = () => {
   }, [isFilterModalOpen]);
 
   return (
-    <div className="filter_modal">
+    <div className={styles.filter_modal}>
       {isFilterModalOpen ? (
         <>
           <div
@@ -41,7 +41,7 @@ const FilteredButton = () => {
             <p>Filters</p>
 
             <DropDownList text={'age'} />
-            <DropDownList text={'gender'} />
+            <DropDownList text={'sex'} />
           </div>
         </>
       ) : (

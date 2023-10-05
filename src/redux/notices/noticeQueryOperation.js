@@ -21,10 +21,9 @@ export const noticeApi = createApi({
   keepUnusedDataFor: 0,
   endpoints: builder => ({
     getAllNotice: builder.query({
-      query: queryParams => ({
-        url: '/api/notices',
+      query: ({ category, params }) => ({
+        url: `/api/notices${params}${params ? '&' : '?'}category=${category}`,
         method: 'GET',
-        params: queryParams,
       }),
       providesTags: ({ notices } = {}) => {
         return notices
@@ -51,10 +50,9 @@ export const noticeApi = createApi({
       }),
     }),
     getMyAds: builder.query({
-      query: queryParams => ({
-        url: '/api/notices/user-notices',
+      query: ({ params }) => ({
+        url: `/api/notices/user-notices${params}`,
         method: 'GET',
-        params: queryParams,
       }),
       providesTags: ({ notices } = {}) => {
         return notices
@@ -74,10 +72,9 @@ export const noticeApi = createApi({
       },
     }),
     getMyFavorite: builder.query({
-      query: queryParams => ({
-        url: '/api/notices/favorites',
+      query: ({ params }) => ({
+        url: `/api/notices/favorites${params}`,
         method: 'GET',
-        params: queryParams,
       }),
       providesTags: ({ notices } = {}) => {
         return notices
