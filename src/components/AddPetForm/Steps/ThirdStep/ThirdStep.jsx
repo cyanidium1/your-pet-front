@@ -44,7 +44,6 @@ const ThirdStep = () => {
   const comments = useSelector(selectMyPetComments);
 
   const handleSubmit = async values => {
-    console.log('1', isLoad);
     const { name, date, type } = petBody;
     const pet = {
       name,
@@ -53,10 +52,8 @@ const ThirdStep = () => {
       ...values,
     };
     try {
-      console.log('2', isLoad);
       await dispatch(addPetMoreInfo(pet));
       await dispatch(addNewPet(pet));
-      console.log('3', isLoad);
       dispatch(resetSteps());
       dispatch(resetState());
       await dispatch(refreshUser());
