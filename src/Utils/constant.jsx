@@ -6,10 +6,11 @@ import {
 } from 'redux/notices/noticeOperations';
 
 export const filteredNotice = {
-  age: { 'up to 1 year': 1, 'up to 2 year': 2, 'from 2 years': 3 },
-  gender: { female: 'female', male: 'male' },
+  age: { 'up to 1 year': '1', 'up to 2 year': '2', 'from 2 years': '3' },
+  sex: { female: 'female', male: 'male' },
 };
 
+export const ageComponent = ['up to 1 year', 'up to 2 year', 'from 2 years'];
 export const tags = ['sell', 'lost/found', 'in good hands'];
 export const tagsAuth = [
   'sell',

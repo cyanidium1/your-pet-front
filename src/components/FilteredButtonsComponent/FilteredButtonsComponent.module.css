@@ -1,0 +1,26 @@
+.item {
+  font-family: Inter;
+  font-size: 12px;
+  line-height: calc(14.4 / 12);
+  color: #54adff;
+  flex-shrink: 0;
+}
+
+.btn {
+  padding: 8px 16px;
+
+  display: flex;
+  gap: 4px;
+
+  border-radius: 20px;
+  background: #fff;
+
+  /* Shadow default */
+  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  stroke: #54adff;
+}

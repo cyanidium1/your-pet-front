@@ -46,11 +46,9 @@ export const addPetSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(addNewPet.fulfilled, (state, { payload }) => {
       state.isLoad = false;
-      console.log('777', state.isLoad);
     });
     builder.addCase(addNewPet.pending, (state, { payload }) => {
       state.isLoad = true;
-      console.log('666', state.isLoad);
     });
     builder.addCase(addNewPetNotice.fulfilled, (state, { payload }) => {
       state.name = payload.name;
@@ -59,7 +57,6 @@ export const addPetSlice = createSlice({
       state.sex = payload.sex;
       state.photo = payload.photo;
       state.isLoad = true;
-      console.log(state.isLoad);
     });
   },
 });

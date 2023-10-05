@@ -122,7 +122,6 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                         setFieldValue('preflyPhoto', false);
                         setFieldValue('photo', e.target.files[0]);
                       }}
-                      onClick={() => console.log(values.preflyPhoto)}
                       className={scss.fileField}
                       type="file"
                       name="photo"

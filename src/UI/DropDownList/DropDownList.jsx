@@ -14,16 +14,21 @@ const DropDownList = ({ text }) => {
       setIsDropDownShow(toggle => !toggle);
     }
   };
-  console.log(Object.keys(filteredNotice[filteredConstanta]));
+  const itemDataList = Object.keys(filteredNotice[filteredConstanta]);
+  const editableText = text === 'sex' ? 'gender' : 'age';
   return (
     <>
       {isDropDownShow ? (
         <div className={styles.downWrap} onClick={handleClickForm}>
-          <p>{'By ' + text}</p>
+          <p>{'By ' + editableText}</p>
           <form>
-            {/* {.map(item => (
-              <CustomCheckbox data={item} key={item} />
-            ))} */}
+            {itemDataList.map(item => (
+              <CustomCheckbox
+                data={item}
+                key={item}
+                selector={filteredConstanta}
+              />
+            ))}
           </form>
         </div>
       ) : (
@@ -35,38 +40,11 @@ const DropDownList = ({ text }) => {
             <svg className={styles.icon}>
               <use href={sprite + '#icon-chevron-down'} />
             </svg>
-            {text}
+            {'By ' + editableText}
           </button>
         </>
       )}
     </>
-    // <Formik
-    //   initialValues={{ isChecked: false }}
-    //   onSubmit={(values, actions) => {
-    //     // Обробка змін checkbox тут
-    //     console.log('Значення isChecked:', values.isChecked);
-    //   }}
-    // >
-    //   {({ values, handleChange }) => (
-    //     <form>
-    //       <label>
-    //         <Field
-    //           type="checkbox"
-    //           name="isChecked"
-    //           checked={values.isChecked}
-    //           onChange={handleChange}
-    //         />
-    //         Позначити цей чекбокс
-    //       </label>
-    //     </form>
-    //   )}
-    // </Formik>
-    // <div className={styles.container}>
-    //   <p>By age</p>
-    //   <input type="checkbox" name="one" id="one" />
-    //   <input type="checkbox" name="two" id="two" />
-    //   <input type="checkbox" name="more" id="more" />
-    // </div>
   );
 };
 

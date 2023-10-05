@@ -4,6 +4,7 @@
   border-radius: 40px;
   background-color: #cce4fb;
   color: #54adff;
+  height: 35px;
 }
 
 .tagActive {
@@ -12,4 +13,5 @@
   border-radius: 40px;
   background-color: #54adff;
   color: white;
+  height: 35px;
 }

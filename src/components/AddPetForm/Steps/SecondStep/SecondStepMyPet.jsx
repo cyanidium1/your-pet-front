@@ -60,7 +60,6 @@ const SecondStepMy = () => {
     };
     dispatch(addPetPersonalInfo(pet));
     dispatch(nextStep());
-    console.log(formattedDate(values.birthDate));
   };
 
   const handleBack = () => {

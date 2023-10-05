@@ -17,7 +17,6 @@ const NewsPage = () => {
   const numberOfPage = searchParams.get('page') ?? null;
 
   useEffect(() => {
-    console.log(totalNewsPages);
     dispatch(
       fetchAllNews({ searchQuery: productName, page: numberOfPage, limit })
     );
@@ -31,10 +30,12 @@ const NewsPage = () => {
         titleSearch={'News'}
       />
       {totalNewsPages ? <NewsList /> : <NoticeNotFound />}
-      <Pagination
-        totalNewsPages={totalNewsPages}
-        setSearchParams={setSearchParams}
-      />
+      {totalNewsPages ? (
+        <Pagination
+          totalNewsPages={totalNewsPages}
+          setSearchParams={setSearchParams}
+        />
+      ) : null}
     </>
   );
 };
