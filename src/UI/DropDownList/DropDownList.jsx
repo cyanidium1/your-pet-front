@@ -45,33 +45,6 @@ const DropDownList = ({ text }) => {
         </>
       )}
     </>
-    // <Formik
-    //   initialValues={{ isChecked: false }}
-    //   onSubmit={(values, actions) => {
-    //     // Обробка змін checkbox тут
-    //     console.log('Значення isChecked:', values.isChecked);
-    //   }}
-    // >
-    //   {({ values, handleChange }) => (
-    //     <form>
-    //       <label>
-    //         <Field
-    //           type="checkbox"
-    //           name="isChecked"
-    //           checked={values.isChecked}
-    //           onChange={handleChange}
-    //         />
-    //         Позначити цей чекбокс
-    //       </label>
-    //     </form>
-    //   )}
-    // </Formik>
-    // <div className={styles.container}>
-    //   <p>By age</p>
-    //   <input type="checkbox" name="one" id="one" />
-    //   <input type="checkbox" name="two" id="two" />
-    //   <input type="checkbox" name="more" id="more" />
-    // </div>
   );
 };
 

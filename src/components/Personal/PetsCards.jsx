@@ -13,7 +13,6 @@ export const Pets = () => {
   const user = useSelector(selectUserPets);
   const [deletePets] = useDeletePetMutation();
   const dispatch = useDispatch();
-  console.log(user);
 
   return (
     <div className={scss.petsContainer}>

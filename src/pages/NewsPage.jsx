@@ -17,7 +17,6 @@ const NewsPage = () => {
   const numberOfPage = searchParams.get('page') ?? null;
 
   useEffect(() => {
-    console.log(totalNewsPages);
     dispatch(
       fetchAllNews({ searchQuery: productName, page: numberOfPage, limit })
     );
