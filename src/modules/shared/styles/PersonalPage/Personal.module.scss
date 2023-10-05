@@ -21,6 +21,12 @@
   .container {
     gap: 20px;
     flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 704px;
+  }
+  .personalPhotoEdit {
+    top: 20px;
+    right: 20px;
   }
 }
 
