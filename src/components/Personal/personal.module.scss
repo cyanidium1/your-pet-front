@@ -366,4 +366,18 @@
   .userFields {
     gap: 8px;
   }
+  .card {
+    min-width: 395px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .petsContainer {
+    margin-top: 0;
+  }
+  .personalPhotoEdit {
+    top: 20px;
+    right: 20px;
+  }
 }
