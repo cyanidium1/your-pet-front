@@ -12,22 +12,27 @@
     margin-top: 20px;
   }
 }
+
 @media only screen and (min-width: 768px) {
   .item {
     min-width: 336px;
   }
 }
+
 @media only screen and (min-width: 1280px) {
   .item {
     width: 395px;
   }
 }
+
 .descrWrap {
-  width: 100px;
+  width: 160px;
 }
+
 .itemWrap {
   display: flex;
 }
+
 .title {
   font-weight: 700;
   font-size: 20px;
@@ -37,6 +42,7 @@
   color: #54adff;
   margin: 16px 0;
 }
+
 .subtitle {
   font-weight: 500;
   font-size: 12px;
@@ -44,6 +50,7 @@
   align-items: center;
   color: #111111;
 }
+
 @media only screen and (min-width: 768px) {
   .subtitle {
     font-weight: 500;
@@ -53,12 +60,14 @@
     color: #111111;
   }
 }
+
 @media only screen and (min-width: 1280px) {
   .subtitle {
     font-size: 16px;
     line-height: 22px;
   }
 }
+
 .value {
   display: block;
   width: 180px;
@@ -69,6 +78,7 @@
   color: #111111;
   text-decoration: none;
 }
+
 .truncate {
   display: block;
   white-space: nowrap;
@@ -76,12 +86,14 @@
   text-overflow: ellipsis;
   max-width: 150px;
 }
+
 @media only screen and (min-width: 768px) {
   .value {
     font-size: 14px;
     line-height: 19px;
   }
 }
+
 @media only screen and (min-width: 1280px) {
   .value {
     font-size: 16px;
@@ -93,33 +105,39 @@
 .value:focus {
   color: #54adff;
 }
+
 .imgWrap {
   width: 100px;
   margin-right: 12px;
 }
+
 @media only screen and (min-width: 1280px) {
   .imgWrap {
     width: 145px;
     margin-right: 40px;
   }
 }
-.img {
-}
+
+.img {}
+
 @media only screen and (min-width: 768px) {
   .img {
     width: 124px;
     height: 88px;
   }
 }
+
 @media only screen and (min-width: 1280px) {
   .img {
     width: 146px;
     height: 104px;
   }
 }
+
 .subtitle:not(:first-child) {
   margin-top: 12px;
 }
+
 @media only screen and (min-width: minwidthpx) {
   .subtitle:not(:first-child) {
     margin-top: 16px;

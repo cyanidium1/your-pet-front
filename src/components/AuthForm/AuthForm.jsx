@@ -81,11 +81,7 @@ const AuthForm = () => {
 
   const handleLogin = async values => {
     await dispatch(login({ email: values.email, password: values.password }));
-    await dispatch(refreshUser()).then(() => {
-      if (user) {
-        navigate('/notices/sell');
-      }
-    });
+    await dispatch(refreshUser());
   };
 
   const handleRegister = async values => {
@@ -96,7 +92,7 @@ const AuthForm = () => {
         name: values.name,
       })
     );
-    await dispatch(refreshUser()).then(() => dispatch(openModalCongrats()));
+    await dispatch(refreshUser());
   };
   const productName = searchParams.get('token') || null;
   useEffect(() => {
@@ -131,7 +127,6 @@ const AuthForm = () => {
           }}
           validationSchema={getValidationSchema()}
           onSubmit={values => {
-            console.log('Form values:', values);
             isLoginPageOpen ? handleLogin(values) : handleRegister(values);
           }}
         >
