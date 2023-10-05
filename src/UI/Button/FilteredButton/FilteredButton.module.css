@@ -7,6 +7,10 @@
   opacity: 0;
   z-index: 5;
 }
+.filter_modal {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .filtersButton {
   min-width: 40px;
@@ -50,7 +54,6 @@
 
   box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
   position: absolute;
-  right: 100%;
 
   color: #54adff;
 
@@ -59,6 +62,9 @@
   font-weight: 700;
 
   letter-spacing: 0.64px;
+  @media screen and (max-width: 768px) {
+    /* right: 100%; */
+  }
 }
 
 .icon {
