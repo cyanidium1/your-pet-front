@@ -50,7 +50,7 @@ const Header = () => {
         ) : isLoggedIn ? (
           <UserNav showMenu={showMenu} />
         ) : (
-          <AuthNav />
+          <AuthNav closeMenu={closeModalMenu} />
         )}
       </header>
       <div className={s.block}></div>
