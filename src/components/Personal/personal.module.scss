@@ -407,7 +407,8 @@
     gap: 8px;
   }
   .card {
-    min-width: 395px;
+    margin-top: 24px;
+    width: 395px;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 20px;
@@ -419,5 +420,13 @@
   .personalPhotoEdit {
     top: 20px;
     right: 20px;
+  }
+  .myPets {
+    align-items: center;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
   }
 }

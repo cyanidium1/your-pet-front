@@ -27,7 +27,7 @@ export const Card = () => {
 
   return (
     <>
-      <div>
+      <div className={scss.title}>
         <h2>My information:</h2>
         <div className={scss.card}>
           <PersonalForm mode={editMode} handleEdit={edit} />
