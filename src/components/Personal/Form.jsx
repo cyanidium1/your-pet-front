@@ -42,6 +42,7 @@ const validationSchema = Yup.object().shape({
     .matches(reg.birthdayRegexp, 'Not valid'),
   phone: Yup.string().optional().matches(reg.PhoneReg, 'Not valid'),
   city: Yup.string().optional().matches(reg.cityRegexp, 'Not valid'),
+  confitm: null,
 });
 
 export const PersonalForm = ({ mode, handleEdit }) => {
@@ -72,7 +73,8 @@ export const PersonalForm = ({ mode, handleEdit }) => {
         birthday: user?.user.birthday || '',
         phone: user?.user.phone || '',
         city: user?.user.city || '',
-        confirm: false,
+        confirm: null,
+        preflyPhoto: true,
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
@@ -112,60 +114,84 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                 (scss.editPhotoBlock, clsx(values.confirm ? scss.costil : ''))
               }
             >
-              <div>
-                <img
-                  src={
-                    typeof values.photo === 'object'
-                      ? URL.createObjectURL(values.photo)
-                      : values.photo
-                  }
-                  alt="Selected img"
-                  className={scss.editPhotoBlock}
-                />
-              </div>
-              <input
-                onChange={e => {
-                  setFieldValue('photo', e.target.files[0]);
-                }}
-                className={scss.fileField}
-                type="file"
-                name="photo"
-                disabled={!mode}
-              />
-              <div className={scss.confirmPhoto}>
-                {mode &&
-                  (typeof values.photo === 'string' ? (
-                    <div className={scss.editPhotoLabel}>
-                      <svg className={scss.editPhoto}>
-                        <use href={`${defualtPhoto}#icon-camera`}></use>
-                      </svg>
-                      <span>Edit photo</span>
+              <Field name="photo" required>
+                {({ meta }) => (
+                  <>
+                    <input
+                      onChange={e => {
+                        setFieldValue('preflyPhoto', false);
+                        setFieldValue('photo', e.target.files[0]);
+                      }}
+                      onClick={() => console.log(values.preflyPhoto)}
+                      className={scss.fileField}
+                      type="file"
+                      name="photo"
+                      disabled={!mode}
+                      required
+                    />
+                    <div>
+                      <img
+                        src={
+                          typeof values.photo === 'object'
+                            ? URL.createObjectURL(values.photo)
+                            : values.photo
+                        }
+                        alt="Selected img"
+                        className={clsx(
+                          scss.editPhotoBlock,
+                          reg.defaultAvatar === values.photo && mode
+                            ? scss.photoInvalid
+                            : '2'
+                        )}
+                      />
                     </div>
-                  ) : (
-                    ''
-                  ))}
-              </div>
+                    <div
+                      className={clsx(
+                        scss.confirmPhoto,
+                        mode && values.preflyPhoto && scss.costilDisplay
+                      )}
+                    >
+                      <div className={scss.editPhotoLabel}>
+                        <svg className={scss.editPhoto}>
+                          <use href={`${defualtPhoto}#icon-camera`}></use>
+                        </svg>
+                        <span>Edit photo</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </Field>
             </label>
           </div>
-          {mode && typeof values.photo !== 'string' && !values.confirm && (
-            <div className={`${scss.editPhotoLabel} ${scss.confirmPhoto2}`}>
+          <div
+            className={clsx(
+              scss.confirmPhoto,
+
+              !values.preflyPhoto && scss.costilDisplay
+            )}
+          >
+            <div className={scss.editPhotoLabel}>
               <button
                 type="button"
-                onClick={() => setFieldValue('confirm', true)}
+                onClick={() => {
+                  setFieldValue('preflyPhoto', true);
+                  setFieldValue('confirm', true);
+                }}
               >
                 <svg className={scss.editPhoto}>
                   <use href={`${defualtPhoto}#icon-check`}></use>
                 </svg>
               </button>
-
-              <span>Confirm</span>
+              <span style={{ fontSize: 12, verticalAlign: '' }}>Confirm</span>
               <button
                 id="cansel"
                 type="button"
                 onClick={() => {
+                  setFieldValue('preflyPhoto', true);
                   // setFieldValue('confirm', false);
                   // setFieldTouched('photo', false);
                   setFieldValue('photo', user.user.avatarURL);
+                  setFieldValue('confirm', null);
                 }}
               >
                 <svg className={scss.editPhoto}>
@@ -173,8 +199,9 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                 </svg>
               </button>
             </div>
-          )}
-          <div className={scss.userFields}>
+          </div>
+
+          <div className={clsx(scss.userFields, mode && scss.costil)}>
             <label htmlFor="firstName" className={scss.label}>
               Name:
               <Field name="firstName" type="email">
@@ -281,7 +308,6 @@ export const PersonalForm = ({ mode, handleEdit }) => {
               </Field>
             </label>
           </div>
-
           {mode && (
             <button className={`${scss.button}`} type="submit">
               Save

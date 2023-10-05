@@ -138,13 +138,19 @@
   border-radius: 40px;
 }
 .confirmPhoto {
-  display: flex;
+  display: none;
 
-  padding-top: 15px;
-  padding-bottom: 26px;
+  padding-top: 14px;
+  padding-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  vertical-align: baseline;
+  align-items: center;
 }
-.costil {
-  margin-bottom: 63px;
+
+.costilDisplay {
+  display: flex;
 }
 
 .confirmPhoto2 {
@@ -155,7 +161,11 @@
 }
 
 .fileField {
-  display: none;
+  // display: none;
+  position: absolute;
+  opacity: 0;
+  width: 10px;
+  height: 10px;
 }
 
 .editPhotoLabel {
@@ -170,6 +180,10 @@
   }
 }
 
+.photoInvalid {
+  // border-color: red;
+  border: 2px solid red;
+}
 .inputLabelRoot {
   // transform: translate(0px, 0px) scale(1);
   // top: 14px;
@@ -183,7 +197,10 @@
   gap: 8px;
   width: 100%;
   margin-bottom: 8px;
-  // margin-top: 63px;
+  margin-top: 63px;
+}
+.costil {
+  margin-top: 0px;
 }
 
 .notActiveBtn {
@@ -215,6 +232,7 @@
   display: flex;
   position: relative;
   flex-direction: column;
+  gap: 24px;
 }
 
 .petsListItem {
