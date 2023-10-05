@@ -85,7 +85,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  // padding-top: 20px;
   width: 100%;
 }
 .input {
@@ -253,7 +253,7 @@
   width: 100%;
   // padding: 20px;
   flex-wrap: wrap;
-
+  padding-top: 20px;
   border-radius: 40px;
   background: var(--, #fff);
 
@@ -319,16 +319,16 @@
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .petsCardList {
-    padding-left: 20px;
+    // padding-left: 20px;
   }
   .petsCard {
     margin-top: 20px;
-    padding-top: 20px;
   }
   .form {
     flex-direction: row-reverse;
-    gap: 40px;
+    gap: 60px;
     align-items: flex-start;
+    padding-top: 20px;
   }
   .editPhotoBlock {
     width: 182px;
@@ -339,6 +339,7 @@
   }
   .userFields {
     margin-top: 0;
+    gap: 10px;
   }
   .card {
     max-width: 704px;
@@ -346,6 +347,8 @@
   .petsListItem {
     flex-wrap: nowrap;
     gap: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
   }
   .petsImg {
     min-width: 128px;
@@ -362,6 +365,13 @@
   .petsInfoBlock {
     gap: 16px;
   }
+  .input {
+    font-size: 16px;
+    width: 255px;
+  }
+  .label {
+    font-size: 18px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -371,6 +381,7 @@
   .petsListItem {
     flex-wrap: nowrap;
     gap: 20px;
+    padding-left: 20px;
   }
   .petsImg {
     border-radius: 40px;
