@@ -5,7 +5,7 @@ import { Pets } from '../components/Personal/PetsCards';
 const Profile = () => {
   return (
     <>
-      <section className={`container ${scss.section}`}>
+      <section className={scss.container}>
         <Card />
         <Pets />
       </section>

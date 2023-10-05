@@ -26,21 +26,20 @@ export const Pets = () => {
           {user?.map((pet, index) => {
             return (
               <li key={index} className={scss.petsListItem}>
-                <button
-                  type="button"
-                  className={scss.petsDelBtn}
-                  onClick={async () => {
-                    await deletePets(pet._id);
-                    dispatch(refreshUser());
-                  }}
-                >
-                  <svg className={scss.petsDelBtnSVG}>
-                    <use href={`${defualtPhoto}#icon-trash-2`}></use>
-                  </svg>
-                </button>
-
                 <img src={pet.petURL} className={scss.petsImg} />
                 <div className={scss.petsInfoBlock}>
+                  <button
+                    type="button"
+                    className={scss.petsDelBtn}
+                    onClick={async () => {
+                      await deletePets(pet._id);
+                      dispatch(refreshUser());
+                    }}
+                  >
+                    <svg className={scss.petsDelBtnSVG}>
+                      <use href={`${defualtPhoto}#icon-trash-2`}></use>
+                    </svg>
+                  </button>
                   <div className={scss.petsInfo}>
                     <h3>Name:</h3>
                     <div>{pet.name}</div>

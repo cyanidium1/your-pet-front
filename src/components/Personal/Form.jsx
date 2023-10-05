@@ -19,7 +19,7 @@ const CssTextField = styled(TextField)(() => ({
   },
   '& .MuiInputBase-input': {
     padding: '4px 12px',
-    fontSize: 16,
+    fontSize: 12,
   },
   '& .MuiInputLabel-root': {
     top: '-15px',

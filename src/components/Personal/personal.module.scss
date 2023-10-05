@@ -2,16 +2,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 395px;
-  height: 520px;
+  // width: 395px;
+  // height: 520px;
   flex-shrink: 0;
   position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  min-width: 280px;
 
-  margin-top: 24px;
+  margin-top: 18px;
   // padding-top: 20px;
   padding-bottom: 21px;
-  padding-left: 16px;
-  padding-right: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
 
   border-radius: 40px;
   background: var(--, #fff);
@@ -39,14 +42,15 @@
 
 .petsCard {
   // position: relative;
-  width: 821px;
+
   //   width: 100%;
-  height: 520px;
+  // height: 520px;
   flex-shrink: 0;
 
   margin-top: 24px;
   display: flex;
   flex-direction: column;
+  // flex-wrap: nowrap;
   // border-radius: 40px;
   // background: var(--, #fff);
   // box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
@@ -54,7 +58,8 @@
 
 .button {
   display: inline-block;
-  width: 255px;
+  min-width: 248px;
+
   height: 38px;
   text-align: center;
   color: white;
@@ -68,23 +73,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin-right: auto;
+  // width: 100%;
+  // margin-right: auto;
 
-  font-size: 18px;
+  font-size: 14px;
 }
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
+  width: 100%;
 }
 .input {
   border-radius: 20px;
   border: 1px solid #54adff;
   margin-bottom: 8px;
-  font-size: 16px;
+  font-size: 12px;
   padding: 4px 12px;
-  width: 255px;
+  width: 190px;
   margin-left: auto;
   // &::placeholder {
   //   color: grey;
@@ -194,10 +201,11 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   width: 100%;
   margin-bottom: 8px;
-  margin-top: 63px;
+  margin-top: 59px;
+  margin-bottom: 25px;
 }
 .costil {
   margin-top: 0px;
@@ -218,8 +226,8 @@
   position: absolute;
   // width: 24px;
   // height: 24px;
-  right: 20px;
-  top: 20px;
+  right: 0px;
+  top: 0px;
 }
 .petsDelBtnSVG {
   width: 24px;
@@ -233,13 +241,15 @@
   position: relative;
   flex-direction: column;
   gap: 24px;
+  flex-wrap: nowrap;
 }
 
 .petsListItem {
   display: flex;
   position: relative;
   width: 100%;
-  padding: 20px;
+  // padding: 20px;
+  flex-wrap: wrap;
 
   border-radius: 40px;
   background: var(--, #fff);
@@ -248,14 +258,17 @@
 }
 
 .petsContainer {
-  max-width: 821px;
-  margin-left: 32px;
+  // max-width: 821px;
+  // margin-left: 32px;
+  margin-top: 46px;
 }
 .petsInfoBlock {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-left: 32px;
+  // margin-left: 32px;
+  position: relative;
+  width: 100%;
 }
 
 .petsInfo {
@@ -281,14 +294,76 @@
 }
 
 .petsImg {
-  border-radius: 40px;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  min-width: 240px;
 }
 
 .spyIMG {
   margin: 50px 150px 20px;
+
   & p {
     width: 300px;
     margin: 0px auto 130px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .form {
+    flex-direction: row-reverse;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .editPhotoBlock {
+    width: 182px;
+    height: 182px;
+  }
+  img {
+    max-inline-size: none;
+  }
+  .userFields {
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .petsCard {
+    width: 821px;
+  }
+  .petsListItem {
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+  .petsImg {
+    border-radius: 40px;
+    min-width: 161px;
+    width: 161px;
+    height: 161px;
+  }
+  .petsDelBtn {
+    top: 20px;
+    right: 20px;
+  }
+  .petsInfoBlock {
+    gap: 20px;
+  }
+  .label {
+    font-size: 16px;
+  }
+
+  .input {
+    width: 255px;
+  }
+  .button {
+    width: 255px;
+  }
+  .userFields {
+    gap: 8px;
   }
 }
