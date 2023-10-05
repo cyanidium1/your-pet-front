@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Steps from './Steps/StepsList';
 import FirstStep from './Steps/FirstStep/FirstStep';
 import SecondStep from './Steps/SecondStep/SecondStep';
@@ -16,6 +16,8 @@ import css from './AddPetForm.module.css';
 import { selectToken } from 'redux/auth/authSelectors';
 import { addPetInstance } from 'redux/myPets/addPetOperations';
 import { ToastContainer } from 'react-toastify';
+import { refreshUser } from 'redux/auth/authOperations';
+refreshUser;
 
 const AddPetForm = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ const AddPetForm = () => {
   const status = useSelector(selectMyPetStatus);
   const token = useSelector(selectToken);
   addPetInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   let secondStepComponent;
   switch (status) {
