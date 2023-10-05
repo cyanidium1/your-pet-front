@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './ThirdStep.module.css';
@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyLoad,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -23,6 +24,7 @@ import {
   resetState,
 } from '../../../../redux/myPets/addPetSlice';
 import sprite from '../../../../images/icons.svg';
+import { refreshUser } from 'redux/auth/authOperations';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed().required('Please upload a photo'),
@@ -37,10 +39,11 @@ const ThirdStep = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const petBody = useSelector(selectMyPet);
+  const isLoad = useSelector(selectMyLoad);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
 
-  const handleSubmit = values => {
+  const handleSubmit = async values => {
     const { name, date, type } = petBody;
     const pet = {
       name,
@@ -48,15 +51,16 @@ const ThirdStep = () => {
       type,
       ...values,
     };
-    dispatch(addPetMoreInfo(pet));
-    // const newPetBody = { ...pet };
-    dispatch(addNewPet(pet));
-    navigate(location.state.from.pathname);
-
-    dispatch(resetSteps());
-    dispatch(resetState());
-    dispatch(showNotify());
+    try {
+      await dispatch(addPetMoreInfo(pet));
+      await dispatch(addNewPet(pet));
+      dispatch(resetSteps());
+      dispatch(resetState());
+      await dispatch(refreshUser());
+      !isLoad && navigate(location.state.from.pathname);
+    } catch (error) {}
   };
+
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
@@ -66,6 +70,7 @@ const ThirdStep = () => {
     setActiveButton(number);
     setIsSexIgnored(false);
   };
+
   return (
     <>
       <Formik

@@ -31,10 +31,12 @@ const NewsPage = () => {
         titleSearch={'News'}
       />
       {totalNewsPages ? <NewsList /> : <NoticeNotFound />}
-      <Pagination
-        totalNewsPages={totalNewsPages}
-        setSearchParams={setSearchParams}
-      />
+      {totalNewsPages ? (
+        <Pagination
+          totalNewsPages={totalNewsPages}
+          setSearchParams={setSearchParams}
+        />
+      ) : null}
     </>
   );
 };

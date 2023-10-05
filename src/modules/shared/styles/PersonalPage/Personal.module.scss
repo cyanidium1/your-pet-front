@@ -1,5 +1,37 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  // margin-top: 64px;
+  padding-top: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  justify-content: center;
+  // width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  h2 {
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .container {
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 704px;
+  }
+  .personalPhotoEdit {
+    top: 20px;
+    right: 20px;
+  }
+}
+
 @media screen and (min-width: 1280px) {
-  section {
+  .container {
     display: flex;
     // margin-top: 64px;
     // padding-top: 128px;
@@ -7,5 +39,8 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin-top: 62px;
   }
 }

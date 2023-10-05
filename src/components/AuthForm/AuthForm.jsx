@@ -23,6 +23,7 @@ import {
 import { openModalCongrats } from 'redux/global/globalSlice';
 import { selectUser } from 'redux/auth/authSelectors';
 import { addToken } from 'redux/auth/authSlice';
+import { async } from 'q';
 
 const AuthForm = () => {
   const location = useLocation();
@@ -78,21 +79,20 @@ const AuthForm = () => {
     }
   };
 
-  const handleLogin = values => {
-    dispatch(login({ email: values.email, password: values.password }));
-    dispatch(refreshUser());
+  const handleLogin = async values => {
+    await dispatch(login({ email: values.email, password: values.password }));
+    await dispatch(refreshUser());
   };
 
-  const handleRegister = values => {
-    dispatch(
+  const handleRegister = async values => {
+    await dispatch(
       register({
         email: values.email,
         password: values.password,
         name: values.name,
       })
     );
-    dispatch(openModalCongrats());
-    dispatch(refreshUser());
+    await dispatch(refreshUser());
   };
   const productName = searchParams.get('token') || null;
   useEffect(() => {
@@ -108,7 +108,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/profile');
+      navigate('/notices/sell');
     }
   }, [user, navigate]);
 
@@ -127,7 +127,6 @@ const AuthForm = () => {
           }}
           validationSchema={getValidationSchema()}
           onSubmit={values => {
-            console.log('Form values:', values);
             isLoginPageOpen ? handleLogin(values) : handleRegister(values);
           }}
         >

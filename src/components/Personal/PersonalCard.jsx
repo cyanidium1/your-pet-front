@@ -26,29 +26,31 @@ export const Card = () => {
   const edit = () => SetEditMode(!editMode);
 
   return (
-    <div>
-      <h2>My information:</h2>
-      <div className={scss.card}>
-        <PersonalForm mode={editMode} handleEdit={edit} />
-        {!editMode && (
-          // <button
-          //   type="button"
-          //   onClick={handleLogOut}
-          //   className={scss.logoutblock}
-          // >
-          //   <svg className={scss.logout}>
-          //     <use href={`${defualtPhoto}#icon-logout`}></use>
-          //   </svg>
-          //   <span>Log Out</span>
-          // </button>
-          <Logout text={'Logout'} classes={'cartLogout'} />
-        )}
+    <>
+      <div>
+        <h2>My information:</h2>
+        <div className={scss.card}>
+          <PersonalForm mode={editMode} handleEdit={edit} />
+          {!editMode && (
+            // <button
+            //   type="button"
+            //   onClick={handleLogOut}
+            //   className={scss.logoutblock}
+            // >
+            //   <svg className={scss.logout}>
+            //     <use href={`${defualtPhoto}#icon-logout`}></use>
+            //   </svg>
+            //   <span>Log Out</span>
+            // </button>
+            <Logout text={'Logout'} classes={'cartLogout'} />
+          )}
+        </div>
       </div>
       {/* {selectIsModalApproveActionOpen && (
         <Modal closeReducer={closeModalApproveAction}>
           <ModalApproveAction />
         </Modal>
       )} */}
-    </div>
+    </>
   );
 };
