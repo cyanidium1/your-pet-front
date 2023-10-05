@@ -17,6 +17,7 @@ const initialState = {
   comments: '',
   category: '',
   price: '',
+  isLoad: false,
 };
 
 export const addPetSlice = createSlice({
@@ -32,6 +33,7 @@ export const addPetSlice = createSlice({
       state.title = payload.title;
       state.type = payload.type;
       state.name = payload.name;
+      state.isLoad = false;
     },
     addPetMoreInfo: (state, { payload }) => {
       state.price = payload.price;
@@ -43,10 +45,21 @@ export const addPetSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(addNewPet.fulfilled, (state, { payload }) => {
-      state = payload;
+      state.isLoad = false;
+      console.log('777', state.isLoad);
+    });
+    builder.addCase(addNewPet.pending, (state, { payload }) => {
+      state.isLoad = true;
+      console.log('666', state.isLoad);
     });
     builder.addCase(addNewPetNotice.fulfilled, (state, { payload }) => {
-      state = payload;
+      state.name = payload.name;
+      state.location = payload.location;
+      state.comments = payload.comments;
+      state.sex = payload.sex;
+      state.photo = payload.photo;
+      state.isLoad = true;
+      console.log(state.isLoad);
     });
   },
 });

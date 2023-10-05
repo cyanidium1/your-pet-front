@@ -8,5 +8,6 @@ export const selectMyPetTitle = state => state.addPet.title;
 export const selectMyPetStatus = state => state.addPet.category;
 export const selectMyPetComments = state => state.addPet.comments;
 export const selectMyPetPrice = state => state.addPet.price;
+export const selectMyLoad = state => state.addPet.isLoad;
 
 export const selectMyPet = state => state.addPet;
