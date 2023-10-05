@@ -78,9 +78,9 @@ const AuthForm = () => {
     }
   };
 
-  const handleLogin = values => {
-    dispatch(login({ email: values.email, password: values.password }));
-    dispatch(refreshUser());
+  const handleLogin = async values => {
+    await dispatch(login({ email: values.email, password: values.password }));
+    await dispatch(refreshUser()).then(() => navigate('/profile'));
   };
 
   const handleRegister = values => {
