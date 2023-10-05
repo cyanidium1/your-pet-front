@@ -7,6 +7,7 @@ import {
   selectMyPet,
   selectMyPetComments,
   selectMyPetImage,
+  selectMyLoad,
 } from '../../../../redux/myPets/addPetSelectors';
 import {
   addNewPet,
@@ -38,14 +39,11 @@ const ThirdStep = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const petBody = useSelector(selectMyPet);
+  const isLoad = useSelector(selectMyLoad);
   const file = useSelector(selectMyPetImage);
   const comments = useSelector(selectMyPetComments);
 
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
-
-  const handleSubmit = values => {
+  const handleSubmit = async values => {
     const { name, date, type } = petBody;
     const pet = {
       name,
@@ -53,15 +51,16 @@ const ThirdStep = () => {
       type,
       ...values,
     };
-    dispatch(addPetMoreInfo(pet));
-    // const newPetBody = { ...pet };
-    dispatch(addNewPet(pet));
-    navigate(location.state.from.pathname);
-
-    dispatch(resetSteps());
-    dispatch(resetState());
-    dispatch(showNotify());
+    try {
+      await dispatch(addPetMoreInfo(pet));
+      await dispatch(addNewPet(pet));
+      dispatch(resetSteps());
+      dispatch(resetState());
+      await dispatch(refreshUser());
+      !isLoad && navigate(location.state.from.pathname);
+    } catch (error) {}
   };
+
   const handlePreviousStep = () => {
     dispatch(prevStep());
   };
@@ -71,6 +70,7 @@ const ThirdStep = () => {
     setActiveButton(number);
     setIsSexIgnored(false);
   };
+
   return (
     <>
       <Formik

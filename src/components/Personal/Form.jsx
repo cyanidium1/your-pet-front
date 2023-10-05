@@ -13,7 +13,7 @@ import * as reg from 'modules/helpers/regexp';
 import clsx from 'clsx';
 
 const CssTextField = styled(TextField)(() => ({
-  '& .MuiOutlinedInput-notchedOutline': {
+  '& .MuiOutlinedInput-notchedOutline ': {
     borderRadius: '20px',
     borderColor: '#54adff',
   },
@@ -217,6 +217,13 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                       onChange={e => {
                         setFieldValue('firstName', e.target.value);
                       }}
+                      sx={{
+                        '& .MuiInputBase-root.Mui-disabled': {
+                          '& > fieldset': {
+                            borderColor: '#54adff',
+                          },
+                        },
+                      }}
                     />
                   </>
                 )}
@@ -227,6 +234,13 @@ export const PersonalForm = ({ mode, handleEdit }) => {
               <Field name="email">
                 {({ meta, isValid }) => (
                   <CssTextField
+                    sx={{
+                      '& .MuiInputBase-root.Mui-disabled': {
+                        '& > fieldset': {
+                          borderColor: '#54adff',
+                        },
+                      },
+                    }}
                     error={meta.error ? true : false}
                     disabled={!mode}
                     required
@@ -255,6 +269,11 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                       '& .MuiInputLabel-root': {
                         top: '-13px',
                       },
+                      '& .MuiInputBase-root.Mui-disabled': {
+                        '& > fieldset': {
+                          borderColor: '#54adff',
+                        },
+                      },
                     }}
                     onChange={e => {
                       setFieldValue('birthday', e.target.value);
@@ -277,6 +296,11 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                       '& .MuiInputLabel-root': {
                         top: '0px',
                       },
+                      '& .MuiInputBase-root.Mui-disabled': {
+                        '& > fieldset': {
+                          borderColor: '#54adff',
+                        },
+                      },
                     }}
                     onChange={e => {
                       setFieldValue('phone', e.target.value);
@@ -298,6 +322,11 @@ export const PersonalForm = ({ mode, handleEdit }) => {
                     sx={{
                       '& .MuiInputLabel-root': {
                         top: '0px',
+                      },
+                      '& .MuiInputBase-root.Mui-disabled': {
+                        '& > fieldset': {
+                          borderColor: '#54adff',
+                        },
                       },
                     }}
                     onChange={e => {
