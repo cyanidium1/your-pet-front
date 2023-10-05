@@ -6,7 +6,6 @@ import css from './FriendList.module.css';
 
 const FriendList = () => {
   const ourFriends = useSelector(friendSelector);
-  console.log(ourFriends);
   return (
     <div className={css.friendWrap}>
       <ul className={css.cardList}>

@@ -11,7 +11,6 @@ export const userUpdate = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const formData = new FormData();
-      console.log('Thunk', user);
       formData.append('name', user.firstName);
       formData.append('avatar', user.photo);
       formData.append('phone', user.phone);
@@ -29,7 +28,7 @@ export const userUpdate = createAsyncThunk(
           },
         }
       );
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

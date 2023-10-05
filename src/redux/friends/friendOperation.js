@@ -11,7 +11,6 @@ export const fetchFriends = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await friendInstance.get('api/friends');
-      console.log(data);
       return data;
     } catch ({ response }) {
       return rejectWithValue(response.data);

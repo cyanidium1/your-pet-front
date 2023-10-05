@@ -54,7 +54,6 @@ export const login = createAsyncThunk(
         draggable: true,
         progress: undefined,
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       toast.error('Email or password is incorrect', {
@@ -80,7 +79,6 @@ export const userEdit = createAsyncThunk(
       // state = user.firstName;
       // const tokenValue = state.auth.token;
       const formData = new FormData();
-      console.log('Thunk', user);
       formData.append('name', user.firstName);
       formData.append('avatar', user.photo);
       formData.append('phone', user.phone);
@@ -101,7 +99,6 @@ export const userEdit = createAsyncThunk(
           },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
