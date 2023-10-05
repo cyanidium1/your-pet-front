@@ -1,3 +1,6 @@
+* {
+  outline: 1px dashed red;
+}
 .card {
   display: flex;
   flex-direction: column;
@@ -315,6 +318,13 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
+  .petsCardList {
+    padding-left: 20px;
+  }
+  .petsCard {
+    margin-top: 20px;
+    padding-top: 20px;
+  }
   .form {
     flex-direction: row-reverse;
     gap: 40px;
@@ -329,6 +339,28 @@
   }
   .userFields {
     margin-top: 0;
+  }
+  .card {
+    max-width: 704px;
+  }
+  .petsListItem {
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+  .petsImg {
+    min-width: 128px;
+  }
+  .petsListItem {
+    max-width: 703px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .petsDelBtn {
+    top: 20px;
+    right: 20px;
+  }
+  .petsInfoBlock {
+    gap: 16px;
   }
 }
 
