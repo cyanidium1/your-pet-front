@@ -16,6 +16,7 @@
     font-size: 12px;
     font-weight: 600;
     text-align: center;
+    
 
     @media screen and(min-width: 1024px) {
         width: 129px;
